@@ -7,14 +7,16 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.stereotype.Component;
 
+import com.vn.hcmute.team.cortana.mymoney.controller.UserController;
+
 @Component
-@ApplicationPath("/api")
+@ApplicationPath("/") //Remote to root
 public class JerseyConfig extends ResourceConfig {
 	public JerseyConfig() {
         register(RequestContextFilter.class);
         
         //Add class Controller here
-        register(HelloController.class);
+        register(UserController.class);
         
     }
 }

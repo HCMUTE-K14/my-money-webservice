@@ -9,4 +9,6 @@ public class MyMoneyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyMoneyApplication.class, args);
 	}
+
+	
 }

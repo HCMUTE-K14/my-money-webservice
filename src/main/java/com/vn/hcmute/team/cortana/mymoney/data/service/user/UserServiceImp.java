@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
+import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
 
 @Service
@@ -44,7 +45,9 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public boolean isUserExists(String username) {
-		User user=mMongoTemplate.findOne(query(where("username").is(username)),User.class,DbConstraint.TABLE_USER);
+		User user=mMongoTemplate.findOne(query(where("username").is(username)),
+				User.class,
+				DbConstraint.TABLE_USER);
 		
 		return user!=null?true:false;
 	}

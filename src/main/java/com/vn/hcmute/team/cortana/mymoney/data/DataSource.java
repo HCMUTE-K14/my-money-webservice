@@ -11,5 +11,4 @@ public class DataSource {
 		
 		User login(UserCredential userCredential);
 	}
-
 }

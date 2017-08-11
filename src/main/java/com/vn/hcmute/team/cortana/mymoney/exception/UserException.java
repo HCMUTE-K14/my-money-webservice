@@ -1,4 +1,4 @@
-package com.vn.hcmute.team.cortana.mymoney.data.service.user;
+package com.vn.hcmute.team.cortana.mymoney.exception;
 
 public class UserException extends RuntimeException{
 

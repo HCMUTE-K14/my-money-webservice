@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;

@@ -17,6 +17,7 @@ import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
 @Service
 public class UserServiceImp implements UserService {
 	public  static final Log LOG=LogFactory.getLog(UserServiceImp.class);
+	
 	@Autowired
 	private MongoTemplate mMongoTemplate;
 

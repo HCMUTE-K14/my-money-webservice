@@ -1,47 +1,50 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class JsonResponse {
-	private String status;
-	private String message;
-	private JsonObject data;
+public class JsonResponse <T> {
+	private JsonObject json;
+	private Gson gson;
+	private Class<T> clazz;
 	
-	
-	public JsonResponse(){
-		this.status="";
-		this.message="";
-		this.data=null;
+	public JsonResponse( Class<T> clazz){
+		this.json=new JsonObject();
+		this.gson=new Gson();
+		this.clazz=clazz;
 	}
 
 
 	public String getStatus() {
-		return status;
+		return json.get("status").getAsString();
 	}
 
 
 	public void setStatus(String status) {
-		this.status = status;
+		json.addProperty("status", status);
 	}
 
 
 	public String getMessage() {
-		return message;
+		return json.get("message").getAsString();
 	}
 
 
 	public void setMessage(String message) {
-		this.message = message;
+		json.addProperty("message", message);
 	}
 
 
-	public JsonObject getData() {
-		return data;
+	public T getData() {
+		 return gson.fromJson(json.get("data"),clazz);
 	}
 
 
-	public void setData(JsonObject data) {
-		this.data = data;
+	public void setData(T data) {
+		json.add("data", gson.toJsonTree(data));
+	}
+	public String toString(){
+		return json.toString();
 	}
 
 }

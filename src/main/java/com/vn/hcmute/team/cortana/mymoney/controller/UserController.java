@@ -34,16 +34,13 @@ public class UserController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String home() {
-		JsonResponse response=new JsonResponse();
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		
 		response.setStatus("success");
 		response.setMessage("ok");
-		JsonObject jsonObject=new JsonObject();
+		response.setData("user_active:" +mUserModel.getNumberOfActiveUser());
 		
-		jsonObject.addProperty("user_active", mUserModel.getNumberOfActiveUser());
-		response.setData(jsonObject);
-
-		return mGson.toJson(response).toString();
+		return response.toString();
 	}
 
 	@POST
@@ -52,16 +49,14 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String login(UserCredential userCredentials) {
 		LOG.info("Login....");
-		JsonResponse response=new JsonResponse();
+		JsonResponse<User> response=new JsonResponse<User>(User.class);
 		CallBack<User> callback =new CallBack<User>(){
 
 			@Override
 			public void onSuccess(User result) {
 				response.setStatus("success");
 				response.setMessage("ok");
-				JsonObject jsonObj=new JsonObject();
-				jsonObj.add("info_user", mGson.toJsonTree(result));
-				response.setData(jsonObj);
+				response.setData(result);
 			}
 
 			@Override
@@ -71,10 +66,9 @@ public class UserController {
 				response.setData(null);
 				LOG.info("Login fail");
 			}
-			
 		};
 		mUserModel.login(userCredentials, callback);
-		return mGson.toJson(response).toString();
+		return response.toString();
 	}
 
 	@POST
@@ -83,7 +77,7 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String register(User user) {
 		LOG.info("Register....");
-		JsonResponse response=new JsonResponse();
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		
 		CallBack<String> callback = new CallBack<String>() {
 
@@ -91,11 +85,8 @@ public class UserController {
 			public void onSuccess(String result) {
 				System.out.println("Call back in Controller");
 				response.setStatus("success");
-				response.setMessage("ok");
-//				JsonObject jsonObj=new JsonObject();
-//				jsonObj.add("info", new Gson().toJsonTree(result));
-//				response.setData(jsonObj);
-				
+				response.setMessage("Register Successful");
+				response.setData(result);
 			}
 
 			@Override
@@ -109,8 +100,7 @@ public class UserController {
 
 		};
 		mUserModel.register(user, callback);
-		
-		return mGson.toJson(response).toString();
+		return response.toString();
 	}
 
 }

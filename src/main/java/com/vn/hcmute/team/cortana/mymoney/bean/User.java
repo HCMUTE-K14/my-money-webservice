@@ -6,6 +6,8 @@ public class User implements Serializable {
 	
 	private static final long serialVersionUID = -1530136052354836173L;
 	
+	public static final String DEFAULT_USER_ID="ALL";
+	
 	private String userid;
 	private String username;
 	private String password;
@@ -15,7 +17,7 @@ public class User implements Serializable {
 	private boolean active;
 	
 	public User(){
-		this.userid="";
+		this.userid="DEFAULT";
 		this.username="";
 		this.password="";
 		this.name="";

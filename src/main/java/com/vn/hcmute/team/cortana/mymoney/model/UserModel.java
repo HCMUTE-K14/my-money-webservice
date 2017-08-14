@@ -9,6 +9,7 @@ import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
+import com.vn.hcmute.team.cortana.mymoney.exception.ValidateUserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
 
 @Component

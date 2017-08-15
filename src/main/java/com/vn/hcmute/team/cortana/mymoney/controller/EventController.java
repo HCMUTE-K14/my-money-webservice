@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -64,6 +65,94 @@ public class EventController {
 		};
 		eventModel.getEvent(userid, token, callBack);
 		
+		return response.toString();
+	}
+	@POST
+	@Path("createEvent/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String createEvent(Event event,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				System.out.println("Call back in Controller");
+				response.setStatus("success");
+				response.setMessage("Create Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				// TODO Auto-generated method stub
+				System.out.println(e.getMessage());
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		eventModel.createEvent(event,userid,token, callBack);
+		return response.toString();
+	}
+	@POST
+	@Path("updateEvent/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String updateEvent(Event event,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				System.out.println("Call back in Controller");
+				response.setStatus("success");
+				response.setMessage("update Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				// TODO Auto-generated method stub
+				System.out.println(e.getMessage());
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		eventModel.updateEvent(event, userid, token, callBack);
+		return response.toString();
+	}
+	@GET
+	@Path("deleteEvent/{userid}/{token}/{idEvent}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteEvent(@PathParam("userid") String userid,@PathParam("token") String token,
+			@PathParam("idEvent") String idEvent) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				System.out.println("Call back in Controller");
+				response.setStatus("success");
+				response.setMessage("delete Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				// TODO Auto-generated method stub
+				System.out.println(e.getMessage());
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		eventModel.deleteEvent(userid, token, idEvent, callBack);
 		return response.toString();
 	}
 }

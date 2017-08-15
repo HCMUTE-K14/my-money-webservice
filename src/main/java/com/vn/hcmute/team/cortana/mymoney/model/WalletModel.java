@@ -39,10 +39,9 @@ public class WalletModel {
 
 	}
 	
-	public void createWallet(Wallet wallet,CallBack<String> callBack) {
+	public void createWallet(Wallet wallet,String userid, String token,CallBack<String> callBack) {
 		try{
-			String userid=wallet.getUserid();
-			String token=wallet.getToken();
+			
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new Throwable("Fail get Currencies!"));
 				return;
@@ -76,10 +75,9 @@ public class WalletModel {
 
 	}
 
-	public void updateWallet(Wallet wallet,CallBack<String> callBack) {
+	public void updateWallet(Wallet wallet,String userid, String token,CallBack<String> callBack) {
 		try{
-			String userid=wallet.getUserid();
-			String token=wallet.getToken();
+			
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new Throwable("Fail get Currencies!"));
 				return;

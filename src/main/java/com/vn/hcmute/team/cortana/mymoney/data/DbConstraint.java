@@ -14,3 +14,5 @@ public class DbConstraint {
 
 	public static final String TABLE_CATEGORY="tbl_category";
 }
+
+/* 1 */

@@ -1,5 +1,6 @@
 package com.vn.hcmute.team.cortana.mymoney.model;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,8 @@ DataRepository dataRepository;
 			callBack.onFailure(new Throwable("Fail get Currencies!"));
 		}
 	}
-	public void createEvent(Event event, CallBack<String> callBack) {
+	public void createEvent(Event event,String userid, String token, CallBack<String> callBack) {
 		try{
-			String userid=event.getUserid();
-			String token=event.getToken();
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new Throwable("Fail get Currencies!"));
 				return;
@@ -52,16 +51,16 @@ DataRepository dataRepository;
 				callBack.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
+			//event.setId(SecurityUtil.);
 			dataRepository.createEvent(event);
 			callBack.onSuccess("Success create event");
 		}catch(Exception e){
 			callBack.onFailure(new Throwable("Fail get Currencies!"));
 		}
 	}
-	public void updateEvent(Event event, CallBack<String> callBack) {
+	public void updateEvent(Event event,String userid, String token, CallBack<String> callBack) {
 		try{
-			String userid=event.getUserid();
-			String token=event.getToken();
+		
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new Throwable("Fail get Currencies!"));
 				return;

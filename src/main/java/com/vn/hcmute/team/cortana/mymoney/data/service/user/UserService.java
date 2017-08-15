@@ -13,4 +13,6 @@ public interface UserService {
 	User login(UserCredential userCredential) ;
 	
 	boolean isApiKey(String userid,String token);
+	
+	void forgetPassword(String email);
 }

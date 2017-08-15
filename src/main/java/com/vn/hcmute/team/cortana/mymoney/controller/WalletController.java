@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
+import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.model.WalletModel;
@@ -37,10 +38,10 @@ public class WalletController {
 	}
 	
 	@POST
-	@Path("create")
+	@Path("create/{userid}/{token}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String create(Wallet wallet) {
+	public String create(Wallet wallet,@PathParam("userid") String userid,@PathParam("token") String token) {
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
 			
@@ -62,7 +63,7 @@ public class WalletController {
 				response.setData(null);
 			}
 		};
-		walletModel.createWallet(wallet, callBack);
+		walletModel.createWallet(wallet,userid,token, callBack);
 		return response.toString();
 	}
 	@GET
@@ -70,7 +71,9 @@ public class WalletController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getInfo(@PathParam("userid") String userid,@PathParam("token") String token) {
-		JsonResponse<Wallet> response=new JsonResponse<Wallet>(Wallet.class);
+		Class<List<Wallet>> clazz = (Class<List<Wallet>>) (Object) List.class;
+
+		JsonResponse<List<Wallet>> response=new JsonResponse<List<Wallet>>(clazz);
 		CallBack<List<Wallet>> callBack=new CallBack<List<Wallet>>() {
 			
 			@Override
@@ -78,7 +81,7 @@ public class WalletController {
 				// TODO Auto-generated method stub
 				response.setStatus("success");
 				response.setMessage("ok");
-				response.setListData(result);
+				response.setData(result);
 			}
 			
 			@Override
@@ -123,10 +126,10 @@ public class WalletController {
 		return response.toString();
 	}
 	@POST
-	@Path("updateWallet")
+	@Path("updateWallet/{userid}/{token}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String update(Wallet wallet) {
+	public String update(Wallet wallet,@PathParam("userid") String userid,@PathParam("token") String token) {
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
 			
@@ -148,7 +151,7 @@ public class WalletController {
 				response.setData(null);
 			}
 		};
-		walletModel.updateWallet(wallet, callBack);
+		walletModel.updateWallet(wallet,userid,token, callBack);
 		return response.toString();
 	}
 	@GET

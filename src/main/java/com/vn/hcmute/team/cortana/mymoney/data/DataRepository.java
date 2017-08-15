@@ -148,4 +148,9 @@ public class DataRepository implements DataSource.UserDataSource,
 	public boolean isApiKey(String userid, String token) {
 		return mUserService.isApiKey(userid, token);
 	}
+
+	@Override
+	public void forgetPassword(String email) {
+		mUserService.forgetPassword(email);
+	}
 }

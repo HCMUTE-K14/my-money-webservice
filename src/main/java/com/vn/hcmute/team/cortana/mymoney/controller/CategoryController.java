@@ -103,5 +103,56 @@ public class CategoryController {
 		mCategoryModel.addCategory(userId, token, category, callback);
 		return response.toString();
 	}
+	@POST
+	@Path("remove")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String remove(@QueryParam("uid") String userId, @QueryParam("token") String token, Category category){
+		JsonResponse<String> response = new JsonResponse<String>(String.class);
+		CallBack<String> callback = new CallBack<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mCategoryModel.removeCategory(userId, token, category, callback);
+		return response.toString();
+	}
+	
+	@POST
+	@Path("update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String update(@QueryParam("uid") String userId, @QueryParam("token") String token, Category category){
+		JsonResponse<String> response = new JsonResponse<String>(String.class);
+		CallBack<String> callback = new CallBack<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mCategoryModel.updateCategory(userId, token, category, callback);
+		return response.toString();
+	}
 
 }

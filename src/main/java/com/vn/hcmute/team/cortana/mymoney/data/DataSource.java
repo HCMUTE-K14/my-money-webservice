@@ -21,6 +21,8 @@ public class DataSource {
 		User login(UserCredential userCredential);
 		
 		boolean isApiKey(String userid,String token);
+		
+		void forgetPassword(String email);
 	}
 
 	public interface CategorySource{

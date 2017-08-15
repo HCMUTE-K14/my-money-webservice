@@ -14,6 +14,7 @@ public class User implements Serializable {
 	private String name;
 	private String token;
 	private String apikey;
+	private String email;
 	private boolean active;
 	
 	public User(){
@@ -23,6 +24,7 @@ public class User implements Serializable {
 		this.name="";
 		this.token="";
 		this.apikey="";
+		this.email="";
 		this.active=false;
 	}
 
@@ -83,10 +85,20 @@ public class User implements Serializable {
 		this.active = active;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", token=" + token + "]";
+				+ ", token=" + token + ", apikey=" + apikey + ", email=" + email + ", active=" + active + "]";
 	}
+
+	
 	
 }

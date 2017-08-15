@@ -31,12 +31,4 @@ public class SecurityUtil {
 	public static String generateApiKey(String token){
 		return DigestUtils.sha256Hex(SECRET_KEY+token);
 	}
-	public  String getApiKey(String userid) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("userid").is(userid));
-		User user = mongoTemplate.findOne(query, User.class,DbConstraint.TABLE_USER);
-		
-		return user.getApikey();
-	}
-
 }

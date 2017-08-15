@@ -2,8 +2,6 @@ package com.vn.hcmute.team.cortana.mymoney.data;
 
 import java.util.List;
 
-import javax.xml.bind.DatatypeConverterInterface;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,34 +15,42 @@ import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.service.currencies.CurrenciesService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.event.EventService;
+
+import com.vn.hcmute.team.cortana.mymoney.bean.Category;
+import com.vn.hcmute.team.cortana.mymoney.bean.User;
+import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
+import com.vn.hcmute.team.cortana.mymoney.data.service.category.CategoryService;
+
 import com.vn.hcmute.team.cortana.mymoney.data.service.user.UserService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 
 @Repository
+
 public class DataRepository implements DataSource.UserDataSource,DataSource.WalletDataSource,
-DataSource.CurrenciesDataSource, DataSource.EventDataSource{
-	
+DataSource.CurrenciesDataSource, DataSource.EventDataSource,DataSource.CategorySource{
 	public static final Log LOG=LogFactory.getLog(DataRepository.class);
 	
+	@Autowired
 	private UserService mUserService;
+  @Autowired
 	private WalletService mWalletService;
+  @Autowired
 	private CurrenciesService currenciesService;
 	@Autowired
 	private EventService eventService;
+  @Autowired
+	private CategoryService mCategoryService;
 	
+	public DataRepository(){
 	
-	@Autowired
-	public DataRepository( UserService userService,WalletService walletservice, CurrenciesService currenciesService){
-		this.mUserService=userService;
-		this.mWalletService=walletservice;
-		this.currenciesService=currenciesService;
 		LOG.info("DataRepository is created");
-	}
+	
+  }
+
 
 	@Override
-	public void register(User user) {
+	public void register(User user)  {
 		this.mUserService.register(user);
-		
 	}
 
 	@Override
@@ -53,7 +59,7 @@ DataSource.CurrenciesDataSource, DataSource.EventDataSource{
 	}
 
 	@Override
-	public User login(UserCredential userCredential) {
+	public User login(UserCredential userCredential)  {
 		return this.mUserService.login(userCredential);
 	}
 	//wallet
@@ -116,4 +122,34 @@ DataSource.CurrenciesDataSource, DataSource.EventDataSource{
 		
 	}
 
+
+	@Override
+	public List<Category> getDefaultCategory(String userid) {
+		return mCategoryService.getDefaultCategory(userid);
+	}
+
+	@Override
+	public List<Category> getCategoryByUserId(String userid) {
+		return mCategoryService.getCategoryByUserId(userid);
+	}
+
+	@Override
+	public void addCategory(Category category) {
+		mCategoryService.addCategory(category);
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		mCategoryService.updateCategory(category);
+	}
+
+	@Override
+	public void removeCategory(Category category) {
+		mCategoryService.removeCategory(category);
+	}
+
+	@Override
+	public boolean isApiKey(String userid, String token) {
+		return mUserService.isApiKey(userid, token);
+	}
 }

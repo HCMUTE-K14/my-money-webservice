@@ -19,5 +19,4 @@ public class SecurityUtil {
 	public static String generateApiKey(String token){
 		return DigestUtils.sha256Hex(SECRET_KEY+token);
 	}
-
 }

@@ -3,10 +3,10 @@ package com.vn.hcmute.team.cortana.mymoney;
 import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.jersey.server.ResourceConfig;
-
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.stereotype.Component;
 
+import com.vn.hcmute.team.cortana.mymoney.controller.CategoryController;
 import com.vn.hcmute.team.cortana.mymoney.controller.UserController;
 
 @Component
@@ -17,6 +17,7 @@ public class JerseyConfig extends ResourceConfig {
         
         //Add class Controller here
         register(UserController.class);
+        register(CategoryController.class);
         
     }
 }

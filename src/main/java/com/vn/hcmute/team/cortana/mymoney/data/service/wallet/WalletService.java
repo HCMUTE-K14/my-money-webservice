@@ -2,9 +2,6 @@ package com.vn.hcmute.team.cortana.mymoney.data.service.wallet;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 
 public interface WalletService {

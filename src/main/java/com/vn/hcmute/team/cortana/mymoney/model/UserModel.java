@@ -14,7 +14,6 @@ import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
 
 @Component
 public class UserModel {
-
 	private DataRepository mDataRepository;
 
 	private Pattern mPatternUsername;

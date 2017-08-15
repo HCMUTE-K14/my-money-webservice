@@ -28,7 +28,7 @@ public class UserServiceImp implements UserService {
 	public UserServiceImp() {
 
 	}
-
+	
 	@Override
 	public void register(User user) {
 		LOG.info("Check user exists...");

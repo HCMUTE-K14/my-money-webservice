@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
+import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
@@ -43,7 +44,10 @@ public class CurrenciesController {
 	@Consumes(MediaType.APPLICATION_JSON+ UTF8)
 	@Produces(MediaType.APPLICATION_JSON+ UTF8)
 	public String getInfo(@PathParam("userid") String userid,@PathParam("token") String token) {
-		JsonResponse<Currencies> response=new JsonResponse<Currencies>(Currencies.class);
+		Class<List<Currencies>> clazz = (Class<List<Currencies>>) (Object) List.class;
+		
+		JsonResponse<List<Currencies>> response=new JsonResponse<List<Currencies>>(clazz);
+		
 		CallBack<List<Currencies>> callBack=new CallBack<List<Currencies>>() {
 			
 			@Override
@@ -51,7 +55,7 @@ public class CurrenciesController {
 				// TODO Auto-generated method stub
 				response.setStatus("success");
 				response.setMessage("ok");
-				response.setListData(result);
+				response.setData(result);
 			}
 			
 			@Override

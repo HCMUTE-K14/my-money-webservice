@@ -22,9 +22,7 @@ public class DataSource {
 		
 		boolean isApiKey(String userid,String token);
 	}
-	public interface WalletDataSource{
-	
-	}
+
 	public interface CategorySource{
 		List<Category> getDefaultCategory(String userid);
 		

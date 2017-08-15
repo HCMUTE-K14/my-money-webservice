@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
+import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
+import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.*;
 @Component
@@ -15,30 +17,24 @@ public class CurrenciesModel {
 	DataRepository dataRepository;
 	
 	@Autowired
-	SecurityUtil securityUtil;
-	@Autowired
 	public CurrenciesModel(DataRepository dataRepository) {
 		// TODO Auto-generated constructor stub
 		this.dataRepository=dataRepository;
 	}
 	public void getCurrencies(String userid,String token,CallBack<List<Currencies>> resultCurrencies){
-		
-		if(userid.equals("")||token.equals("")) {
-			 resultCurrencies.onFailure(new Throwable("Fail get Currencies!"));
-		}else {
-			String apiKeyDB=securityUtil.getApiKey(userid);
-			//gena
-			String apiKey=SecurityUtil.generateApiKey(token);
-			
-			if(apiKeyDB.equals(apiKey)) {
-				List<Currencies> list=dataRepository.getCurrencies();
-				resultCurrencies.onSuccess(list);
-				
-			}else {
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				resultCurrencies.onFailure(new Throwable("Fail get Currencies!"));
+				return;
 			}
-			
+			if (!dataRepository.isApiKey(userid, token)) {
+				resultCurrencies.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			List<Currencies> list=dataRepository.getCurrencies();
+			resultCurrencies.onSuccess(list);
+		}catch(Exception e){
+			resultCurrencies.onFailure(new Throwable("Fail get Currencies!"));
 		}
-		
 	}
 }

@@ -11,7 +11,9 @@ import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
+import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
+import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 
 @Component
 public class EventModel {
@@ -25,76 +27,72 @@ DataRepository dataRepository;
 		this.dataRepository=dataRepository;
 	}
 	public void getEvent(String userid, String token, CallBack<List<Event>> callBack){
-		if(userid.equals("")||token.equals("")) {
-			 callBack.onFailure(new Throwable("Fail get Event!"));
-		}else {
-			String apiKeyDB=securityUtil.getApiKey(userid);
-			//gena
-			String apiKey=SecurityUtil.generateApiKey(token);
-			
-			if(apiKeyDB.equals(apiKey)) {
-				List<Event> list=dataRepository.getEvent(userid);
-				callBack.onSuccess(list);
-				
-			}else {
-				callBack.onFailure(new Throwable("Fail get Event!"));
+		
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail get Currencies!"));
+				return;
 			}
-			
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			List<Event> list=dataRepository.getEvent(userid);
+			callBack.onSuccess(list);
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail get Currencies!"));
 		}
 	}
 	public void createEvent(Event event, CallBack<String> callBack) {
-		if(event.getUserid().equals("")||event.getToken().equals("")) {
-			 callBack.onFailure(new Throwable("Fail create Event!"));
-		}else {
-			String apiKeyDB=securityUtil.getApiKey(event.getUserid());
-			//gena
-			String apiKey=SecurityUtil.generateApiKey(event.getToken());
-			
-			if(apiKeyDB.equals(apiKey)) {
-				event.setId(SecurityUtil.generateUUID());
-				dataRepository.createEvent(event);
-				callBack.onSuccess("Success create Event!");
-				
-			}else {
-				callBack.onFailure(new Throwable("Fail create Event!"));
+		try{
+			String userid=event.getUserid();
+			String token=event.getToken();
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail get Currencies!"));
+				return;
 			}
-			
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.createEvent(event);
+			callBack.onSuccess("Success create event");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail get Currencies!"));
 		}
 	}
 	public void updateEvent(Event event, CallBack<String> callBack) {
-		if(event.getUserid().equals("")||event.getToken().equals("")) {
-			 callBack.onFailure(new Throwable("Fail update Event!"));
-		}else {
-			String apiKeyDB=securityUtil.getApiKey(event.getUserid());
-			//gena
-			String apiKey=SecurityUtil.generateApiKey(event.getToken());
-			
-			if(apiKeyDB.equals(apiKey)) {
-				dataRepository.updateEvent(event);
-				callBack.onSuccess("Success update Event!");
-				
-			}else {
-				callBack.onFailure(new Throwable("Fail update Event!"));
+		try{
+			String userid=event.getUserid();
+			String token=event.getToken();
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail get Currencies!"));
+				return;
 			}
-			
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.updateEvent(event);
+			callBack.onSuccess("Success update event");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail get Currencies!"));
 		}
 	}
 	public void deleteEvent(String userid, String token, String idEvent, CallBack<String> callBack) {
-		if(userid.equals("")||token.equals("")) {
-			 callBack.onFailure(new Throwable("Fail delete Event!"));
-		}else {
-			String apiKeyDB=securityUtil.getApiKey(userid);
-			//gena
-			String apiKey=SecurityUtil.generateApiKey(token);
-			
-			if(apiKeyDB.equals(apiKey)) {
-				dataRepository.deleteEvent(userid, idEvent);
-				callBack.onSuccess("Success delete Event!");
-				
-			}else {
-				callBack.onFailure(new Throwable("Fail delete Event!"));
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail get Currencies!"));
+				return;
 			}
-			
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.deleteEvent(userid, idEvent);
+			callBack.onSuccess("Success update event");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail get Currencies!"));
 		}
 	}
 }

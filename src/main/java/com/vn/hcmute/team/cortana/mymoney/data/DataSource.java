@@ -3,6 +3,7 @@ package com.vn.hcmute.team.cortana.mymoney.data;
 import java.util.List;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
+import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
@@ -24,5 +25,11 @@ public class DataSource {
 	}
 	public interface CurrenciesDataSource {
 		List<Currencies> getCurrencies();
+	}
+	public interface EventDataSource{
+		List<Event> getEvent(String userid);
+		void createEvent(Event event);
+		void updateEvent(Event event);
+		void deleteEvent(String userid, String idEvent);
 	}
 }

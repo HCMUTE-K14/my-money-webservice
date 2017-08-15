@@ -8,4 +8,5 @@ public class DbConstraint {
 	public static final String TABLE_WALLET="tbl_wallet";
 	
 	public static final String TABLE_CURRENCIES="tbl_currencies";
+	public static final String TABLE_EVENT="tbl_event";
 }

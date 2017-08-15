@@ -43,10 +43,10 @@ public class WalletController {
 	}
 	
 	@POST
-	@Path("create")
+	@Path("create/{userid}/{token}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String create(Wallet wallet) {
+	public String create(Wallet wallet,@PathParam("userid") String userid,@PathParam("token") String token) {
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
 			
@@ -68,7 +68,7 @@ public class WalletController {
 				response.setData(null);
 			}
 		};
-		walletModel.createWallet(wallet, callBack);
+		walletModel.createWallet(wallet,userid,token, callBack);
 		return response.toString();
 	}
 	@GET
@@ -129,10 +129,10 @@ public class WalletController {
 		return response.toString();
 	}
 	@POST
-	@Path("updateWallet")
+	@Path("updateWallet/{userid}/{token}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String update(Wallet wallet) {
+	public String update(Wallet wallet,@PathParam("userid") String userid,@PathParam("token") String token) {
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
 			
@@ -154,7 +154,7 @@ public class WalletController {
 				response.setData(null);
 			}
 		};
-		walletModel.updateWallet(wallet, callBack);
+		walletModel.updateWallet(wallet,userid,token, callBack);
 		return response.toString();
 	}
 	@GET

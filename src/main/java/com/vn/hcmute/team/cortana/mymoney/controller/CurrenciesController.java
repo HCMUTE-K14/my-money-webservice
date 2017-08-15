@@ -35,15 +35,15 @@ public class CurrenciesController {
 		
 		response.setStatus("success");
 		response.setMessage("ok");
-		response.setData("wallet");
+		response.setData("currencies");
 		
 		return response.toString();
 	}
 	@GET
-	@Path("getCurrencies/{userid}/{token}")
+	@Path("getCurrencies")
 	@Consumes(MediaType.APPLICATION_JSON+ UTF8)
 	@Produces(MediaType.APPLICATION_JSON+ UTF8)
-	public String getInfo(@PathParam("userid") String userid,@PathParam("token") String token) {
+	public String getInfo() {
 		Class<List<Currencies>> clazz = (Class<List<Currencies>>) (Object) List.class;
 		
 		JsonResponse<List<Currencies>> response=new JsonResponse<List<Currencies>>(clazz);
@@ -66,7 +66,7 @@ public class CurrenciesController {
 				response.setData(null);
 			}
 		};
-		currenciesModel.getCurrencies(userid, token, callBack);
+		currenciesModel.getCurrencies(callBack);
 		
 		return response.toString();
 	}

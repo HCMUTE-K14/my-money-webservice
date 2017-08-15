@@ -21,7 +21,7 @@ public class AllowToken {
 		if (TextUtil.isEmpty(tok)) {
 			return false;
 		}
-		return true;
+		return tok.equals(token);
 	}
 	public void putToken(String userid,String token){
 		mMap.put(userid, token);

@@ -9,7 +9,6 @@ public class Event {
 	//Đánh dấu trạng thái kết thúc sự kiện hay chưa
 	private String status;
 	private String userid;
-	private String token;
 	public Event() {
 		this.id="";
 		this.name="";
@@ -18,13 +17,6 @@ public class Event {
 		this.idWallet="";
 		this.status="";
 		this.userid="";
-		this.token="";
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
 	}
 	public String getUserid() {
 		return userid;

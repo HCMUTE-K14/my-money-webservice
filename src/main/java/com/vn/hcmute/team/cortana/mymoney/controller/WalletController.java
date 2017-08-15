@@ -8,20 +8,15 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
+import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
-import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
-import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletServiceImp;
 import com.vn.hcmute.team.cortana.mymoney.model.WalletModel;
 
 @Component
@@ -76,7 +71,9 @@ public class WalletController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getInfo(@PathParam("userid") String userid,@PathParam("token") String token) {
-		JsonResponse<Wallet> response=new JsonResponse<Wallet>(Wallet.class);
+		Class<List<Wallet>> clazz = (Class<List<Wallet>>) (Object) List.class;
+
+		JsonResponse<List<Wallet>> response=new JsonResponse<List<Wallet>>(clazz);
 		CallBack<List<Wallet>> callBack=new CallBack<List<Wallet>>() {
 			
 			@Override
@@ -84,7 +81,7 @@ public class WalletController {
 				// TODO Auto-generated method stub
 				response.setStatus("success");
 				response.setMessage("ok");
-				response.setListData(result);
+				response.setData(result);
 			}
 			
 			@Override

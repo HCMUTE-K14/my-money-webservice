@@ -5,6 +5,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.logging.Log;
@@ -101,5 +102,31 @@ public class UserController {
 		mUserModel.register(user, callback);
 		return response.toString();
 	}
+	@POST
+	@Path("forget")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String forgetpassword(@QueryParam("email") String email){
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>(){
 
+			@Override
+			public void onSuccess(String result) {
+				response.setStatus("success");
+				response.setMessage("Sent to "+email+" Successful");
+				response.setData(result);
+				
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+			
+		};
+		
+		mUserModel.forgetPassword(email,callBack);
+		return response.toString();
+	}
 }

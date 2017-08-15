@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
-import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
-import com.vn.hcmute.team.cortana.mymoney.model.CurrenciesModel;
 import com.vn.hcmute.team.cortana.mymoney.model.EventModel;
 
 @Component

@@ -16,6 +16,7 @@ import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.AllowToken;
+import com.vn.hcmute.team.cortana.mymoney.utils.EmailUtil;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
 
 @Component
@@ -28,7 +29,7 @@ public class UserServiceImp implements UserService {
 	public UserServiceImp() {
 
 	}
-	
+
 	@Override
 	public void register(User user) {
 		LOG.info("Check user exists...");
@@ -100,14 +101,37 @@ public class UserServiceImp implements UserService {
 			String fakeApikey = SecurityUtil.generateApiKey(token);
 			String realApiKey = mMongoTemplate
 					.findOne(query(where("userid").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
-			
+
 			if (!fakeApikey.equals(realApiKey)) {
 				return false;
 			}
-			
+
 			AllowToken.getInstance().putToken(userid, token);
 			return true;
 
+		} catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+
+	}
+
+	@Override
+	public void forgetPassword(String email) {
+		try {
+			LOG.info("Forget password");
+			User user = mMongoTemplate.findOne(query(where("email").is(email)), User.class, DbConstraint.TABLE_USER);
+			if (user == null) {
+				throw new UserException("Cannot found user with " + email);
+			}
+			String newPassword = SecurityUtil.generatePassword();
+			user.setPassword(SecurityUtil.generateMD5(newPassword));
+			StringBuilder messageEmail = new StringBuilder();
+			
+			messageEmail.append("<h1>").append("Your Password :").append(newPassword).append("\n\n")
+					.append("Please change your password").append("</h1>");
+			
+			EmailUtil.getInstance().sendMail(email, "New password", messageEmail.toString());
+			mMongoTemplate.save(user, DbConstraint.TABLE_USER);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}

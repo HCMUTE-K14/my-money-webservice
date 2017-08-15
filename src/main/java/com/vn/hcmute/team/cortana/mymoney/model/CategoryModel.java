@@ -70,7 +70,7 @@ public class CategoryModel {
 				callback.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			if(category.getCategoryType()!=Category.TYPE_DEFAULT && !category.getUserId().equals(userid)){
+			if(!category.getUserId().equals(userid)){
 				callback.onFailure(new CategoryException("Category userid have different userid param"));
 				return;
 			}
@@ -91,7 +91,7 @@ public class CategoryModel {
 				callback.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			if(category.getCategoryType()!=Category.TYPE_DEFAULT && !category.getUserId().equals(userid)){
+			if(!category.getUserId().equals(userid)){
 				callback.onFailure(new CategoryException("Category userid have different userid param"));
 				return;
 			}
@@ -113,7 +113,7 @@ public class CategoryModel {
 				callback.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			if(category.getCategoryType()!=Category.TYPE_DEFAULT && !category.getUserId().equals(userid)){
+			if(!category.getUserId().equals(userid)){
 				callback.onFailure(new CategoryException("Category userid have different userid param"));
 				return;
 			}

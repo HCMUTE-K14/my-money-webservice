@@ -1,17 +1,13 @@
 package com.vn.hcmute.team.cortana.mymoney.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
-import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
-import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
-import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
-import com.vn.hcmute.team.cortana.mymoney.bean.*;
+import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
+import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
 @Component
 public class CurrenciesModel {
 	DataRepository dataRepository;

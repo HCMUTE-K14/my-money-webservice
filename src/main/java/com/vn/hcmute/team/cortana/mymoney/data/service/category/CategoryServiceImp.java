@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
@@ -46,20 +47,25 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public void updateCategory(Category category) {
 		try {
-			if (!isExistsCategory(category)) {
-				addCategory(category);
-				return;
-			}
+			LOG.info("update category");
+			
 			Query query = new Query();
+	
 			query.addCriteria(where("categoryId").is(category.getCategoryId()).and("userId").is(category.getUserId()));
 
-			Category cate = mMongoTemplate.findOne(query, Category.class);
+			Category cate = mMongoTemplate.findOne(query, Category.class,DbConstraint.TABLE_CATEGORY);
 			
-			cate.setCategoryName(category.getCategoryName());
-			cate.setCategoryParent(category.getCategoryParent());
+			if(cate==null){
+				throw new CategoryException("Category not exists");
+			}
+			
+		
+			Update update=new Update();
+			
+			update.set("categoryName", category.getCategoryName());
+			update.set("categoryParent", category.getCategoryParent());
 
-			mMongoTemplate.save(cate, DbConstraint.TABLE_CATEGORY);
-			LOG.info("Update category...successful");
+			mMongoTemplate.updateFirst(query,update,Category.class, DbConstraint.TABLE_CATEGORY);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}

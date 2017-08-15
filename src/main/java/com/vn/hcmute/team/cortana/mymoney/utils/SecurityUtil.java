@@ -4,15 +4,8 @@ import java.util.UUID;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Template;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-
-import com.vn.hcmute.team.cortana.mymoney.bean.User;
-import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
-import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 @Component
 public class SecurityUtil {
 	@Autowired

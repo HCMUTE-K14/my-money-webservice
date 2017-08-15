@@ -1,7 +1,5 @@
 package com.vn.hcmute.team.cortana.mymoney.data.service.user;
 
-import org.springframework.stereotype.Component;
-
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 

@@ -1,13 +1,16 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 public class JsonResponse <T> {
 	private JsonObject json;
 	private Gson gson;
 	private Class<T> clazz;
-	
+	//private List<Class<T>> listclass;
 	public JsonResponse( Class<T> clazz){
 		this.json=new JsonObject();
 		this.gson=new Gson();
@@ -43,6 +46,12 @@ public class JsonResponse <T> {
 	public void setData(T data) {
 		json.add("data", gson.toJsonTree(data));
 	}
+	public void setListData(List<T> data) {
+		json.add("data", gson.toJsonTree(data));
+	}
+	/*public List<T> getDataList(){
+		return gson.fromJson(json.get("data"),new TypeToken<List<T>>(){}.getType());
+	}*/
 	public String toString(){
 		return json.toString();
 	}

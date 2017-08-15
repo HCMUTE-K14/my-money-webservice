@@ -20,7 +20,7 @@ public class DataSource {
 	
 	}
 	public interface CategorySource{
-		List<Category> getDefaultCategory();
+		List<Category> getDefaultCategory(String userid);
 		
 		List<Category> getCategoryByUserId(String userid);
 		

@@ -6,7 +6,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 
 public interface CategoryService {
 	
-	List<Category> getDefaultCategory()throws RuntimeException;
+	List<Category> getDefaultCategory(String userid)throws RuntimeException;
 	
 	List<Category> getCategoryByUserId(String userid)throws RuntimeException;
 	

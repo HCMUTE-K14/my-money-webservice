@@ -24,8 +24,8 @@ public class DataRepository implements DataSource.UserDataSource,DataSource.Cate
 	@Autowired
 	private CategoryService mCategoryService;
 	
-	
 	public DataRepository(){
+		
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class DataRepository implements DataSource.UserDataSource,DataSource.Cate
 	}
 
 	@Override
-	public List<Category> getDefaultCategory() {
-		return mCategoryService.getDefaultCategory();
+	public List<Category> getDefaultCategory(String userid) {
+		return mCategoryService.getDefaultCategory(userid);
 	}
 
 	@Override

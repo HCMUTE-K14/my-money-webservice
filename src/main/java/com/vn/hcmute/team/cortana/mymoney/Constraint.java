@@ -5,6 +5,6 @@ public class Constraint {
 	public static final String CATEGORY_TYPE_DEFAULT="default";
 	public static final String CATEGORY_TYPE_CUSTOM="custom";
 	
-
+	
 
 }

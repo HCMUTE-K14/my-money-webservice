@@ -49,6 +49,7 @@ public class CategoryController {
 
 		Class<List<Category>> clazz = (Class<List<Category>>) (Object) List.class;
 		JsonResponse<List<Category>> response = new JsonResponse<List<Category>>(clazz);
+		
 		CallBack<List<Category>> callback = new CallBack<List<Category>>() {
 
 			@Override
@@ -72,7 +73,7 @@ public class CategoryController {
 		if (type.equals(Constraint.CATEGORY_TYPE_CUSTOM)) {
 			mCategoryModel.getCategoryByUserId(userId, token, callback);
 		} else {
-			mCategoryModel.getDefaultCategory(callback);
+			mCategoryModel.getDefaultCategory(userId,token,callback);
 		}
 
 		return response.toString();

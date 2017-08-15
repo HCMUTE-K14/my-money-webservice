@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
-import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.CategoryException;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
@@ -47,11 +46,6 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public void updateCategory(Category category) {
 		try {
-
-			if (category.getCategoryType() == Category.TYPE_DEFAULT) {
-				throw new CategoryException("Cannot update default category");
-			}
-
 			if (!isExistsCategory(category)) {
 				addCategory(category);
 				return;
@@ -74,9 +68,6 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public void removeCategory(Category category) {
 		try{
-			if (category.getCategoryType() == Category.TYPE_DEFAULT) {
-				throw new CategoryException("Cannot update default category");
-			}
 			if (!isExistsCategory(category)) {
 				throw new CategoryException("Cannot found category");
 			}
@@ -103,9 +94,9 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public List<Category> getDefaultCategory() {
+	public List<Category> getDefaultCategory(String userid) {
 		try{
-			List<Category> result=mMongoTemplate.find(query(where("categoryType").is(Category.TYPE_DEFAULT).and("userId").is(User.DEFAULT_USER_ID)), Category.class,DbConstraint.TABLE_CATEGORY);
+			List<Category> result=mMongoTemplate.find(query(where("categoryType").is(Category.TYPE_DEFAULT).and("userId").is(userid)), Category.class,DbConstraint.TABLE_CATEGORY);
 			if(result==null || result.isEmpty()){
 				LOG.info("Cannot get category default");
 				throw new CategoryException("Cannot get category default");
@@ -120,7 +111,7 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public List<Category> getCategoryByUserId(String userid) {
 		try{
-			List<Category> defaultCategory=getDefaultCategory();
+			List<Category> defaultCategory=getDefaultCategory(userid);
 			List<Category> customCategory=mMongoTemplate.find(query(where("categoryType").is(Category.TYPE_CUSTOM).and("userId").is(userid)), Category.class,DbConstraint.TABLE_CATEGORY);
 			if(customCategory==null){
 				LOG.info("Cannot get category custom");

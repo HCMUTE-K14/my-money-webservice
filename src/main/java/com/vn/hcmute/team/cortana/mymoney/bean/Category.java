@@ -2,8 +2,6 @@ package com.vn.hcmute.team.cortana.mymoney.bean;
 
 import java.io.Serializable;
 
-import com.vn.hcmute.team.cortana.mymoney.Constraint;
-
 public class Category implements Serializable {
 	private static final long serialVersionUID = 5217094060448008597L;
 	

@@ -15,6 +15,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
+import com.vn.hcmute.team.cortana.mymoney.utils.AllowToken;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
 
 @Component
@@ -68,7 +69,7 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public User login(UserCredential userCredential){
+	public User login(UserCredential userCredential) {
 		String hashPassword = SecurityUtil.generateMD5(userCredential.getPassword());
 		LOG.info("Get info user...");
 		try {
@@ -92,14 +93,25 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public boolean isApiKey(String userid, String token) {
-		try{
+		try {
+			if (AllowToken.getInstance().isAccessToken(userid, token)) {
+				return true;
+			}
 			String fakeApikey = SecurityUtil.generateApiKey(token);
-			String realApiKey = mMongoTemplate.findOne(query(where("userid").is(userid)), User.class,DbConstraint.TABLE_USER).getApikey();
-			return fakeApikey.equals(realApiKey);
-		}catch(MongoException e){
+			String realApiKey = mMongoTemplate
+					.findOne(query(where("userid").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
+			
+			if (!fakeApikey.equals(realApiKey)) {
+				return false;
+			}
+			
+			AllowToken.getInstance().putToken(userid, token);
+			return true;
+
+		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
+
 	}
 
 }

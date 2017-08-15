@@ -22,9 +22,17 @@ public class CategoryModel {
 		mDataRepository = dataRepository;
 	}
 
-	public void getDefaultCategory(CallBack<List<Category>> callback) {
+	public void getDefaultCategory(String userid, String token,CallBack<List<Category>> callback) {
 		try {
-			List<Category> result = mDataRepository.getDefaultCategory();
+			if (TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)) {
+				callback.onFailure(new UserException("User id, token is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userid, token)) {
+				callback.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			List<Category> result = mDataRepository.getDefaultCategory(userid);
 			if (result != null) {
 				callback.onSuccess(result);
 			}

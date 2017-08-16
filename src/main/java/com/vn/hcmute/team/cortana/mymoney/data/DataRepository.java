@@ -153,4 +153,16 @@ public class DataRepository implements DataSource.UserDataSource,
 	public void forgetPassword(String email) {
 		mUserService.forgetPassword(email);
 	}
+
+	@Override
+	public void changePassword(String userid, String oldpassword, String newpassword) {
+		mUserService.changePassword(userid, oldpassword, newpassword);
+		
+	}
+
+	@Override
+	public void changeProfile(User user) {
+		mUserService.changeProfile(user);
+		
+	}
 }

@@ -19,7 +19,7 @@ public class Wallet {
 		this.walletName="";
 		this.money="";
 		this.currencyUnit="";
-		this.token=token;
+		this.token="";
 	}
 	public Wallet(String id, String userid,String walletName,String money,String currencyUnit,String token) {
 		this.id=id;

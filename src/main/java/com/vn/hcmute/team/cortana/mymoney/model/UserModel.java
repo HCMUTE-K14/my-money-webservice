@@ -83,6 +83,38 @@ public class UserModel {
 			callback.onFailure(e);
 		}
 	}
+	public void changePassword(String userid,String token,String oldpassword,String newpassword,CallBack<String> callBack){
+		try{
+			if(TextUtil.isEmpty(userid)||TextUtil.isEmpty(token)||TextUtil.isEmpty(oldpassword)||TextUtil.isEmpty(newpassword)){
+				callBack.onFailure(new UserException("Userid,token,oldpassword or newpassword is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			mDataRepository.changePassword(userid, oldpassword, newpassword);
+			callBack.onSuccess("Change password successful");
+		}catch(Exception e){
+			callBack.onFailure(e);
+		}
+	}
+	public void changeProfile(String userid,String token,User user,CallBack<String> callBack){
+		try{
+			if(TextUtil.isEmpty(userid)||TextUtil.isEmpty(token)){
+				callBack.onFailure(new UserException("Userid,token,oldpassword or newpassword is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			mDataRepository.changeProfile(user);
+			callBack.onSuccess("Change password successful");
+		}catch(Exception e){
+			callBack.onFailure(e);
+		}
+	}
 
 	private boolean validateUser(User user) {
 		String username = user.getUsername();

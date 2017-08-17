@@ -10,19 +10,23 @@ import org.springframework.stereotype.Repository;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
+import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.service.category.CategoryService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.currencies.CurrenciesService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.event.EventService;
+import com.vn.hcmute.team.cortana.mymoney.data.service.saving.SavingService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.user.UserService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 
 @Repository
 
 public class DataRepository implements DataSource.UserDataSource,
-		DataSource.CurrenciesDataSource, DataSource.EventDataSource, DataSource.CategorySource,DataSource.WalletDataSource {
+		DataSource.CurrenciesDataSource, DataSource.EventDataSource, 
+		DataSource.CategorySource,DataSource.WalletDataSource,
+		DataSource.SavingDataSource{
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
 
 	@Autowired
@@ -35,7 +39,9 @@ public class DataRepository implements DataSource.UserDataSource,
 	private EventService eventService;
 	@Autowired
 	private CategoryService mCategoryService;
-
+	@Autowired
+	private SavingService savingService;
+	
 	public DataRepository() {
 
 		LOG.info("DataRepository is created");
@@ -149,6 +155,41 @@ public class DataRepository implements DataSource.UserDataSource,
 		return mUserService.isApiKey(userid, token);
 	}
 
+	//saving
+	@Override
+	public List<Saving> getSaving(String userid) {
+		
+		return savingService.getSaving(userid);
+	}
+
+	@Override
+	public void createSaving(Saving saving) {
+		savingService.createSaving(saving);
+		
+	}
+
+	@Override
+	public void updateSaving(Saving saving) {
+		savingService.updateSaving(saving);
+		
+	}
+
+	@Override
+	public void deleteSaving(String idSaving) {
+		savingService.deleteSaving(idSaving);
+		
+	}
+
+	@Override
+	public void takeIn(String idWallet, String idSaving, String money) {
+		savingService.takeIn(idWallet, idSaving, money);
+		
+	}
+
+	@Override
+	public void takeOut(String idWallet, String idSaving, String money) {
+		savingService.takeOut(idWallet, idSaving, money);
+	}
 	@Override
 	public void forgetPassword(String email) {
 		mUserService.forgetPassword(email);

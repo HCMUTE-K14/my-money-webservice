@@ -19,23 +19,15 @@ public class Wallet {
 		this.walletName="";
 		this.money="";
 		this.currencyUnit="";
-		this.token="";
 	}
 	public Wallet(String id, String userid,String walletName,String money,String currencyUnit,String token) {
-		this.id=id;
+		this.walletid=id;
 		this.userid=userid;
 		this.walletName=walletName;
 		this.money=money;
 		this.currencyUnit=currencyUnit;
-		this.token=token;
 	}
 
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	
 	public String getUserid() {
 		return userid;

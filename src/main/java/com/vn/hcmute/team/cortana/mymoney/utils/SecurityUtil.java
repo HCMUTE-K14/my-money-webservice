@@ -31,7 +31,6 @@ public class SecurityUtil {
 	public static String generatePassword() {
 		return String.valueOf(new Random().nextInt(900000) + 100000);
 	}
-
-
+	
 
 }

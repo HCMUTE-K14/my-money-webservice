@@ -1,5 +1,6 @@
 package com.vn.hcmute.team.cortana.mymoney.data;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
+import com.vn.hcmute.team.cortana.mymoney.bean.Image;
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
@@ -17,6 +19,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.service.category.CategoryService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.currencies.CurrenciesService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.event.EventService;
+import com.vn.hcmute.team.cortana.mymoney.data.service.image.ImageService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.saving.SavingService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.user.UserService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
@@ -26,7 +29,7 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 public class DataRepository implements DataSource.UserDataSource,
 		DataSource.CurrenciesDataSource, DataSource.EventDataSource, 
 		DataSource.CategorySource,DataSource.WalletDataSource,
-		DataSource.SavingDataSource{
+		DataSource.SavingDataSource,DataSource.ImageDataSource{
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
 
 	@Autowired
@@ -41,6 +44,8 @@ public class DataRepository implements DataSource.UserDataSource,
 	private CategoryService mCategoryService;
 	@Autowired
 	private SavingService savingService;
+	@Autowired
+	private ImageService mImageService;
 	
 	public DataRepository() {
 
@@ -205,5 +210,31 @@ public class DataRepository implements DataSource.UserDataSource,
 	public void changeProfile(User user) {
 		mUserService.changeProfile(user);
 		
+	}
+
+	@Override
+	public void initDefaultCategory(String userid) {
+		mCategoryService.initDefaultCategory(userid);
+		
+	}
+
+	@Override
+	public List<Image> getAllImage(String userid) {
+		return mImageService.getAllImage(userid);
+	}
+
+	@Override
+	public void uploadImage(String userid, String token, String detail, InputStream input) {
+		 mImageService.upload(userid, token, detail, input);
+	}
+
+	@Override
+	public void removeImage(String userid, String imageId) {
+		mImageService.remove(userid, imageId);
+	}
+
+	@Override
+	public Image getImage(String userid, String imageId) {
+		return mImageService.get(userid, imageId);
 	}
 }

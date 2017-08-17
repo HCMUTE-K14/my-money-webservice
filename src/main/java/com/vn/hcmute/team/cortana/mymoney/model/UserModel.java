@@ -38,7 +38,7 @@ public class UserModel {
 	public void register(User user, CallBack<String> callback) {
 		
 		if (validateUser(user)==false) {
-			callback.onFailure(new ValidateUserException("Username and password  must be at least 4 character"));
+			callback.onFailure(new ValidateUserException("Username,password and email must be at least 4 character"));
 			return;
 		}
 		
@@ -51,6 +51,7 @@ public class UserModel {
 			user.setActive(true);
 
 			this.mDataRepository.register(user);
+			this.mDataRepository.initDefaultCategory(user.getUserid());
 
 			callback.onSuccess("ok");
 		} catch (Exception e) {
@@ -99,6 +100,9 @@ public class UserModel {
 			callBack.onFailure(e);
 		}
 	}
+	public boolean isApiKey(String userid,String token){
+		return mDataRepository.isApiKey(userid, token);
+	}
 	public void changeProfile(String userid,String token,User user,CallBack<String> callBack){
 		try{
 			if(TextUtil.isEmpty(userid)||TextUtil.isEmpty(token)){
@@ -119,12 +123,14 @@ public class UserModel {
 	private boolean validateUser(User user) {
 		String username = user.getUsername();
 		String password = user.getPassword();
+		String email =user.getEmail();
+	
 
-		if (username == null || password == null) {
+		if (username == null || password == null || email == null) {
 			return false;
 		}
 
-		if (username.isEmpty() || password.isEmpty()) {
+		if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
 			return false;
 		}
 

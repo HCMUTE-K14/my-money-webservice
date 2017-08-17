@@ -18,6 +18,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.model.EventModel;
 
+@SuppressWarnings("unchecked")
 @Component
 @Path("event")
 public class EventController {

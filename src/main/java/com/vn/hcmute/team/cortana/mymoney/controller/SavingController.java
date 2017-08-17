@@ -16,10 +16,9 @@ import org.springframework.stereotype.Component;
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
-import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.model.SavingModel;
-import com.vn.hcmute.team.cortana.mymoney.model.WalletModel;
 
+@SuppressWarnings("unchecked")
 @Component
 @Path("saving")
 public class SavingController {

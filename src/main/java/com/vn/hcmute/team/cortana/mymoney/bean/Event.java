@@ -1,7 +1,13 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Event {
-	private String id;
+	private String eventid;
+	public String getEventid() {
+		return eventid;
+	}
+	public void setEventid(String eventid) {
+		this.eventid = eventid;
+	}
 	private String name;
 	private String money;
 	private String date;
@@ -10,7 +16,7 @@ public class Event {
 	private String status;
 	private String userid;
 	public Event() {
-		this.id="";
+		this.eventid="";
 		this.name="";
 		this.money="";
 		this.date="";
@@ -23,12 +29,6 @@ public class Event {
 	}
 	public void setUserid(String userid) {
 		this.userid = userid;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getName() {
 		return name;

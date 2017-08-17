@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
-
+import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
@@ -50,5 +50,13 @@ public class DataSource {
 		void createEvent(Event event);
 		void updateEvent(Event event);
 		void deleteEvent(String userid, String idEvent);
+	}
+	public interface SavingDataSource{
+		List<Saving> getSaving(String userid);
+		void createSaving(Saving saving);
+		void updateSaving(Saving saving);
+		void deleteSaving(String idSaving);
+		void takeIn(String idWallet, String idSaving,String money);
+		void takeOut(String idWallet, String idSaving,String money);
 	}
 }

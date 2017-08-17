@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.controller.CurrenciesController;
 import com.vn.hcmute.team.cortana.mymoney.controller.EventController;
-
+import com.vn.hcmute.team.cortana.mymoney.controller.SavingController;
 import com.vn.hcmute.team.cortana.mymoney.controller.CategoryController;
 
 import com.vn.hcmute.team.cortana.mymoney.controller.UserController;
@@ -29,5 +29,7 @@ public class JerseyConfig extends ResourceConfig {
         register(EventController.class);
 
         register(CategoryController.class);
+        
+        register(SavingController.class);
     }
 }

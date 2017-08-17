@@ -15,4 +15,8 @@ public interface UserService {
 	boolean isApiKey(String userid,String token);
 	
 	void forgetPassword(String email);
+	
+	void changePassword(String userid,String oldpassword,String newpassword);
+	
+	void changeProfile(User user);
 }

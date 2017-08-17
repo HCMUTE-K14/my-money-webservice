@@ -17,4 +17,6 @@ public interface CategoryService {
 	void removeCategory(Category category)throws RuntimeException;
 	
 	boolean isExistsCategory(Category category)throws RuntimeException;
+	
+	List<Category> initDefaultCategory(String userid) throws RuntimeException;
 }

@@ -3,6 +3,9 @@ package com.vn.hcmute.team.cortana.mymoney.data.service.category;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -13,11 +16,14 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import com.mongodb.MongoException;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.CategoryException;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
+import com.vn.hcmute.team.cortana.mymoney.utils.ResourceUtil;
 
 @Component
 public class CategoryServiceImp implements CategoryService {
@@ -129,6 +135,24 @@ public class CategoryServiceImp implements CategoryService {
 			return defaultCategory;
 		}catch(MongoException e){
 			throw new DatabaseException("Something wrong! Please try later");
+		}
+	}
+
+	@Override
+	public List<Category> initDefaultCategory(String userid) {
+		JsonReader jsonReader=null;
+		try {
+			jsonReader = new JsonReader(new InputStreamReader(ResourceUtil.getDefaultCategory(), "UTF-8"));
+			Category[] listcategory=new Gson().fromJson(jsonReader, Category[].class);
+			if(listcategory == null || listcategory.length == 0 ){
+				throw new CategoryException("Cannot get default category");
+			}
+			for (Category category : listcategory) {
+				category.setUserId(userid);
+			}
+			return Arrays.asList(listcategory);
+		} catch (UnsupportedEncodingException e) {
+			throw new CategoryException("Cannot get default category");
 		}
 	}
 }

@@ -12,15 +12,17 @@ public class Category implements Serializable {
 	private String categoryName;
 	private int categoryType; 		//0:default, 1:custom
 	private String categoryImage;
+	private int transactionType; 	//0: , 1:, 2: 
 	private String categoryParent; 	//0:default(Not have child); #0: categoryId parent 
 	private String userId; 			
 	
 	public Category(){
 		this.categoryId="-1";
-		this.categoryImage="";
+		this.categoryName="";
 		this.categoryType=0;
 		this.categoryImage="";
 		this.categoryParent="0";
+		this.transactionType=0;
 		this.userId=User.DEFAULT_USER_ID;
 	}
 
@@ -71,12 +73,21 @@ public class Category implements Serializable {
 	public void setCategoryParent(String categoryParent) {
 		this.categoryParent = categoryParent;
 	}
+	
+
+	public int getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(int transactionType) {
+		this.transactionType = transactionType;
+	}
 
 	@Override
 	public String toString() {
 		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryType="
-				+ categoryType + ", categoryImage=" + categoryImage + ", categoryParent=" + categoryParent + ", userId="
-				+ userId + "]";
+				+ categoryType + ", categoryImage=" + categoryImage + ", transactionType=" + transactionType
+				+ ", categoryParent=" + categoryParent + ", userId=" + userId + "]";
 	}
 
 	

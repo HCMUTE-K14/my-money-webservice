@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
@@ -136,6 +137,39 @@ public class UserServiceImp implements UserService {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 
+	}
+
+	@Override
+	public void changePassword(String userid,String oldpassword,String newpassword) {
+		try{
+			LOG.info("Change password");
+			String hashOldPassword=SecurityUtil.generateMD5(oldpassword);
+			User _user=mMongoTemplate.findOne(query(where("userid").is(userid).and("password").is(hashOldPassword)), User.class,DbConstraint.TABLE_USER);
+			if(_user==null){
+				throw new UserException("User not exist");
+			}
+			Update update=new Update();
+			update.set("password", SecurityUtil.generateMD5(newpassword));
+			
+			mMongoTemplate.updateFirst(query(where("userid").is(userid)), update, User.class,DbConstraint.TABLE_USER);
+		}catch(MongoException e){
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+	}
+
+	@Override
+	public void changeProfile(User user) {
+		try{
+			LOG.info("Change Profile");
+			
+			Update update=new Update();
+			update.set("name", user.getName());
+			update.set("active", user.isActive());
+			
+			mMongoTemplate.updateFirst(query(where("userid").is(user.getUserid())), update, User.class,DbConstraint.TABLE_USER);
+		}catch(MongoException e){
+			throw new DatabaseException("Something wrong! Please try later");
+		}
 	}
 
 }

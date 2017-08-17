@@ -6,12 +6,12 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.stereotype.Component;
 
-
-import com.vn.hcmute.team.cortana.mymoney.controller.CurrenciesController;
-import com.vn.hcmute.team.cortana.mymoney.controller.EventController;
-import com.vn.hcmute.team.cortana.mymoney.controller.SavingController;
 import com.vn.hcmute.team.cortana.mymoney.controller.CategoryController;
 import com.vn.hcmute.team.cortana.mymoney.controller.ConvertController;
+import com.vn.hcmute.team.cortana.mymoney.controller.CurrenciesController;
+import com.vn.hcmute.team.cortana.mymoney.controller.EventController;
+import com.vn.hcmute.team.cortana.mymoney.controller.PersonController;
+import com.vn.hcmute.team.cortana.mymoney.controller.SavingController;
 import com.vn.hcmute.team.cortana.mymoney.controller.UserController;
 import com.vn.hcmute.team.cortana.mymoney.controller.WalletController;
 
@@ -31,5 +31,6 @@ public class JerseyConfig extends ResourceConfig {
         register(CategoryController.class);
         register(SavingController.class);
         register(ConvertController.class);
+        register(PersonController.class);
     }
 }

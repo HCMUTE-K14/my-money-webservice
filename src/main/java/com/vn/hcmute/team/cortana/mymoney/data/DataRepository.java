@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
+import com.vn.hcmute.team.cortana.mymoney.bean.Person;
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
@@ -17,6 +18,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.service.category.CategoryService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.currencies.CurrenciesService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.event.EventService;
+import com.vn.hcmute.team.cortana.mymoney.data.service.person.PersonService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.saving.SavingService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.user.UserService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
@@ -26,7 +28,7 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 public class DataRepository implements DataSource.UserDataSource,
 		DataSource.CurrenciesDataSource, DataSource.EventDataSource, 
 		DataSource.CategorySource,DataSource.WalletDataSource,
-		DataSource.SavingDataSource{
+		DataSource.SavingDataSource, DataSource.PersonDataSource{
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
 
 	@Autowired
@@ -41,7 +43,8 @@ public class DataRepository implements DataSource.UserDataSource,
 	private CategoryService mCategoryService;
 	@Autowired
 	private SavingService savingService;
-	
+	@Autowired
+	private PersonService personService;
 	public DataRepository() {
 
 		LOG.info("DataRepository is created");
@@ -204,6 +207,23 @@ public class DataRepository implements DataSource.UserDataSource,
 	@Override
 	public void changeProfile(User user) {
 		mUserService.changeProfile(user);
+		
+	}
+	//person
+	@Override
+	public List<Person> getPersons(String userid) {
+		return personService.getPersons(userid);
+	}
+
+	@Override
+	public void addPerson(Person person) {
+		personService.addPerson(person);
+		
+	}
+
+	@Override
+	public void removePerson(String personid) {
+		personService.removePerson(personid);
 		
 	}
 }

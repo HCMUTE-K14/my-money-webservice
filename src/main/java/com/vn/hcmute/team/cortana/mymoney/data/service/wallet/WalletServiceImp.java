@@ -88,7 +88,7 @@ public class WalletServiceImp implements WalletService{
 			update.set("walletName", wallet.getWalletName());
 			update.set("money", wallet.getMoney());
 			update.set("currencyUnit", wallet.getCurrencyUnit());
-			
+			update.set("walletImage", wallet.getWalletImage());
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			

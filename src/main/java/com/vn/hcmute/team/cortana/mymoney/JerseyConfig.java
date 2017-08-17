@@ -11,7 +11,7 @@ import com.vn.hcmute.team.cortana.mymoney.controller.CurrenciesController;
 import com.vn.hcmute.team.cortana.mymoney.controller.EventController;
 import com.vn.hcmute.team.cortana.mymoney.controller.SavingController;
 import com.vn.hcmute.team.cortana.mymoney.controller.CategoryController;
-
+import com.vn.hcmute.team.cortana.mymoney.controller.ConvertController;
 import com.vn.hcmute.team.cortana.mymoney.controller.UserController;
 import com.vn.hcmute.team.cortana.mymoney.controller.WalletController;
 
@@ -29,7 +29,11 @@ public class JerseyConfig extends ResourceConfig {
         register(EventController.class);
 
         register(CategoryController.class);
+<<<<<<< HEAD
         
         register(SavingController.class);
+=======
+        register(ConvertController.class);
+>>>>>>> ec8f3f464b8af34f6c50c699cdec4cfdcd25a283
     }
 }

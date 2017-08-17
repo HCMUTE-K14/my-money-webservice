@@ -1,7 +1,5 @@
 package com.vn.hcmute.team.cortana.mymoney.data.service.user;
 
-import org.springframework.stereotype.Component;
-
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 
@@ -15,4 +13,6 @@ public interface UserService {
 	User login(UserCredential userCredential) ;
 	
 	boolean isApiKey(String userid,String token);
+	
+	void forgetPassword(String email);
 }

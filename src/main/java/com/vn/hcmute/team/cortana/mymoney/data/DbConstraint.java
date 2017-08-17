@@ -16,3 +16,5 @@ public class DbConstraint {
 	
 	public static final String TABLE_SAVING="tbl_saving";
 }
+
+/* 1 */

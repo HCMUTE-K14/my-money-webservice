@@ -9,8 +9,10 @@ import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
+import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.exception.ValidateUserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
+import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 
 @Component
 public class UserModel {
@@ -65,6 +67,19 @@ public class UserModel {
 			User user = this.mDataRepository.login(userCredential);
 			callback.onSuccess(user);
 		} catch (Exception e) {
+			callback.onFailure(e);
+		}
+	}
+	public void forgetPassword(String email,CallBack<String> callback){
+		try{
+			if(TextUtil.isEmpty(email)){
+				callback.onFailure(new UserException("Email cannot empty"));
+				return;
+			}
+			
+			mDataRepository.forgetPassword(email);
+			callback.onSuccess("");
+		}catch(Exception e){
 			callback.onFailure(e);
 		}
 	}

@@ -154,6 +154,7 @@ public class DataRepository implements DataSource.UserDataSource,
 	public boolean isApiKey(String userid, String token) {
 		return mUserService.isApiKey(userid, token);
 	}
+
 	//saving
 	@Override
 	public List<Saving> getSaving(String userid) {
@@ -188,6 +189,9 @@ public class DataRepository implements DataSource.UserDataSource,
 	@Override
 	public void takeOut(String idWallet, String idSaving, String money) {
 		savingService.takeOut(idWallet, idSaving, money);
-		
+	}
+	@Override
+	public void forgetPassword(String email) {
+		mUserService.forgetPassword(email);
 	}
 }

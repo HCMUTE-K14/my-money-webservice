@@ -40,7 +40,6 @@ public class ResourceController {
 		BufferedImage image=null;
 		
 		String path=Constraint.LOCATION_STORE_IMAGE+userid+"/"+imageId;
-		System.out.println(path);
 		try {
 			File file=new File(path+".png");
 			if(!file.exists()){

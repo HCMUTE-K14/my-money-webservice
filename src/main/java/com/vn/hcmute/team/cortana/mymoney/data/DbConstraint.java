@@ -20,6 +20,8 @@ public class DbConstraint {
 	public static final String TABLE_PERSON="tbl_person";
 
 	public static final String TABLE_IMAGE="tbl_image";
+	
+	public static final String TABLE_TRANSACTION="tbl_transaction";
 
 }
 

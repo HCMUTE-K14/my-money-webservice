@@ -2,6 +2,7 @@ package com.vn.hcmute.team.cortana.mymoney.controller;
 
 import java.util.List;
 
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -18,6 +19,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.bean.Person;
 import com.vn.hcmute.team.cortana.mymoney.model.PersonModel;
 
+@SuppressWarnings("unchecked")
 @Component
 @Path("person")
 public class PersonController {

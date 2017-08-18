@@ -12,6 +12,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Person;
 import com.vn.hcmute.team.cortana.mymoney.bean.Image;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
+import com.vn.hcmute.team.cortana.mymoney.bean.Transaction;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
@@ -87,5 +88,28 @@ public class DataSource {
 		
 		Image getImage(String userid,String imageId);
 
+	}
+	public interface TransactionDataSource{
+		List<Transaction> getAllTransaction(String userid);
+		
+		Transaction  getTransactionById(String transactionId,String userid);
+		
+		List<Transaction> getTransactionByType(int type,String userid); //cho vay, chi tieu, thu nhap
+		
+		List<Transaction> getTransactionByTime(String startDate,String endDate,String userid);
+
+		List<Transaction> getTransactionByCategory(String categoryId,String userid);
+		
+		List<Transaction> getTransactionByType(int type,String userid,String walletId); //cho vay, chi tieu, thu nhap
+		
+		List<Transaction> getTransactionByTime(String startDate,String endDate,String userid,String walletId);
+
+		List<Transaction> getTransactionByCategory(String categoryId,String userid,String walletId);
+		
+		void addTransaction(Transaction transaction);
+		
+		void updateTransaction(Transaction transaction);
+		
+		void removeTransaction(String transactionId,String userid);
 	}
 }

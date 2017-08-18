@@ -17,6 +17,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Person;
 import com.vn.hcmute.team.cortana.mymoney.bean.Image;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
+import com.vn.hcmute.team.cortana.mymoney.bean.Transaction;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
@@ -29,15 +30,15 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.person.PersonService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.image.ImageService;
 
 import com.vn.hcmute.team.cortana.mymoney.data.service.saving.SavingService;
+import com.vn.hcmute.team.cortana.mymoney.data.service.transaction.TransactionService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.user.UserService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 
 @Repository
 
-public class DataRepository implements DataSource.UserDataSource,
-		DataSource.CurrenciesDataSource, DataSource.EventDataSource, 
-		DataSource.CategorySource,DataSource.WalletDataSource,
-		DataSource.SavingDataSource, DataSource.PersonDataSource,DataSource.ImageDataSource{
+public class DataRepository implements DataSource.UserDataSource, DataSource.CurrenciesDataSource,
+		DataSource.EventDataSource, DataSource.CategorySource, DataSource.WalletDataSource, DataSource.SavingDataSource,
+		DataSource.PersonDataSource, DataSource.ImageDataSource, DataSource.TransactionDataSource {
 
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
 
@@ -55,8 +56,10 @@ public class DataRepository implements DataSource.UserDataSource,
 	private SavingService savingService;
 	@Autowired
 	private PersonService personService;
-  @Autowired
+	@Autowired
 	private ImageService mImageService;
+	@Autowired
+	private TransactionService mTransactionService;
 
 	public DataRepository() {
 
@@ -171,41 +174,42 @@ public class DataRepository implements DataSource.UserDataSource,
 		return mUserService.isApiKey(userid, token);
 	}
 
-	//saving
+	// saving
 	@Override
 	public List<Saving> getSaving(String userid) {
-		
+
 		return savingService.getSaving(userid);
 	}
 
 	@Override
 	public void createSaving(Saving saving) {
 		savingService.createSaving(saving);
-		
+
 	}
 
 	@Override
 	public void updateSaving(Saving saving) {
 		savingService.updateSaving(saving);
-		
+
 	}
 
 	@Override
 	public void deleteSaving(String idSaving) {
 		savingService.deleteSaving(idSaving);
-		
+
 	}
 
 	@Override
 	public void takeIn(String idWallet, String idSaving, String money) {
 		savingService.takeIn(idWallet, idSaving, money);
-		
+
 	}
 
 	@Override
 	public void takeOut(String idWallet, String idSaving, String money) {
 		savingService.takeOut(idWallet, idSaving, money);
 	}
+
 	@Override
 	public void forgetPassword(String email) {
 		mUserService.forgetPassword(email);
@@ -214,16 +218,16 @@ public class DataRepository implements DataSource.UserDataSource,
 	@Override
 	public void changePassword(String userid, String oldpassword, String newpassword) {
 		mUserService.changePassword(userid, oldpassword, newpassword);
-		
+
 	}
 
 	@Override
 	public void changeProfile(User user) {
 		mUserService.changeProfile(user);
-		
+
 	}
 
-	//person
+	// person
 	@Override
 	public List<Person> getPersons(String userid) {
 		return personService.getPersons(userid);
@@ -232,7 +236,7 @@ public class DataRepository implements DataSource.UserDataSource,
 	@Override
 	public void addPerson(Person person) {
 		personService.addPerson(person);
-		
+
 	}
 
 	@Override
@@ -240,10 +244,11 @@ public class DataRepository implements DataSource.UserDataSource,
 		personService.removePerson(personid);
 
 	}
+
 	@Override
 	public void initDefaultCategory(String userid) {
 		mCategoryService.initDefaultCategory(userid);
-		
+
 	}
 
 	@Override
@@ -253,7 +258,7 @@ public class DataRepository implements DataSource.UserDataSource,
 
 	@Override
 	public void uploadImage(String userid, String token, String detail, InputStream input) {
-		 mImageService.upload(userid, token, detail, input);
+		mImageService.upload(userid, token, detail, input);
 	}
 
 	@Override
@@ -265,5 +270,62 @@ public class DataRepository implements DataSource.UserDataSource,
 	public Image getImage(String userid, String imageId) {
 		return mImageService.get(userid, imageId);
 
+	}
+
+	@Override
+	public List<Transaction> getAllTransaction(String userid) {
+		return mTransactionService.getAllTransaction(userid);
+	}
+
+	@Override
+	public Transaction getTransactionById(String transactionId,String userid) {
+		return mTransactionService.getTransactionById(transactionId,userid);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByType(int type, String userid) {
+		return mTransactionService.getTransactionByType(type, userid);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByTime(String startDate, String endDate, String userid) {
+		return mTransactionService.getTransactionByTime(startDate, endDate, userid);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByCategory(String categoryId, String userid) {
+		return mTransactionService.getTransactionByCategory(categoryId, userid);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByType(int type, String userid, String walletId) {
+		return mTransactionService.getTransactionByType(type, userid, walletId);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByTime(String startDate, String endDate, String userid, String walletId) {
+		return mTransactionService.getTransactionByTime(startDate, endDate, userid, walletId);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByCategory(String categoryId, String userid, String walletId) {
+		return mTransactionService.getTransactionByCategory(categoryId, userid, walletId);
+	}
+
+	@Override
+	public void addTransaction(Transaction transaction) {
+		
+		mTransactionService.addTransaction(transaction);
+
+	}
+
+	@Override
+	public void updateTransaction(Transaction transaction) {
+		mTransactionService.updateTransaction(transaction);
+	}
+
+	@Override
+	public void removeTransaction(String transactionId, String userid) {
+		mTransactionService.removeTransaction(transactionId, userid);
 	}
 }

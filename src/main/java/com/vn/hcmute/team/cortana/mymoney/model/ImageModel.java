@@ -34,7 +34,6 @@ public class ImageModel {
 			}
 			List<Image> result = mDataRepository.getAllImage(userid);
 			if (result != null) {
-				System.out.println("RESULT IMAGE:"+result.size());
 				callback.onSuccess(result);
 				return;
 			}

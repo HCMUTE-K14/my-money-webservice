@@ -17,6 +17,7 @@ import com.vn.hcmute.team.cortana.mymoney.controller.PersonController;
 import com.vn.hcmute.team.cortana.mymoney.controller.ResourceController;
 
 import com.vn.hcmute.team.cortana.mymoney.controller.SavingController;
+import com.vn.hcmute.team.cortana.mymoney.controller.TransactionController;
 import com.vn.hcmute.team.cortana.mymoney.controller.UserController;
 import com.vn.hcmute.team.cortana.mymoney.controller.WalletController;
 
@@ -41,5 +42,6 @@ public class JerseyConfig extends ResourceConfig {
 		register(ImageController.class);
 		register(MultiPartFeature.class);
 		register(ResourceController.class);
+		register(TransactionController.class);
 	}
 }

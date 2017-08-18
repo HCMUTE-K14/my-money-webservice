@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.Person;
-import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
 import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;

@@ -6,7 +6,11 @@ import java.util.List;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
+
+import com.vn.hcmute.team.cortana.mymoney.bean.Person;
+
 import com.vn.hcmute.team.cortana.mymoney.bean.Image;
+
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
@@ -68,6 +72,12 @@ public class DataSource {
 		void takeIn(String idWallet, String idSaving,String money);
 		void takeOut(String idWallet, String idSaving,String money);
 	}
+
+	public interface PersonDataSource{
+		List<Person> getPersons(String userid);
+		void addPerson(Person person);
+		void removePerson(String personid);
+
 	public interface ImageDataSource{
 		List<Image> getAllImage(String userid);
 		
@@ -76,5 +86,6 @@ public class DataSource {
 		void removeImage(String userid,String imageId);
 		
 		Image getImage(String userid,String imageId);
+
 	}
 }

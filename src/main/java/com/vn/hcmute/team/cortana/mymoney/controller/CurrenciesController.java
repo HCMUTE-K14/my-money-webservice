@@ -23,19 +23,7 @@ public class CurrenciesController {
 	@Autowired
 	CurrenciesModel currenciesModel;
 	 
-	
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public String home() {
-		JsonResponse<String> response=new JsonResponse<String>(String.class);
-		
-		response.setStatus("success");
-		response.setMessage("ok");
-		response.setData("currencies");
-		
-		return response.toString();
-	}
+
 	@SuppressWarnings("unchecked")
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON+ UTF8)

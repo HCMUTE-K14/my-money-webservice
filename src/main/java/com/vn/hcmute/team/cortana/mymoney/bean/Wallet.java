@@ -13,6 +13,13 @@ public class Wallet {
 	private String walletName;
 	private String money;
 	private String currencyUnit;
+	private String walletImage;
+	public String getWalletImage() {
+		return walletImage;
+	}
+	public void setWalletImage(String walletImage) {
+		this.walletImage = walletImage;
+	}
 	public Wallet() {
 		this.walletid="";
 		this.userid="";

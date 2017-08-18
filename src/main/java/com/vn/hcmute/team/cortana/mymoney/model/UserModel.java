@@ -20,29 +20,29 @@ public class UserModel {
 
 	private Pattern mPatternUsername;
 	private Pattern mPatternPassword;
+	private Pattern mPatternEmail;
 	/**
 	 * Username Pattern & Password Pattern Lenght: 4-15 char Contrainst: a-z,
 	 * A-Z,0-9
 	 */
 	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]{4,15}$";
 	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9]{4,15}$";
+	private static final String EMAIL_PATTERN="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+
 
 	@Autowired
 	public UserModel(DataRepository dataRepository) {
 		mPatternUsername = Pattern.compile(USERNAME_PATTERN);
 		mPatternPassword = Pattern.compile(PASSWORD_PATTERN);
-
+		mPatternEmail=Pattern.compile(EMAIL_PATTERN);
+		
 		this.mDataRepository = dataRepository;
 	}
 
 	public void register(User user, CallBack<String> callback) {
-		
-		if (validateUser(user)==false) {
-			callback.onFailure(new ValidateUserException("Username,password and email must be at least 4 character"));
-			return;
-		}
-		
 		try {
+			validateUser(user);
+			
 			user.setUserid(SecurityUtil.generateUUID());
 
 			user.setPassword(SecurityUtil.generateMD5(user.getPassword()));
@@ -120,26 +120,28 @@ public class UserModel {
 		}
 	}
 
-	private boolean validateUser(User user) {
+	private void validateUser(User user) throws ValidateUserException{
 		String username = user.getUsername();
 		String password = user.getPassword();
-		String email =user.getEmail();
-	
+		String email = user.getEmail();
 
 		if (username == null || password == null || email == null) {
-			return false;
+			throw new ValidateUserException("Userid,token,oldpassword or newpassword is empty");
 		}
 
 		if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
-			return false;
+			throw new ValidateUserException("Userid,token,oldpassword or newpassword is empty");
+		}
+		
+		if(!mPatternEmail.matcher(email).matches()){
+			throw new ValidateUserException("Wrong mail format");
 		}
 
 		if (!mPatternUsername.matcher(user.getUsername()).matches()) {
-			return false;
+			throw new ValidateUserException("Username,password must be at least 4 character");
 		}
 		if (!mPatternPassword.matcher(user.getPassword()).matches()) {
-			return false;
+			throw new ValidateUserException("Username,password must be at least 4 character");
 		}
-		return true;
 	}
 }

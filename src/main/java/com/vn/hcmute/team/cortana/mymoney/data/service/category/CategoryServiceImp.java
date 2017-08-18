@@ -109,6 +109,7 @@ public class CategoryServiceImp implements CategoryService {
 	public List<Category> getDefaultCategory(String userid) {
 		try{
 			List<Category> result=mMongoTemplate.find(query(where("categoryType").is(Category.TYPE_DEFAULT).and("userId").is(userid)), Category.class,DbConstraint.TABLE_CATEGORY);
+			System.out.println(result.get(0));
 			if(result==null || result.isEmpty()){
 				LOG.info("Cannot get category default");
 				throw new CategoryException("Cannot get category default");

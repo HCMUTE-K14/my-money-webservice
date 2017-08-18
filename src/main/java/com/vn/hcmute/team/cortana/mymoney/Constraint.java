@@ -10,4 +10,5 @@ public class Constraint {
 	public static final String LOCATION_STORE_IMAGE = LOCATION_DATA_LOCAL + "img/";
 
 	public static final String PATH_GET_IMAGE = "resource/img?id=%s&uid=%s&token=%s";
+	
 }

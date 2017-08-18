@@ -37,7 +37,6 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 public class DataRepository implements DataSource.UserDataSource,
 		DataSource.CurrenciesDataSource, DataSource.EventDataSource, 
 		DataSource.CategorySource,DataSource.WalletDataSource,
-
 		DataSource.SavingDataSource, DataSource.PersonDataSource,DataSource.ImageDataSource{
 
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
@@ -240,7 +239,7 @@ public class DataRepository implements DataSource.UserDataSource,
 	public void removePerson(String personid) {
 		personService.removePerson(personid);
 
-
+	}
 	@Override
 	public void initDefaultCategory(String userid) {
 		mCategoryService.initDefaultCategory(userid);

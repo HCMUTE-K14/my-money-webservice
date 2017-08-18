@@ -77,7 +77,7 @@ public class DataSource {
 		List<Person> getPersons(String userid);
 		void addPerson(Person person);
 		void removePerson(String personid);
-
+	}
 	public interface ImageDataSource{
 		List<Image> getAllImage(String userid);
 		

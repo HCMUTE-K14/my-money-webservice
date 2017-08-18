@@ -7,6 +7,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.springframework.stereotype.Component;
 
+import com.vn.hcmute.team.cortana.mymoney.controller.BudgetController;
 import com.vn.hcmute.team.cortana.mymoney.controller.CategoryController;
 import com.vn.hcmute.team.cortana.mymoney.controller.ConvertController;
 import com.vn.hcmute.team.cortana.mymoney.controller.CurrenciesController;
@@ -43,5 +44,6 @@ public class JerseyConfig extends ResourceConfig {
 		register(MultiPartFeature.class);
 		register(ResourceController.class);
 		register(TransactionController.class);
+		register(BudgetController.class);
 	}
 }

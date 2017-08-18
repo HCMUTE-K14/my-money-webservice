@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
-import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
@@ -170,7 +169,6 @@ public class SavingServiceImp implements SavingService{
 			
 			double moneyWallet=Double.parseDouble(walletFrom.getMoney());
 			double moneySaving=Double.parseDouble(saving.getCurrentMoney());
-			double moneyGoalMoney=Double.parseDouble(saving.getGoalMoney());
 			double moneyTakeOut=Double.parseDouble(money);
 			
 			if(moneyTakeOut>moneySaving)

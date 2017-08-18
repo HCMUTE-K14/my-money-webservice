@@ -20,29 +20,29 @@ public class UserModel {
 
 	private Pattern mPatternUsername;
 	private Pattern mPatternPassword;
+	private Pattern mPatternEmail;
 	/**
 	 * Username Pattern & Password Pattern Lenght: 4-15 char Contrainst: a-z,
 	 * A-Z,0-9
 	 */
 	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]{4,15}$";
 	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9]{4,15}$";
+	private static final String EMAIL_PATTERN="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+
 
 	@Autowired
 	public UserModel(DataRepository dataRepository) {
 		mPatternUsername = Pattern.compile(USERNAME_PATTERN);
 		mPatternPassword = Pattern.compile(PASSWORD_PATTERN);
-
+		mPatternEmail=Pattern.compile(EMAIL_PATTERN);
+		
 		this.mDataRepository = dataRepository;
 	}
 
 	public void register(User user, CallBack<String> callback) {
-		
-		if (validateUser(user)==false) {
-			callback.onFailure(new ValidateUserException("Username and password  must be at least 4 character"));
-			return;
-		}
-		
 		try {
+			validateUser(user);
+			
 			user.setUserid(SecurityUtil.generateUUID());
 
 			user.setPassword(SecurityUtil.generateMD5(user.getPassword()));
@@ -51,6 +51,7 @@ public class UserModel {
 			user.setActive(true);
 
 			this.mDataRepository.register(user);
+			this.mDataRepository.initDefaultCategory(user.getUserid());
 
 			callback.onSuccess("ok");
 		} catch (Exception e) {
@@ -99,6 +100,9 @@ public class UserModel {
 			callBack.onFailure(e);
 		}
 	}
+	public boolean isApiKey(String userid,String token){
+		return mDataRepository.isApiKey(userid, token);
+	}
 	public void changeProfile(String userid,String token,User user,CallBack<String> callBack){
 		try{
 			if(TextUtil.isEmpty(userid)||TextUtil.isEmpty(token)){
@@ -116,24 +120,28 @@ public class UserModel {
 		}
 	}
 
-	private boolean validateUser(User user) {
+	private void validateUser(User user) throws ValidateUserException{
 		String username = user.getUsername();
 		String password = user.getPassword();
+		String email = user.getEmail();
 
-		if (username == null || password == null) {
-			return false;
+		if (username == null || password == null || email == null) {
+			throw new ValidateUserException("Userid,token,oldpassword or newpassword is empty");
 		}
 
-		if (username.isEmpty() || password.isEmpty()) {
-			return false;
+		if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+			throw new ValidateUserException("Userid,token,oldpassword or newpassword is empty");
+		}
+		
+		if(!mPatternEmail.matcher(email).matches()){
+			throw new ValidateUserException("Wrong mail format");
 		}
 
 		if (!mPatternUsername.matcher(user.getUsername()).matches()) {
-			return false;
+			throw new ValidateUserException("Username,password must be at least 4 character");
 		}
 		if (!mPatternPassword.matcher(user.getPassword()).matches()) {
-			return false;
+			throw new ValidateUserException("Username,password must be at least 4 character");
 		}
-		return true;
 	}
 }

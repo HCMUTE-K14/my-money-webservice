@@ -15,6 +15,7 @@ public class DbConstraint {
 	public static final String TABLE_CATEGORY="tbl_category";
 	
 	public static final String TABLE_SAVING="tbl_saving";
+	public static final String TABLE_IMAGE="tbl_image";
 }
 
 /* 1 */

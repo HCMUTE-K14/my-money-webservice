@@ -34,17 +34,12 @@ public class CategoryController {
 
 	}
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Category home() {
-		return new Category();
-	}
 
 	@SuppressWarnings("unchecked")
 	@Path("get")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String get(@DefaultValue("default") @QueryParam("type") String type, @QueryParam("uid") String userId,
+	public String get(@DefaultValue("custom") @QueryParam("type") String type, @QueryParam("uid") String userId,
 			@QueryParam("token") String token) {
 
 		Class<List<Category>> clazz = (Class<List<Category>>) (Object) List.class;
@@ -69,7 +64,7 @@ public class CategoryController {
 
 			}
 		};
-
+		System.out.println("CONTROLLER");
 		if (type.equals(Constraint.CATEGORY_TYPE_CUSTOM)) {
 			mCategoryModel.getCategoryByUserId(userId, token, callback);
 		} else {

@@ -19,6 +19,7 @@ import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.AllowToken;
 import com.vn.hcmute.team.cortana.mymoney.utils.EmailUtil;
 import com.vn.hcmute.team.cortana.mymoney.utils.SecurityUtil;
+import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 
 @Component
 public class UserServiceImp implements UserService {
@@ -35,7 +36,10 @@ public class UserServiceImp implements UserService {
 	public void register(User user) {
 		LOG.info("Check user exists...");
 		if (isUserExists(user.getUsername())) {
-			throw new UserException("User exists");
+			throw new UserException("Username exists");
+		}
+		if(isEmailExists(user.getEmail())){
+			throw new UserException("Email exists");
 		}
 		LOG.info("Insert document...");
 		try {
@@ -60,16 +64,23 @@ public class UserServiceImp implements UserService {
 	@Override
 	public boolean isUserExists(String username) {
 		try {
-			User user = mMongoTemplate.findOne(query(where("username").is(username)), User.class,
-					DbConstraint.TABLE_USER);
-
+			User user = mMongoTemplate.findOne(query(where("username").is(username)), User.class, DbConstraint.TABLE_USER);
+			 
 			return user != null ? true : false;
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-
 	}
-
+	public boolean isEmailExists(String email){
+		try {
+			User user = mMongoTemplate.findOne(query(where("email").is(email)), User.class, DbConstraint.TABLE_USER);
+			 
+			return user != null ? true : false;
+		} catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+	
+	}
 	@Override
 	public User login(UserCredential userCredential) {
 		String hashPassword = SecurityUtil.generateMD5(userCredential.getPassword());
@@ -103,6 +114,10 @@ public class UserServiceImp implements UserService {
 			String realApiKey = mMongoTemplate
 					.findOne(query(where("userid").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
 
+			if (TextUtil.isEmpty(realApiKey)) {
+				throw new UserException("Cannot found api key");
+			}
+
 			if (!fakeApikey.equals(realApiKey)) {
 				return false;
 			}
@@ -110,7 +125,7 @@ public class UserServiceImp implements UserService {
 			AllowToken.getInstance().putToken(userid, token);
 			return true;
 
-		} catch (MongoException e) {
+		} catch (Exception e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 
@@ -127,10 +142,10 @@ public class UserServiceImp implements UserService {
 			String newPassword = SecurityUtil.generatePassword();
 			user.setPassword(SecurityUtil.generateMD5(newPassword));
 			StringBuilder messageEmail = new StringBuilder();
-			
+
 			messageEmail.append("<h1>").append("Your Password :").append(newPassword).append("\n\n")
 					.append("Please change your password").append("</h1>");
-			
+
 			EmailUtil.getInstance().sendMail(email, "New password", messageEmail.toString());
 			mMongoTemplate.save(user, DbConstraint.TABLE_USER);
 		} catch (MongoException e) {
@@ -140,34 +155,36 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public void changePassword(String userid,String oldpassword,String newpassword) {
-		try{
+	public void changePassword(String userid, String oldpassword, String newpassword) {
+		try {
 			LOG.info("Change password");
-			String hashOldPassword=SecurityUtil.generateMD5(oldpassword);
-			User _user=mMongoTemplate.findOne(query(where("userid").is(userid).and("password").is(hashOldPassword)), User.class,DbConstraint.TABLE_USER);
-			if(_user==null){
+			String hashOldPassword = SecurityUtil.generateMD5(oldpassword);
+			User _user = mMongoTemplate.findOne(query(where("userid").is(userid).and("password").is(hashOldPassword)),
+					User.class, DbConstraint.TABLE_USER);
+			if (_user == null) {
 				throw new UserException("User not exist");
 			}
-			Update update=new Update();
+			Update update = new Update();
 			update.set("password", SecurityUtil.generateMD5(newpassword));
-			
-			mMongoTemplate.updateFirst(query(where("userid").is(userid)), update, User.class,DbConstraint.TABLE_USER);
-		}catch(MongoException e){
+
+			mMongoTemplate.updateFirst(query(where("userid").is(userid)), update, User.class, DbConstraint.TABLE_USER);
+		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}
 
 	@Override
 	public void changeProfile(User user) {
-		try{
+		try {
 			LOG.info("Change Profile");
-			
-			Update update=new Update();
+
+			Update update = new Update();
 			update.set("name", user.getName());
 			update.set("active", user.isActive());
-			
-			mMongoTemplate.updateFirst(query(where("userid").is(user.getUserid())), update, User.class,DbConstraint.TABLE_USER);
-		}catch(MongoException e){
+
+			mMongoTemplate.updateFirst(query(where("userid").is(user.getUserid())), update, User.class,
+					DbConstraint.TABLE_USER);
+		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}

@@ -18,6 +18,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.model.WalletModel;
 
+@SuppressWarnings("unchecked")
 @Component
 @Path("wallet")
 public class WalletController {

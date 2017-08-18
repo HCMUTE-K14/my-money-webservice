@@ -109,6 +109,7 @@ public class CategoryServiceImp implements CategoryService {
 	public List<Category> getDefaultCategory(String userid) {
 		try{
 			List<Category> result=mMongoTemplate.find(query(where("categoryType").is(Category.TYPE_DEFAULT).and("userId").is(userid)), Category.class,DbConstraint.TABLE_CATEGORY);
+			System.out.println(result.get(0));
 			if(result==null || result.isEmpty()){
 				LOG.info("Cannot get category default");
 				throw new CategoryException("Cannot get category default");
@@ -139,7 +140,7 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public List<Category> initDefaultCategory(String userid) {
+	public void initDefaultCategory(String userid) {
 		JsonReader jsonReader=null;
 		try {
 			jsonReader = new JsonReader(new InputStreamReader(ResourceUtil.getDefaultCategory(), "UTF-8"));
@@ -150,7 +151,9 @@ public class CategoryServiceImp implements CategoryService {
 			for (Category category : listcategory) {
 				category.setUserId(userid);
 			}
-			return Arrays.asList(listcategory);
+			List<Category> list= Arrays.asList(listcategory);
+			mMongoTemplate.insert(list, DbConstraint.TABLE_CATEGORY);
+			
 		} catch (UnsupportedEncodingException e) {
 			throw new CategoryException("Cannot get default category");
 		}

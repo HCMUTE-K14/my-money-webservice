@@ -1,14 +1,17 @@
 package com.vn.hcmute.team.cortana.mymoney.data;
 
+import java.io.InputStream;
 import java.util.List;
 
-
+import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
-import com.vn.hcmute.team.cortana.mymoney.bean.Person;
-import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
-import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 
+import com.vn.hcmute.team.cortana.mymoney.bean.Person;
+
+import com.vn.hcmute.team.cortana.mymoney.bean.Image;
+
+import com.vn.hcmute.team.cortana.mymoney.bean.Saving;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
@@ -41,6 +44,9 @@ public class DataSource {
 		
 		void removeCategory(Category category);
 		
+		void initDefaultCategory(String userid);
+ 
+		
 	}
 	public interface WalletDataSource{
 		List<Wallet> getInfoWallet(String userid);
@@ -66,9 +72,20 @@ public class DataSource {
 		void takeIn(String idWallet, String idSaving,String money);
 		void takeOut(String idWallet, String idSaving,String money);
 	}
+
 	public interface PersonDataSource{
 		List<Person> getPersons(String userid);
 		void addPerson(Person person);
 		void removePerson(String personid);
+
+	public interface ImageDataSource{
+		List<Image> getAllImage(String userid);
+		
+		void uploadImage(String userid,String token,String detail,InputStream input);
+		
+		void removeImage(String userid,String imageId);
+		
+		Image getImage(String userid,String imageId);
+
 	}
 }

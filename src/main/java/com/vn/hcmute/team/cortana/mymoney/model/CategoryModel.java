@@ -33,6 +33,7 @@ public class CategoryModel {
 				return;
 			}
 			List<Category> result = mDataRepository.getDefaultCategory(userid);
+			System.out.println(result.get(0));
 			if (result != null) {
 				callback.onSuccess(result);
 			}
@@ -52,6 +53,8 @@ public class CategoryModel {
 				return;
 			}
 			List<Category> result = mDataRepository.getCategoryByUserId(userid);
+			System.out.println(result.get(0));
+
 			if (result != null) {
 				callback.onSuccess(result);
 			}

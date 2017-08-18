@@ -18,5 +18,5 @@ public interface CategoryService {
 	
 	boolean isExistsCategory(Category category)throws RuntimeException;
 	
-	List<Category> initDefaultCategory(String userid) throws RuntimeException;
+	void initDefaultCategory(String userid) throws RuntimeException;
 }

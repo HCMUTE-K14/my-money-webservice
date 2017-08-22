@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.vn.hcmute.team.cortana.mymoney.bean.Budget;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
@@ -21,6 +22,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Transaction;
 import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
+import com.vn.hcmute.team.cortana.mymoney.data.service.budget.BudgetService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.category.CategoryService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.currencies.CurrenciesService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.event.EventService;
@@ -38,7 +40,7 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 
 public class DataRepository implements DataSource.UserDataSource, DataSource.CurrenciesDataSource,
 		DataSource.EventDataSource, DataSource.CategorySource, DataSource.WalletDataSource, DataSource.SavingDataSource,
-		DataSource.PersonDataSource, DataSource.ImageDataSource, DataSource.TransactionDataSource {
+		DataSource.PersonDataSource, DataSource.ImageDataSource, DataSource.TransactionDataSource , DataSource.BudgetDataSource{
 
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
 
@@ -60,6 +62,8 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	private ImageService mImageService;
 	@Autowired
 	private TransactionService mTransactionService;
+	@Autowired
+	private BudgetService mBudgetService;
 
 	public DataRepository() {
 
@@ -327,5 +331,28 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	@Override
 	public void removeTransaction(String transactionId, String userid) {
 		mTransactionService.removeTransaction(transactionId, userid);
+	}
+	//budget
+	@Override
+	public List<Budget> getBudget(String userid) {
+		return mBudgetService.getBudget(userid);
+	}
+
+	@Override
+	public void createBudget(Budget budget) {
+		mBudgetService.createBudget(budget);
+		
+	}
+
+	@Override
+	public void updateBudget(Budget budget) {
+		mBudgetService.updateBudget(budget);
+		
+	}
+
+	@Override
+	public void removeBudget(String budgetId) {
+		mBudgetService.removeBudget(budgetId);
+		
 	}
 }

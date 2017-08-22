@@ -3,6 +3,7 @@ package com.vn.hcmute.team.cortana.mymoney.data;
 import java.io.InputStream;
 import java.util.List;
 
+import com.vn.hcmute.team.cortana.mymoney.bean.Budget;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
@@ -111,5 +112,11 @@ public class DataSource {
 		void updateTransaction(Transaction transaction);
 		
 		void removeTransaction(String transactionId,String userid);
+	}
+	public interface BudgetDataSource{
+		List<Budget> getBudget(String userid);
+		void createBudget(Budget budget);
+		void updateBudget(Budget budget);
+		void removeBudget(String budgetId);
 	}
 }

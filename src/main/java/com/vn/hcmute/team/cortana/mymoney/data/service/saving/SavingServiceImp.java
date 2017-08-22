@@ -2,6 +2,7 @@ package com.vn.hcmute.team.cortana.mymoney.data.service.saving;
 
 import java.util.List;
 
+import org.glassfish.hk2.runlevel.RunLevelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -91,6 +92,9 @@ public class SavingServiceImp implements SavingService{
 		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("savingid").is(idSaving));
+			Saving saving=mongoTemplate.findOne(query, Saving.class,DbConstraint.TABLE_SAVING);
+			if(saving==null)
+				throw new RuntimeException("Null Saving!");
 			mongoTemplate.remove(query,Saving.class,DbConstraint.TABLE_SAVING);
 			
 		}catch (MongoException e) {

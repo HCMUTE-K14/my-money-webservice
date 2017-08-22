@@ -45,6 +45,9 @@ public class PersonServiceImp implements  PersonService{
 			
 			Query query = new Query();
 			query.addCriteria(Criteria.where("personid").is(personid));
+			Person person=mongoTemplate.findOne(query, Person.class,DbConstraint.TABLE_PERSON);
+			if(person==null)
+				throw new RuntimeException("Null Person!");
 			mongoTemplate.remove(query, Person.class, DbConstraint.TABLE_PERSON);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");

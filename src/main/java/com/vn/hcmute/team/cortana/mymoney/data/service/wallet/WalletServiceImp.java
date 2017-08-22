@@ -58,6 +58,9 @@ public class WalletServiceImp implements WalletService{
 			LOG.info("Delete document...");
 			Query query = new Query();
 			query.addCriteria(Criteria.where("walletid").is(idwallet).and("userid").is(userid));
+			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
+			if(wallet2==null)
+				throw new RuntimeException("Null Wallet");
 			mongoTemplate.remove(query, Wallet.class, DbConstraint.TABLE_WALLET);
 			LOG.info("Delete successful...");
 		}catch (MongoException e) {

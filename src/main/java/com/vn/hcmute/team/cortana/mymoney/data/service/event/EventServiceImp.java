@@ -78,7 +78,9 @@ public class EventServiceImp implements EventService{
 		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("eventid").is(idEvent).and("userid").is(userid));
-			
+			Event event=mongoTemplate.findOne(query, Event.class,DbConstraint.TABLE_EVENT);
+			if(event==null)
+				throw new RuntimeException("Null Event!");
 			mongoTemplate.remove(query,Event.class,DbConstraint.TABLE_EVENT);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");

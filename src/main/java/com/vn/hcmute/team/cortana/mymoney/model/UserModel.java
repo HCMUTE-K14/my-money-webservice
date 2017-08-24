@@ -21,10 +21,7 @@ public class UserModel {
 	private Pattern mPatternUsername;
 	private Pattern mPatternPassword;
 	private Pattern mPatternEmail;
-	/**
-	 * Username Pattern & Password Pattern Lenght: 4-15 char Contrainst: a-z,
-	 * A-Z,0-9
-	 */
+
 	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]{4,15}$";
 	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9]{4,15}$";
 	private static final String EMAIL_PATTERN="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";

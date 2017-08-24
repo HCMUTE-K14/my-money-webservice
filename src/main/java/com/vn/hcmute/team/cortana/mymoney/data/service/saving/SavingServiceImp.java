@@ -2,7 +2,6 @@ package com.vn.hcmute.team.cortana.mymoney.data.service.saving;
 
 import java.util.List;
 
-import org.glassfish.hk2.runlevel.RunLevelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -19,8 +18,6 @@ import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 public class SavingServiceImp implements SavingService{
 	@Autowired
 	MongoTemplate mongoTemplate;
-	
-	
 	
 	@Override
 	public List<Saving> getSaving(String userid) {
@@ -41,8 +38,6 @@ public class SavingServiceImp implements SavingService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
-		
 	}
 
 	@Override
@@ -57,17 +52,6 @@ public class SavingServiceImp implements SavingService{
 				throw new RuntimeException("Null Saving!");
 			}
 			
-		/*	saving1.setName(saving.getName());
-			saving1.setGoalMoney(saving.getGoalMoney());
-			saving1.setStartMoney(saving.getStartMoney());
-			saving1.setDate(saving.getDate());
-			saving1.setIdWallet(saving.getIdWallet());
-			saving1.setIdCurrencies(saving.getIdCurrencies());
-			saving1.setStatus(saving.getStatus());
-		
-		
-			mongoTemplate.save(saving1,DbConstraint.TABLE_SAVING);*/
-			
 			Update update=new Update();
 			update.set("name", saving.getName());
 			update.set("goalMoney", saving.getGoalMoney());
@@ -78,13 +62,10 @@ public class SavingServiceImp implements SavingService{
 			update.set("idCurrencies", saving.getIdCurrencies());
 			update.set("status", saving.getStatus());
 			
-			
 			mongoTemplate.updateFirst(query, update, Saving.class,DbConstraint.TABLE_SAVING);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
-		
 	}
 
 	@Override
@@ -100,8 +81,6 @@ public class SavingServiceImp implements SavingService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
-		
 	}
 
 	@Override
@@ -135,11 +114,7 @@ public class SavingServiceImp implements SavingService{
 				moneyWallet=moneyWallet-moneyTakeIn;
 				moneySaving=moneySaving+moneyTakeIn;
 			}
-			
-			
-			/*walletFrom.setMoney(String.valueOf(moneyWallet));
-			saving.setCurrentMoney(String.valueOf(moneySaving));*/
-			
+
 			Update update=new Update();
 			update.set("money", String.valueOf(moneyWallet));
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
@@ -147,8 +122,7 @@ public class SavingServiceImp implements SavingService{
 			Update update2=new Update();
 			update2.set("currentMoney",String.valueOf( moneySaving));
 			mongoTemplate.updateFirst(query2, update2, Saving.class,DbConstraint.TABLE_SAVING);
-			/*mongoTemplate.save(walletFrom,DbConstraint.TABLE_WALLET);
-			mongoTemplate.save(saving,DbConstraint.TABLE_SAVING);*/
+
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
@@ -188,9 +162,7 @@ public class SavingServiceImp implements SavingService{
 			Update update2=new Update();
 			update2.set("currentMoney", String.valueOf(moneySaving));
 			mongoTemplate.updateFirst(query2, update2, Saving.class,DbConstraint.TABLE_SAVING);
-			
-			/*mongoTemplate.save(walletFrom,DbConstraint.TABLE_WALLET);
-			mongoTemplate.save(saving,DbConstraint.TABLE_SAVING);*/
+
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}

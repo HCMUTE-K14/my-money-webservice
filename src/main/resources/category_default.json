@@ -1,192 +1,194 @@
-[{
-		"categoryId":"1",
-		"categoryName":"Debt",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":0,
-		"userId":""
-},
-{
-		"categoryId":"2",
-		"categoryName":"Loan",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":0,
-		"userId":""
-},
-{
-		"categoryId":"3",
-		"categoryName":"Fees & Charges",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"4",
-		"categoryName":"Insurances",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"5",
-		"categoryName":"Family",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"6",
-		"categoryName":"Education",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"7",
-		"categoryName":"Investment",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"8",
-		"categoryName":"Health & Fitness",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"9",
-		"categoryName":"Gifts & Donations",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"10",
-		"categoryName":"Shopping",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"11",
-		"categoryName":"Friends & Lover",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"12",
-		"categoryName":"Bills & Utilities",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"13",
-		"categoryName":"Transportation",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"14",
-		"categoryName":"Food & Beverage",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"15",
-		"categoryName":"Others",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":1,
-		"userId":""
-},
-{
-		"categoryId":"16",
-		"categoryName":"Gifts",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":2,
-		"userId":""
-},
-{
-		"categoryId":"17",
-		"categoryName":"Selling",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":2,
-		"userId":""
-},
-{
-		"categoryId":"18",
-		"categoryName":"Interest Money",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":2,
-		"userId":""
-},
-{
-		"categoryId":"19",
-		"categoryName":"Salary",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":2,
-		"userId":""
-},
-{
-		"categoryId":"20",
-		"categoryName":"Award",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":2,
-		"userId":""
-},
-{
-		"categoryId":"21",
-		"categoryName":"Others",
-		"categoryType":0,
-		"categoryImage":"",
-		"categoryParent":0,
-		"transactionType":2,
-		"userId":""
-}]
+[
+	{
+		"categoryId": "1",
+		"categoryName": "Debt",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 0,
+		"userId": ""
+	},
+	{
+		"categoryId": "2",
+		"categoryName": "Loan",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 0,
+		"userId": ""
+	},
+	{
+		"categoryId": "3",
+		"categoryName": "Fees & Charges",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "4",
+		"categoryName": "Insurances",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "5",
+		"categoryName": "Family",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "6",
+		"categoryName": "Education",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "7",
+		"categoryName": "Investment",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "8",
+		"categoryName": "Health & Fitness",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "9",
+		"categoryName": "Gifts & Donations",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "10",
+		"categoryName": "Shopping",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "11",
+		"categoryName": "Friends & Lover",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "12",
+		"categoryName": "Bills & Utilities",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "13",
+		"categoryName": "Transportation",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "14",
+		"categoryName": "Food & Beverage",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "15",
+		"categoryName": "Others",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 1,
+		"userId": ""
+	},
+	{
+		"categoryId": "16",
+		"categoryName": "Gifts",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 2,
+		"userId": ""
+	},
+	{
+		"categoryId": "17",
+		"categoryName": "Selling",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 2,
+		"userId": ""
+	},
+	{
+		"categoryId": "18",
+		"categoryName": "Interest Money",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 2,
+		"userId": ""
+	},
+	{
+		"categoryId": "19",
+		"categoryName": "Salary",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 2,
+		"userId": ""
+	},
+	{
+		"categoryId": "20",
+		"categoryName": "Award",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 2,
+		"userId": ""
+	},
+	{
+		"categoryId": "21",
+		"categoryName": "Others",
+		"categoryType": 0,
+		"categoryImage": "",
+		"categoryParent": 0,
+		"transactionType": 2,
+		"userId": ""
+	}
+]
 
 
 

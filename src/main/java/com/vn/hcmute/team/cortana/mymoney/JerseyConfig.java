@@ -31,11 +31,9 @@ public class JerseyConfig extends ResourceConfig {
 
 		// Add class Controller here
 		register(UserController.class);
-
 		register(WalletController.class);
 		register(CurrenciesController.class);
 		register(EventController.class);
-
 		register(CategoryController.class);
 		register(SavingController.class);
 		register(ConvertController.class);

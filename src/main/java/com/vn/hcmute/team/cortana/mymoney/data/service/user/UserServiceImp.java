@@ -48,7 +48,6 @@ public class UserServiceImp implements UserService {
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-
 	}
 
 	@Override
@@ -189,5 +188,4 @@ public class UserServiceImp implements UserService {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}
-
 }

@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.Budget;
-import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
 import com.vn.hcmute.team.cortana.mymoney.model.BudgetModel;
 

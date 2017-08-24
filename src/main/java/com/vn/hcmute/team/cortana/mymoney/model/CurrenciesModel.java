@@ -19,7 +19,6 @@ public class CurrenciesModel {
 	}
 	public void getCurrencies(CallBack<List<Currencies>> resultCurrencies){
 		try{
-			
 			List<Currencies> list=dataRepository.getCurrencies();
 			resultCurrencies.onSuccess(list);
 		}catch(Exception e){

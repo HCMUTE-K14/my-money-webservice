@@ -17,7 +17,6 @@ public class PersonServiceImp implements  PersonService{
 	@Autowired
 	MongoTemplate mongoTemplate;
 	
-	
 	@Override
 	public List<Person> getPersons(String userid) {
 		try {

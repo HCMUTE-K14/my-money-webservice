@@ -66,9 +66,7 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	private BudgetService mBudgetService;
 
 	public DataRepository() {
-
 		LOG.info("DataRepository is created");
-
 	}
 
 	@Override
@@ -89,26 +87,22 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	// wallet
 	@Override
 	public List<Wallet> getInfoWallet(String userid) {
-
 		return mWalletService.getInfoWallet(userid);
 	}
 
 	@Override
 	public void createWallet(Wallet wallet) {
 		mWalletService.createWallet(wallet);
-
 	}
 
 	@Override
 	public void deleteWallet(String userid, String idwallet) {
 		mWalletService.deleteWallet(userid, idwallet);
-
 	}
 
 	@Override
 	public void updateWallet(Wallet wallet) {
 		mWalletService.updateWallet(wallet);
-
 	}
 
 	@Override
@@ -318,9 +312,7 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 
 	@Override
 	public void addTransaction(Transaction transaction) {
-		
 		mTransactionService.addTransaction(transaction);
-
 	}
 
 	@Override
@@ -341,18 +333,15 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	@Override
 	public void createBudget(Budget budget) {
 		mBudgetService.createBudget(budget);
-		
 	}
 
 	@Override
 	public void updateBudget(Budget budget) {
 		mBudgetService.updateBudget(budget);
-		
 	}
 
 	@Override
 	public void removeBudget(String budgetId) {
 		mBudgetService.removeBudget(budgetId);
-		
 	}
 }

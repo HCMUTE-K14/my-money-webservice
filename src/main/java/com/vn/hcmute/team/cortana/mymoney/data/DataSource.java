@@ -18,7 +18,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.User;
 import com.vn.hcmute.team.cortana.mymoney.bean.UserCredential;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 
-public class DataSource {
+public interface DataSource {
 	public interface UserDataSource {
 		void register(User user);
 
@@ -98,7 +98,11 @@ public class DataSource {
 		
 		void addPerson(Person person);
 		
+		void updatePerson(Person person);
+		
 		void removePerson(String personid);
+		
+		void synchPerson(List<Person> persons);
 	}
 	public interface ImageDataSource{
 		List<Image> getAllImage(String userid);
@@ -132,6 +136,8 @@ public class DataSource {
 		void updateTransaction(Transaction transaction);
 		
 		void removeTransaction(String transactionId,String userid);
+		
+		void syncTransaction(List<Transaction> transactions);
 	}
 	public interface BudgetDataSource{
 		List<Budget> getBudget(String userid);

@@ -197,4 +197,65 @@ public class TransactionServiceImp implements TransactionService {
 		}
 	}
 
+	@Override
+	public synchronized void syncTransaction(List<Transaction> transactions) {
+		Runnable doInBackGround=new Runnable() {
+			
+			@Override
+			public void run() {
+				try{
+					if(transactions == null || transactions.isEmpty()){
+						throw new RuntimeException("List of person is empty");
+					}
+					String userid=transactions.get(0).getUserId();
+					
+					List<Transaction> listTransactionRemote=getAllTransaction(userid);
+					
+					for(int i=0; i<listTransactionRemote.size();i++){
+						if(!transactions.contains(listTransactionRemote.get(i))){
+							removeTransaction(
+									listTransactionRemote.get(i).getTransactionId(),
+									userid);
+						}
+					}
+
+					Query query=new Query();
+					for(int i=0;i<transactions.size();i++){
+						query.addCriteria(Criteria
+								.where("transactionId")
+								.is(transactions.get(i).getTransactionId())
+								.and("userid")
+								.is(transactions.get(i).getUserId()));
+						
+						Transaction _trans=mMongoTemplate.findOne(query, Transaction.class,DbConstraint.TABLE_PERSON);
+						if(_trans == null){
+							mMongoTemplate.save(_trans,DbConstraint.TABLE_PERSON);
+							continue;
+						}
+						
+						Update update=new Update();
+						
+						update.set("amount", _trans.getAmount());
+						update.set("person", _trans.getPerson());
+						update.set("note", _trans.getNote());
+						update.set("image", _trans.getImage());
+						update.set("type", _trans.getType());
+						update.set("eventId", _trans.getEventId());
+						update.set("categoryId",_trans.getCategoryId());
+						update.set("latitude", _trans.getLatitude());
+						update.set("longtitude", _trans.getLongtitude());
+						update.set("walletId", _trans.getWalletId());
+						update.set("dateCreate", _trans.getDateCreate());
+						update.set("dateEnd", _trans.getDateEnd());
+					
+						mMongoTemplate.updateFirst(query, update,Transaction.class,DbConstraint.TABLE_PERSON);
+					}
+				
+				}catch(MongoException e){
+					throw new DatabaseException("Something wrong ! Please try later");
+				}		
+			}
+		};
+		doInBackGround.run();
+	}
 }

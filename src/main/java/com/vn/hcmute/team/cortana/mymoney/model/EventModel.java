@@ -78,7 +78,7 @@ DataRepository dataRepository;
 	public void deleteEvent(String userid, String token, String idEvent, CallBack<String> callBack) {
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
-				callBack.onFailure(new Throwable("Fail get Currencies!"));
+				callBack.onFailure(new Throwable("Fail get event!"));
 				return;
 			}
 			if (!dataRepository.isApiKey(userid, token)) {
@@ -88,7 +88,7 @@ DataRepository dataRepository;
 			dataRepository.deleteEvent(userid, idEvent);
 			callBack.onSuccess("Success update event");
 		}catch(Exception e){
-			callBack.onFailure(new Throwable("Fail get Currencies!"));
+			callBack.onFailure(new Throwable("Fail get event!"));
 		}
 	}
 }

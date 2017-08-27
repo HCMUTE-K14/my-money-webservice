@@ -129,8 +129,11 @@ public class SavingServiceImp implements SavingService{
 				throw new RuntimeException("Over money take in!");
 			
 			if(moneyTakeIn+moneySaving>moneyGoalMoney) {
+				if(moneySaving==moneyGoalMoney)
+					throw new RuntimeException("Full saving!");
+				moneyWallet=moneyWallet-moneyTakeIn+(moneyTakeIn-(moneyGoalMoney-moneySaving));
 				moneySaving=moneyGoalMoney;
-				moneyWallet=moneyWallet-moneyTakeIn+((moneyTakeIn+moneySaving)-moneyGoalMoney);
+				
 			}else {
 				moneyWallet=moneyWallet-moneyTakeIn;
 				moneySaving=moneySaving+moneyTakeIn;

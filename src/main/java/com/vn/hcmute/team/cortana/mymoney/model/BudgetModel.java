@@ -81,4 +81,21 @@ public class BudgetModel {
 			callBack.onFailure(new Throwable("Fail delete budget!"));
 		}
 	}
+	public void syncBudget(List<Budget> list,String userid, String token, CallBack<String> callBack) {
+		try{
+		
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail sync Budget!"));
+				return;
+			}
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.syncBudget(list);
+			callBack.onSuccess("Success sync budget");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail sync budget!"));
+		}
+	}
 }

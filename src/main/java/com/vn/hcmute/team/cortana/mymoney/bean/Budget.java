@@ -58,4 +58,28 @@ public class Budget {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((budgetId == null) ? 0 : budgetId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Budget other = (Budget) obj;
+		if (budgetId == null) {
+			if (other.budgetId != null)
+				return false;
+		} else if (!budgetId.equals(other.budgetId))
+			return false;
+		return true;
+	}
+	
 }

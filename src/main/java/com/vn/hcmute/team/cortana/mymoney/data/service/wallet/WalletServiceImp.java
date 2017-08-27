@@ -41,7 +41,7 @@ public class WalletServiceImp implements WalletService{
 	@Override
 	public void createWallet(Wallet wallet) {
 		try {
-			//May try catch may cho nay het  con khong thi throws trong interface day khi nao loi thi quang excepra 
+			
 			LOG.info("Insert document...");
 			mongoTemplate.save(wallet, DbConstraint.TABLE_WALLET);
 			LOG.info("Insert successful...");
@@ -92,7 +92,6 @@ public class WalletServiceImp implements WalletService{
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 		
-		
 	}
 
 	@Override
@@ -132,6 +131,52 @@ public class WalletServiceImp implements WalletService{
 		}
 		
 		
+	}
+
+	@Override
+	public void syncWallet(List<Wallet> list) {
+		if(list==null) {
+			throw new RuntimeException("null list");
+		}
+				
+		List<Wallet> listWallet=getInfoWallet(list.get(0).getUserid());
+		
+		for(int i=0;i<listWallet.size();i++) {
+			if(!list.contains(listWallet.get(i))) {
+				deleteWallet(listWallet.get(i).getUserid(), listWallet.get(i).getWalletid());
+			}
+		}
+		
+		for (Wallet wallet : list) {
+			sync(wallet);
+		}
+		
+	}
+	public void sync(Wallet wallet) {
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("walletid").is(wallet.getWalletid()));
+
+
+			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
+			
+			if(wallet2==null) {
+				createWallet(wallet);
+				return;
+				
+			}
+			
+			Update  update=new Update();
+			update.set("walletName", wallet.getWalletName());
+			update.set("money", wallet.getMoney());
+			update.set("currencyUnit", wallet.getCurrencyUnit());
+			update.set("walletImage", wallet.getWalletImage());
+			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
+			
+			
+		}catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		}
 	}
 	
 

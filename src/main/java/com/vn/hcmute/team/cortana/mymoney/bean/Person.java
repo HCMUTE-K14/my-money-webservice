@@ -35,5 +35,22 @@ public class Person {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		if (personid == null) {
+			if (other.personid != null)
+				return false;
+		} else if (!personid.equals(other.personid))
+			return false;
+		return true;
+	}
 	
 }

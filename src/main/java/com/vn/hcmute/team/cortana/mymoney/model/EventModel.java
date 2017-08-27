@@ -91,4 +91,21 @@ DataRepository dataRepository;
 			callBack.onFailure(new Throwable("Fail get event!"));
 		}
 	}
+	public void syncEvent(List<Event> list,String userid, String token, CallBack<String> callBack) {
+		try{
+		
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail sync Event!"));
+				return;
+			}
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.syncEvent(list);
+			callBack.onSuccess("Success update event");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail ync Event!"));
+		}
+	}
 }

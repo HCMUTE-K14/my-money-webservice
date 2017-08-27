@@ -78,4 +78,48 @@ public class EventServiceImp implements EventService{
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}
+
+	@Override
+	public synchronized void syncEvent(List<Event> list) {
+		
+		if(list==null) {
+			throw new RuntimeException("Null list");
+		}
+		
+		List<Event> listEventServer=getEvent(list.get(0).getUserid());
+		for(int i=0;i<listEventServer.size();i++) {
+			if(!list.contains(listEventServer.get(i))) {
+				deleteEvent(listEventServer.get(i).getUserid(), listEventServer.get(i).getEventid());
+			}
+		}
+		
+		for (Event event : list) {
+			sync(event);
+		}
+		
+	}
+	public void sync(Event event) {
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("eventid").is(event.getEventid()).and("userid").is(event.getUserid()));
+			
+			Event event1 = mongoTemplate.findOne(query, Event.class,DbConstraint.TABLE_EVENT);
+			
+			if(event1==null) {
+				createEvent(event);
+				return;
+			}
+			
+			Update update=new Update();
+			update.set("name", event.getName());
+			update.set("money", event.getMoney());
+			update.set("idWallet", event.getIdWallet());
+			update.set("status", event.getStatus());
+			update.set("date", event.getDate());
+			
+			mongoTemplate.updateFirst(query, update, Event.class,DbConstraint.TABLE_EVENT);
+		}catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+	}
 }

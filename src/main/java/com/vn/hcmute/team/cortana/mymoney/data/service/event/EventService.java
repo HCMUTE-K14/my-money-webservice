@@ -13,4 +13,6 @@ public interface EventService {
 	void updateEvent(Event event);
 	
 	void deleteEvent(String userid, String idEvent);
+	
+	void syncEvent(List<Event> list);
 }

@@ -1,6 +1,10 @@
 package com.vn.hcmute.team.cortana.mymoney.data.service.budget;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -61,7 +65,6 @@ public class BudgetServiceImp implements BudgetService{
 			
 			mMongoTemplate.updateFirst(query, update, Budget.class,DbConstraint.TABLE_BUDGET);
 			
-			
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
@@ -81,6 +84,53 @@ public class BudgetServiceImp implements BudgetService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
+		
+	}
+
+	@Override
+	public synchronized void syncBudget(List<Budget> list) {
+		
+		if(list==null)
+			throw new RuntimeException("Null list budget!");
+		
+		List<Budget> listBudgetServer=getBudget(list.get(0).getUserid());
+		for(int i=0;i<listBudgetServer.size();i++) {
+			if(!list.contains(listBudgetServer.get(i))) {
+				removeBudget(listBudgetServer.get(i).getBudgetId());
+			}
+		}
+
+		for (Budget budget : list) {
+			sync(budget);
+		}
+		
+	}
+	public void sync(Budget budget) {
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("budgetId").is(budget.getBudgetId()).and("userid").is(budget.getUserid()));
+
+			Budget budget2 = mMongoTemplate.findOne(query, Budget.class,DbConstraint.TABLE_BUDGET);
+			
+			if(budget2==null) {
+				
+				createBudget(budget);
+				
+				return;
+			}
+			
+			Update update=new Update();
+			update.set("categoryId", budget.getCategoryId());
+			update.set("walletid", budget.getWalletid());
+			update.set("rangeDate", budget.getRangeDate());
+			update.set("moneyGoal", budget.getMoneyGoal());
+			update.set("status", budget.getStatus());
+			
+			mMongoTemplate.updateFirst(query, update, Budget.class,DbConstraint.TABLE_BUDGET);
+		}catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+		
 		
 	}
 

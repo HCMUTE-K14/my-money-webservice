@@ -46,8 +46,8 @@ public class SavingController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("Create Successful");
 				response.setData(result);
@@ -55,8 +55,8 @@ public class SavingController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -76,7 +76,7 @@ public class SavingController {
 			
 			@Override
 			public void onSuccess(List<Saving> result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -84,7 +84,7 @@ public class SavingController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -104,8 +104,8 @@ public class SavingController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("Update Successful");
 				response.setData(result);
@@ -113,8 +113,8 @@ public class SavingController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -134,8 +134,8 @@ public class SavingController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("delete Successful");
 				response.setData(result);
@@ -143,8 +143,8 @@ public class SavingController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -165,8 +165,8 @@ public class SavingController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("take in Successful");
 				response.setData(result);
@@ -174,8 +174,8 @@ public class SavingController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -196,8 +196,8 @@ public class SavingController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("take out Successful");
 				response.setData(result);
@@ -205,8 +205,8 @@ public class SavingController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -215,5 +215,33 @@ public class SavingController {
 		savingModel.takeOut(userid, token, idWallet, idSaving, money, callBack);
 		return response.toString();
 	}
-	
+	@POST
+	@Path("sync/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String syncSaving(List<Saving> list,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				
+				
+				response.setStatus("success");
+				response.setMessage("Sync Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				
+				
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		savingModel.syncSaving(list, userid, token, callBack);
+		return response.toString();
+	}
 }

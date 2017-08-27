@@ -116,4 +116,20 @@ public class SavingModel {
 			callBack.onFailure(new Throwable("Fail take out Saving!"));
 		}
 	}
+	public void syncSaving(List<Saving> list, String userid, String token,CallBack<String> callBack) {
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail sync Saving!"));
+				return;
+			}
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.syncSaving(list);
+			callBack.onSuccess("Update sync success!");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail sync update Saving!"));
+		}
+	}
 }

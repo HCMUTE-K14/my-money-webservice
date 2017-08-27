@@ -14,4 +14,6 @@ public interface BudgetService {
 	
 	void removeBudget(String budgetId);
 	
+	void syncBudget(List<Budget> list);
+	
 }

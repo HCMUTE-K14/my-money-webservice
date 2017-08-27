@@ -49,7 +49,7 @@ public class PersonController {
 			
 			@Override
 			public void onSuccess(List<Person> result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -57,7 +57,7 @@ public class PersonController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -78,8 +78,8 @@ public class PersonController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("Add Successful");
 				response.setData(result);
@@ -87,8 +87,8 @@ public class PersonController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -108,8 +108,8 @@ public class PersonController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("remove Successful");
 				response.setData(result);
@@ -117,8 +117,8 @@ public class PersonController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);

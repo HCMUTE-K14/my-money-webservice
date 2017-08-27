@@ -66,6 +66,23 @@ public class Wallet {
 		return "Wallet[id= "+walletid+",userid= "+userid+",walletname="+
 				walletName+",money="+money+",curencyUnit="+currencyUnit+"]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Wallet other = (Wallet) obj;
+		if (walletid == null) {
+			if (other.walletid != null)
+				return false;
+		} else if (!walletid.equals(other.walletid))
+			return false;
+		return true;
+	}
 	
 	
 }

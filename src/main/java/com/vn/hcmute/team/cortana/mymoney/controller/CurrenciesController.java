@@ -37,7 +37,7 @@ public class CurrenciesController {
 			
 			@Override
 			public void onSuccess(List<Currencies> result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				
@@ -46,7 +46,7 @@ public class CurrenciesController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);

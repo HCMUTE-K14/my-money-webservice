@@ -108,4 +108,23 @@ public class WalletModel {
 			callBack.onFailure(new Throwable("Fail get wallet!"));
 		}
 	}
+	
+	public void syncWallet(List<Wallet> list,String userid, String token,CallBack<String> callBack) {
+		try{
+			
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail sync wallet!"));
+				return;
+			}
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.syncWallet(list);
+			callBack.onSuccess("Success sync wallet");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail sync wallet!"));
+		}
+	}
+	
 }

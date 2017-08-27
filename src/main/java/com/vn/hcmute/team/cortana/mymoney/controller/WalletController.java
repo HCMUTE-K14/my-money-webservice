@@ -47,8 +47,8 @@ public class WalletController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("Create Successful");
 				response.setData(result);
@@ -56,8 +56,8 @@ public class WalletController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -78,7 +78,7 @@ public class WalletController {
 			
 			@Override
 			public void onSuccess(List<Wallet> result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -86,7 +86,7 @@ public class WalletController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -106,7 +106,7 @@ public class WalletController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -115,7 +115,7 @@ public class WalletController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -135,8 +135,8 @@ public class WalletController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("Update Successful");
 				response.setData(result);
@@ -144,8 +144,8 @@ public class WalletController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -166,7 +166,7 @@ public class WalletController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -175,7 +175,7 @@ public class WalletController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -183,6 +183,35 @@ public class WalletController {
 		};
 		walletModel.moveMoneyWallet(userid, token, wallet1,wallet2,money,callBack);
 
+		return response.toString();
+	}
+	@POST
+	@Path("sync/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String update(List<Wallet> list,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				
+				
+				response.setStatus("success");
+				response.setMessage("Sync Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				
+				
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		walletModel.syncWallet(list, userid, token, callBack);
 		return response.toString();
 	}
 }

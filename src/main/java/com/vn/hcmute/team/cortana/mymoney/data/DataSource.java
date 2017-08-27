@@ -60,6 +60,8 @@ public class DataSource {
 		void updateWallet(Wallet wallet);
 		
 		void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money);
+		
+		void syncWallet(List<Wallet> list);
 	}
 	public interface CurrenciesDataSource {
 		List<Currencies> getCurrencies();
@@ -72,6 +74,8 @@ public class DataSource {
 		void updateEvent(Event event);
 		
 		void deleteEvent(String userid, String idEvent);
+		
+		void syncEvent(List<Event> list);
 	}
 	public interface SavingDataSource{
 		List<Saving> getSaving(String userid);
@@ -85,6 +89,8 @@ public class DataSource {
 		void takeIn(String idWallet, String idSaving,String money);
 		
 		void takeOut(String idWallet, String idSaving,String money);
+		
+		void syncSaving(List<Saving> list);
 	}
 
 	public interface PersonDataSource{
@@ -135,5 +141,7 @@ public class DataSource {
 		void updateBudget(Budget budget);
 		
 		void removeBudget(String budgetId);
+		
+		void syncBudget(List<Budget> list);
 	}
 }

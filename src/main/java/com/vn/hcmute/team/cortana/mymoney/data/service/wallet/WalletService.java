@@ -14,4 +14,5 @@ public interface WalletService {
 	void updateWallet(Wallet wallet);
 	
 	void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money);
+	void syncWallet(List<Wallet> list);
 }

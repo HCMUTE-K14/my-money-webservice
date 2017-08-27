@@ -50,7 +50,7 @@ public class EventController {
 			
 			@Override
 			public void onSuccess(List<Event> result) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -58,7 +58,7 @@ public class EventController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -78,8 +78,8 @@ public class EventController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("Create Successful");
 				response.setData(result);
@@ -87,8 +87,8 @@ public class EventController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -107,8 +107,8 @@ public class EventController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("update Successful");
 				response.setData(result);
@@ -116,8 +116,8 @@ public class EventController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -137,8 +137,8 @@ public class EventController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
+				
 				response.setStatus("success");
 				response.setMessage("delete Successful");
 				response.setData(result);
@@ -146,14 +146,43 @@ public class EventController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
 			}
 		};
 		eventModel.deleteEvent(userid, token, idEvent, callBack);
+		return response.toString();
+	}
+	@POST
+	@Path("sync/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String syncEvent(List<Event> list,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				
+				
+				response.setStatus("success");
+				response.setMessage("Sync Event Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				
+				
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		eventModel.syncEvent(list, userid, token, callBack);
 		return response.toString();
 	}
 }

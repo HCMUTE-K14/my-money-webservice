@@ -83,7 +83,7 @@ public class UserController {
 
 			@Override
 			public void onSuccess(String result) {
-				System.out.println("Call back in Controller");
+				
 				response.setStatus("success");
 				response.setMessage("Register Successful");
 				response.setData(result);
@@ -91,7 +91,7 @@ public class UserController {
 
 			@Override
 			public void onFailure(Throwable e) {
-				System.out.println(e.getMessage());
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);

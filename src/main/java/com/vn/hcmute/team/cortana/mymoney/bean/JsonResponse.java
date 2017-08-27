@@ -9,7 +9,6 @@ public class JsonResponse <T> {
 	private JsonObject json;
 	private Gson gson;
 	private Class<T> clazz;
-	//private List<Class<T>> listclass;
 	public JsonResponse( Class<T> clazz){
 		this.json=new JsonObject();
 		this.gson=new Gson();
@@ -48,9 +47,6 @@ public class JsonResponse <T> {
 	public void setListData(List<T> data) {
 		json.add("data", gson.toJsonTree(data));
 	}
-	/*public List<T> getDataList(){
-		return gson.fromJson(json.get("data"),new TypeToken<List<T>>(){}.getType());
-	}*/
 	public String toString(){
 		return json.toString();
 	}

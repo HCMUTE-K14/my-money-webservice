@@ -2,6 +2,8 @@ package com.vn.hcmute.team.cortana.mymoney.data.service.saving;
 
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -170,6 +172,51 @@ public class SavingServiceImp implements SavingService{
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 		
+	}
+
+	@Override
+	public void syncSaving(List<Saving> list) {
+		if(list==null)
+			throw new RuntimeException("null list");
+				
+		List<Saving> listSaving=getSaving(list.get(0).getUserid());
+		
+		for(int i=0;i<listSaving.size();i++) {
+			if(!list.contains(listSaving.get(i))) {
+				deleteSaving(listSaving.get(i).getSavingid());
+			}
+		}
+		
+		for (Saving saving : list) {
+			sync(saving);
+		}
+	}
+	public void sync(Saving saving) {
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("savingid").is(saving.getSavingid()).and("userid").is(saving.getUserid()));
+
+
+			Saving saving1 = mongoTemplate.findOne(query, Saving.class,DbConstraint.TABLE_SAVING);
+			if(saving1==null) {
+				createSaving(saving);
+				return;
+			}
+			
+			Update update=new Update();
+			update.set("name", saving.getName());
+			update.set("goalMoney", saving.getGoalMoney());
+			update.set("startMoney", saving.getStartMoney());
+			update.set("currentMoney", saving.getCurrentMoney());
+			update.set("date", saving.getDate());
+			update.set("idWallet", saving.getIdWallet());
+			update.set("idCurrencies", saving.getIdCurrencies());
+			update.set("status", saving.getStatus());
+			
+			mongoTemplate.updateFirst(query, update, Saving.class,DbConstraint.TABLE_SAVING);
+		}catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		}
 	}
 
 }

@@ -17,7 +17,7 @@ public class CurrenciesServiceImp implements CurrenciesService{
 	MongoTemplate mongoTemplate;
 	
 	public CurrenciesServiceImp() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	@Override

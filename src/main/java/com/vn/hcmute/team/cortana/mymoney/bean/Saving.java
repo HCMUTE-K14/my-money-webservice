@@ -1,6 +1,7 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Saving {
+	
 	private String savingid;
 	public String getSavingid() {
 		return savingid;
@@ -18,7 +19,13 @@ public class Saving {
 	private String idCurrencies;
 	private String status;
 	private String userid;
-	
+	private String icon;
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	public Saving() {
 		this.savingid="";
 		this.name="";
@@ -29,6 +36,7 @@ public class Saving {
 		this.idCurrencies="";
 		this.status="";
 		this.userid="";
+		this.icon="";
 		
 	}
 	public String getCurrentMoney() {
@@ -86,5 +94,21 @@ public class Saving {
 		this.userid = userid;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Saving other = (Saving) obj;
+		if (savingid == null) {
+			if (other.savingid != null)
+				return false;
+		} else if (!savingid.equals(other.savingid))
+			return false;
+		return true;
+	}
 	
 }

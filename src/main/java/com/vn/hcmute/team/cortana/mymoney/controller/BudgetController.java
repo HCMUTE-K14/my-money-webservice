@@ -48,7 +48,6 @@ public class BudgetController {
 			
 			@Override
 			public void onSuccess(List<Budget> result) {
-				// TODO Auto-generated method stub
 				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
@@ -56,7 +55,6 @@ public class BudgetController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -76,8 +74,7 @@ public class BudgetController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
 				response.setStatus("success");
 				response.setMessage("Create Successful");
 				response.setData(result);
@@ -85,8 +82,7 @@ public class BudgetController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -105,8 +101,7 @@ public class BudgetController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
 				response.setStatus("success");
 				response.setMessage("Update Successful");
 				response.setData(result);
@@ -114,8 +109,7 @@ public class BudgetController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
@@ -135,8 +129,7 @@ public class BudgetController {
 			
 			@Override
 			public void onSuccess(String result) {
-				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
+				
 				response.setStatus("success");
 				response.setMessage("delete Successful");
 				response.setData(result);
@@ -144,14 +137,43 @@ public class BudgetController {
 			
 			@Override
 			public void onFailure(Throwable e) {
-				// TODO Auto-generated method stub
-				System.out.println(e.getMessage());
+				
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
 			}
 		};
 		mBudgetModel.deleteBudget(userid, token, budgetId, callBack);
+		return response.toString();
+	}
+	
+	@POST
+	@Path("sync")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String syncBudget(List<Budget> list,@QueryParam("userid") String userid,@QueryParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				
+				
+				response.setStatus("success");
+				response.setMessage("Sync Budget Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				
+				
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mBudgetModel.syncBudget(list, userid, token, callBack);
 		return response.toString();
 	}
 }

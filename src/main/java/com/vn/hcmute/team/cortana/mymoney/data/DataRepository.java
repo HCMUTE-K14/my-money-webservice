@@ -344,4 +344,19 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	public void removeBudget(String budgetId) {
 		mBudgetService.removeBudget(budgetId);
 	}
+
+	@Override
+	public void updatePerson(Person person) {
+		personService.updatePerson(person);
+	}
+
+	@Override
+	public void synchPerson(List<Person> persons) {
+		personService.syncPerson(persons);
+	}
+
+	@Override
+	public void syncTransaction(List<Transaction> transactions) {
+		mTransactionService.syncTransaction(transactions);
+	}
 }

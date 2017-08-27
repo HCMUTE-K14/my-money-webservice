@@ -27,4 +27,6 @@ public interface TransactionService {
 	void updateTransaction(Transaction transaction);
 	
 	void removeTransaction(String transactionId,String userid);
+	
+	void syncTransaction(List<Transaction> transactions);
 }

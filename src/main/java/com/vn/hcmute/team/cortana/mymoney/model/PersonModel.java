@@ -48,6 +48,41 @@ public class PersonModel {
 			callBack.onFailure(new Throwable("Fail create Person!"));
 		}
 	}
+	
+	public void updatePerson(String userid,String token,Person person,CallBack<String> callBack) {
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail update Person!"));
+				return;
+			}
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.updatePerson(person);
+			callBack.onSuccess("Update person success!");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail create Person!"));
+		}
+	}
+	
+	public void synchPerson(String userid,String token,List<Person> persons,CallBack<String> callBack) {
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new Throwable("Fail update Person!"));
+				return;
+			}
+			if (!dataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			dataRepository.synchPerson(persons);
+			callBack.onSuccess("Create person success!");
+		}catch(Exception e){
+			callBack.onFailure(new Throwable("Fail create Person!"));
+		}
+	}
+	
 	public void removePerson(String userid, String token,String personid,CallBack<String> callBack) {
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
@@ -64,4 +99,5 @@ public class PersonModel {
 			callBack.onFailure(new Throwable("Fail person Saving!"));
 		}
 	}
+	
 }

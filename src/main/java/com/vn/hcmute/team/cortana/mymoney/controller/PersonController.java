@@ -79,7 +79,6 @@ public class PersonController {
 			@Override
 			public void onSuccess(String result) {
 				// TODO Auto-generated method stub
-				System.out.println("Call back in Controller");
 				response.setStatus("success");
 				response.setMessage("Add Successful");
 				response.setData(result);
@@ -97,6 +96,67 @@ public class PersonController {
 		personModel.addPerson(userid, token, person, callBack);
 		return response.toString();
 	}
+	
+	@POST
+	@Path("update/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String update(Person person,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				response.setStatus("success");
+				response.setMessage("update Successful");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				// TODO Auto-generated method stub
+				System.out.println(e.getMessage());
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		
+		personModel.updatePerson(userid, token, person, callBack);
+		return response.toString();
+	}
+	
+	@POST
+	@Path("sync/{userid}/{token}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String syncPerson(List<Person> persons,@PathParam("userid") String userid,@PathParam("token") String token) {
+		JsonResponse<String> response=new JsonResponse<String>(String.class);
+		CallBack<String> callBack=new CallBack<String>() {
+			
+			@Override
+			public void onSuccess(String result) {
+				// TODO Auto-generated method stub
+				response.setStatus("success");
+				response.setMessage("Synchronized Done");
+				response.setData(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable e) {
+				// TODO Auto-generated method stub
+				System.out.println(e.getMessage());
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		
+		personModel.synchPerson(userid, token, persons, callBack);
+		return response.toString();
+	}
+	
 	@GET
 	@Path("remove/{userid}/{token}/{personid}")
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -214,4 +214,21 @@ public class TransactionModel {
 			callBack.onFailure(e);
 		}
 	}
+	public void syncTransaction(String userid,String token,List<Transaction> transactions,CallBack<String> callBack){
+		try{
+			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new UserException("User id, token is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userid, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			mDataRepository.syncTransaction(transactions);
+			callBack.onSuccess("Sync transaction successful");
+		}catch(Exception e){
+			callBack.onFailure(e);
+		}
+	}
+	
 }

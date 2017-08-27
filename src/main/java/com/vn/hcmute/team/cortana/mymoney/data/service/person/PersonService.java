@@ -9,5 +9,9 @@ public interface PersonService {
 	
 	void addPerson(Person person);
 	
+	void updatePerson(Person person);
+	
 	void removePerson(String personid);
+	
+	void syncPerson(List<Person> persons);
 }

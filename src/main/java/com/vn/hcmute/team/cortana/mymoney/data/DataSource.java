@@ -52,9 +52,13 @@ public class DataSource {
 	}
 	public interface WalletDataSource{
 		List<Wallet> getInfoWallet(String userid);
+		
 		void createWallet(Wallet wallet);
+		
 		void deleteWallet(String userid, String idwallet);
+		
 		void updateWallet(Wallet wallet);
+		
 		void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money);
 	}
 	public interface CurrenciesDataSource {
@@ -62,22 +66,32 @@ public class DataSource {
 	}
 	public interface EventDataSource{
 		List<Event> getEvent(String userid);
+		
 		void createEvent(Event event);
+		
 		void updateEvent(Event event);
+		
 		void deleteEvent(String userid, String idEvent);
 	}
 	public interface SavingDataSource{
 		List<Saving> getSaving(String userid);
+		
 		void createSaving(Saving saving);
+		
 		void updateSaving(Saving saving);
+		
 		void deleteSaving(String idSaving);
+		
 		void takeIn(String idWallet, String idSaving,String money);
+		
 		void takeOut(String idWallet, String idSaving,String money);
 	}
 
 	public interface PersonDataSource{
 		List<Person> getPersons(String userid);
+		
 		void addPerson(Person person);
+		
 		void removePerson(String personid);
 	}
 	public interface ImageDataSource{
@@ -115,8 +129,11 @@ public class DataSource {
 	}
 	public interface BudgetDataSource{
 		List<Budget> getBudget(String userid);
+		
 		void createBudget(Budget budget);
+		
 		void updateBudget(Budget budget);
+		
 		void removeBudget(String budgetId);
 	}
 }

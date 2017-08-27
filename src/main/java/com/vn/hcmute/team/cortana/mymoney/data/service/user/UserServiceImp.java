@@ -48,7 +48,6 @@ public class UserServiceImp implements UserService {
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-
 	}
 
 	@Override
@@ -140,14 +139,15 @@ public class UserServiceImp implements UserService {
 				throw new UserException("Cannot found user with " + email);
 			}
 			String newPassword = SecurityUtil.generatePassword();
-			user.setPassword(SecurityUtil.generateMD5(newPassword));
 			StringBuilder messageEmail = new StringBuilder();
 
-			messageEmail.append("<h1>").append("Your Password :").append(newPassword).append("\n\n")
+			messageEmail.append("<h1>").append("Your Password :").append(newPassword).append("\n\n</br>")
 					.append("Please change your password").append("</h1>");
 
 			EmailUtil.getInstance().sendMail(email, "New password", messageEmail.toString());
-			mMongoTemplate.save(user, DbConstraint.TABLE_USER);
+			Update update =new Update();
+			update.set("password", SecurityUtil.generateMD5(newPassword));
+			mMongoTemplate.updateFirst(query(where("email").is(email)),update,User.class, DbConstraint.TABLE_USER);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
@@ -188,5 +188,4 @@ public class UserServiceImp implements UserService {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}
-
 }

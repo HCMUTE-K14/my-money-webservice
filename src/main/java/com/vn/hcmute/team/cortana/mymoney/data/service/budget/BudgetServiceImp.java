@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
 import com.vn.hcmute.team.cortana.mymoney.bean.Budget;
-import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 
@@ -19,8 +18,6 @@ import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 public class BudgetServiceImp implements BudgetService{
 	@Autowired
 	MongoTemplate mMongoTemplate;
-	
-	
 	
 	@Override
 	public List<Budget> getBudget(String userid) {
@@ -49,15 +46,12 @@ public class BudgetServiceImp implements BudgetService{
 			Query query = new Query();
 			query.addCriteria(Criteria.where("budgetId").is(budget.getBudgetId()).and("userid").is(budget.getUserid()));
 
-
 			Budget budget2 = mMongoTemplate.findOne(query, Budget.class,DbConstraint.TABLE_BUDGET);
 			
 			if(budget2==null) {
 				throw new RuntimeException("Null event!");
 			}
 			
-		
-		
 			Update update=new Update();
 			update.set("categoryId", budget.getCategoryId());
 			update.set("walletid", budget.getWalletid());

@@ -27,7 +27,6 @@ public class EventServiceImp implements EventService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-	
 	}
 
 	@Override
@@ -37,8 +36,6 @@ public class EventServiceImp implements EventService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
-		
 	}
 
 	@Override
@@ -46,16 +43,13 @@ public class EventServiceImp implements EventService{
 		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("eventid").is(event.getEventid()).and("userid").is(event.getUserid()));
-
-
+			
 			Event event1 = mongoTemplate.findOne(query, Event.class,DbConstraint.TABLE_EVENT);
 			
 			if(event1==null) {
 				throw new RuntimeException("Null event!");
 			}
 			
-		
-		
 			Update update=new Update();
 			update.set("name", event.getName());
 			update.set("money", event.getMoney());
@@ -64,8 +58,6 @@ public class EventServiceImp implements EventService{
 			update.set("date", event.getDate());
 			
 			mongoTemplate.updateFirst(query, update, Event.class,DbConstraint.TABLE_EVENT);
-			
-			
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
@@ -85,8 +77,5 @@ public class EventServiceImp implements EventService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
-		
 	}
-	
 }

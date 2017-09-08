@@ -43,6 +43,12 @@ public class WalletServiceImp implements WalletService{
 		try {
 			
 			LOG.info("Insert document...");
+            Query query = new Query();
+			query.addCriteria(Criteria.where("walletid").is(wallet.getWalletid()).and("userid").is(wallet.getUserid()));
+			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
+            if(wallet2 != null){
+				throw new RuntimeException("Wallet exists");
+            }
 			mongoTemplate.save(wallet, DbConstraint.TABLE_WALLET);
 			LOG.info("Insert successful...");
 		}catch (MongoException e) {
@@ -81,10 +87,13 @@ public class WalletServiceImp implements WalletService{
 			if(wallet2==null) throw new RuntimeException("Null wallet!");
 			
 			Update  update=new Update();
+			
 			update.set("walletName", wallet.getWalletName());
 			update.set("money", wallet.getMoney());
 			update.set("currencyUnit", wallet.getCurrencyUnit());
 			update.set("walletImage", wallet.getWalletImage());
+			update.set("archive", wallet.isArchive());
+			
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			
@@ -129,8 +138,6 @@ public class WalletServiceImp implements WalletService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
-		
 	}
 
 	@Override

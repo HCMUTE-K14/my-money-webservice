@@ -34,7 +34,7 @@ public class WalletModel {
 			List<Wallet> list=dataRepository.getInfoWallet(userid);
 			resultWallet.onSuccess(list);
 		}catch(Exception e){
-			resultWallet.onFailure(new Throwable("Fail get Wallet!"));
+			resultWallet.onFailure(e);
 		}
 
 	}
@@ -53,7 +53,7 @@ public class WalletModel {
 			dataRepository.createWallet(wallet);
 			callBack.onSuccess("Success create wallet");
 		}catch(Exception e){
-			callBack.onFailure(new Throwable("Fail get wallet!"));
+			callBack.onFailure(e);
 		}
 	}
 	public void deleteWallet(String userid,String token,String idwallet,CallBack<String> callBack) {
@@ -70,7 +70,7 @@ public class WalletModel {
 			dataRepository.deleteWallet(userid, idwallet);
 			callBack.onSuccess("Success delete wallet");
 		}catch(Exception e){
-			callBack.onFailure(new Throwable("Fail get wallet!"));
+			callBack.onFailure(e);
 		}
 
 	}
@@ -89,7 +89,7 @@ public class WalletModel {
 			dataRepository.updateWallet(wallet);
 			callBack.onSuccess("Success update wallet");
 		}catch(Exception e){
-			callBack.onFailure(new Throwable("Fail get wallet!"));
+			callBack.onFailure(e);
 		}
 	}
 	public void moveMoneyWallet(String userid,String token, String idWalletFrom, String idWalletTo, String money,CallBack<String> callBack) {
@@ -105,7 +105,7 @@ public class WalletModel {
 			dataRepository.moveMoneyWallet(userid, idWalletFrom, idWalletTo, money);
 			callBack.onSuccess("Success update wallet");
 		}catch(Exception e){
-			callBack.onFailure(new Throwable("Fail get wallet!"));
+			callBack.onFailure(e);
 		}
 	}
 	
@@ -123,7 +123,7 @@ public class WalletModel {
 			dataRepository.syncWallet(list);
 			callBack.onSuccess("Success sync wallet");
 		}catch(Exception e){
-			callBack.onFailure(new Throwable("Fail sync wallet!"));
+			callBack.onFailure(e);
 		}
 	}
 	

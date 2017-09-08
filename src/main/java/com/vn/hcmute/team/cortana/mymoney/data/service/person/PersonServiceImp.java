@@ -89,7 +89,7 @@ public class PersonServiceImp implements  PersonService{
 					removePerson(listPersonRemote.get(i).getPersonid());
 				}
 			}
-			
+
 			Query query=new Query();
 			for(int i=0;i<persons.size();i++){
 				query.addCriteria(Criteria

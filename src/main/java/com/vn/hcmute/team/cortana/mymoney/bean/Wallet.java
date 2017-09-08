@@ -12,8 +12,10 @@ public class Wallet {
 	private String userid;
 	private String walletName;
 	private String money;
-	private String currencyUnit;
+	private Currencies currencyUnit;
 	private String walletImage;
+	private boolean archive;
+	
 	public String getWalletImage() {
 		return walletImage;
 	}
@@ -25,17 +27,9 @@ public class Wallet {
 		this.userid="";
 		this.walletName="";
 		this.money="";
-		this.currencyUnit="";
+		this.currencyUnit=new Currencies();
+		this.archive=false;
 	}
-	public Wallet(String id, String userid,String walletName,String money,String currencyUnit,String token) {
-		this.walletid=id;
-		this.userid=userid;
-		this.walletName=walletName;
-		this.money=money;
-		this.currencyUnit=currencyUnit;
-	}
-
-	
 	public String getUserid() {
 		return userid;
 	}
@@ -54,13 +48,18 @@ public class Wallet {
 	public void setMoney(String money) {
 		this.money = money;
 	}
-	public String getCurrencyUnit() {
+	public Currencies getCurrencyUnit() {
 		return currencyUnit;
 	}
-	public void setCurrencyUnit(String currencyUnit) {
+	public void setCurrencyUnit(Currencies currencyUnit) {
 		this.currencyUnit = currencyUnit;
 	}
-	
+	public boolean isArchive() {
+		return archive;
+	}
+	public void setArchive(boolean archive) {
+		this.archive = archive;
+	}
 	@Override
 	public String toString() {
 		return "Wallet[id= "+walletid+",userid= "+userid+",walletname="+

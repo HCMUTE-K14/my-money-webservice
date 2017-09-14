@@ -163,7 +163,6 @@ public class EventController {
 	public String syncEvent(List<Event> list,@PathParam("userid") String userid,@PathParam("token") String token) {
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
-			
 			@Override
 			public void onSuccess(String result) {
 				
@@ -172,7 +171,6 @@ public class EventController {
 				response.setMessage("Sync Event Successful");
 				response.setData(result);
 			}
-			
 			@Override
 			public void onFailure(Throwable e) {
 				

@@ -20,11 +20,20 @@ public class Saving {
 	private String status;
 	private String userid;
 	private String icon;
+	
 	public String getIcon() {
 		return icon;
 	}
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	private Currencies currencies;
+	
+	public Currencies getCurrencies() {
+		return currencies;
+	}
+	public void setCurrencies(Currencies currencies) {
+		this.currencies = currencies;
 	}
 	public Saving() {
 		this.savingid="";

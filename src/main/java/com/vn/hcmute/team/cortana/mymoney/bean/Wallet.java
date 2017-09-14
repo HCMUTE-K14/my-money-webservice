@@ -63,7 +63,7 @@ public class Wallet {
 	@Override
 	public String toString() {
 		return "Wallet[id= "+walletid+",userid= "+userid+",walletname="+
-				walletName+",money="+money+",curencyUnit="+currencyUnit+"]";
+				walletName+",money="+money+"]";
 	}
 
 	@Override

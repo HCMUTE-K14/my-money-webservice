@@ -23,7 +23,19 @@ public class Transaction implements Serializable{
 	private String walletId;
 	private long dateCreate;
 	private long dateEnd;
-	
+	private String savingId;
+	public String getSavingId() {
+		return savingId;
+	}
+
+	public void setSavingId(String savingId) {
+		this.savingId = savingId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public Transaction(){
 		
 	}

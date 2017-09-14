@@ -15,6 +15,7 @@ public class Event {
 	//Đánh dấu trạng thái kết thúc sự kiện hay chưa
 	private String status;
 	private String userid;
+	private Currencies currencies;
 	public Event() {
 		this.eventid="";
 		this.name="";
@@ -23,6 +24,12 @@ public class Event {
 		this.idWallet="";
 		this.status="";
 		this.userid="";
+	}
+	public Currencies getCurrencies() {
+		return currencies;
+	}
+	public void setCurrencies(Currencies currencies) {
+		this.currencies = currencies;
 	}
 	public String getUserid() {
 		return userid;

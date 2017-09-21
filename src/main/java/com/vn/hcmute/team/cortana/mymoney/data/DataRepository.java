@@ -143,28 +143,23 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public List<Category> getDefaultCategory(String userid) {
-		return mCategoryService.getDefaultCategory(userid);
-	}
-
-	@Override
 	public List<Category> getCategoryByUserId(String userid) {
 		return mCategoryService.getCategoryByUserId(userid);
 	}
 
 	@Override
-	public void addCategory(Category category) {
-		mCategoryService.addCategory(category);
+	public void addCategory(Category category,String parentId) {
+		mCategoryService.addCategory(category,parentId);
 	}
 
 	@Override
-	public void updateCategory(Category category) {
-		mCategoryService.updateCategory(category);
+	public void updateCategory(Category category,String oldParentId,String newParentId) {
+		mCategoryService.updateCategory(category,oldParentId,newParentId);
 	}
 
 	@Override
-	public void removeCategory(Category category) {
-		mCategoryService.removeCategory(category);
+	public void removeCategory(Category category,String parentId) {
+		mCategoryService.removeCategory(category,parentId);
 	}
 
 	@Override
@@ -381,6 +376,16 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	@Override
 	public void syncWallet(List<Wallet> list) {
 		mWalletService.syncWallet(list);
+	}
+
+	@Override
+	public List<Category> getCategoryByTransactionType(String userid,String transactionType) {
+		return mCategoryService.getCategoryByTransactionType(userid, transactionType);
+	}
+
+	@Override
+	public List<Category> getCategoryByType(String userid, String type,String transType) {
+		return mCategoryService.getCategoryByType(userid, type,transType);
 	}
 
 	

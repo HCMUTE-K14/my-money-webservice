@@ -1,201 +1,417 @@
 [
-	{
-		"categoryId": "1",
-		"categoryName": "Debt",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 0,
-		"userId": ""
-	},
-	{
-		"categoryId": "2",
-		"categoryName": "Loan",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 0,
-		"userId": ""
-	},
-	{
-		"categoryId": "3",
-		"categoryName": "Fees & Charges",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "4",
-		"categoryName": "Insurances",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "5",
-		"categoryName": "Family",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "6",
-		"categoryName": "Education",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "7",
-		"categoryName": "Investment",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "8",
-		"categoryName": "Health & Fitness",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "9",
-		"categoryName": "Gifts & Donations",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "10",
-		"categoryName": "Shopping",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "11",
-		"categoryName": "Friends & Lover",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "12",
-		"categoryName": "Bills & Utilities",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "13",
-		"categoryName": "Transportation",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "14",
-		"categoryName": "Food & Beverage",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "15",
-		"categoryName": "Others",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 1,
-		"userId": ""
-	},
-	{
-		"categoryId": "16",
-		"categoryName": "Gifts",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 2,
-		"userId": ""
-	},
-	{
-		"categoryId": "17",
-		"categoryName": "Selling",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 2,
-		"userId": ""
-	},
-	{
-		"categoryId": "18",
-		"categoryName": "Interest Money",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 2,
-		"userId": ""
-	},
-	{
-		"categoryId": "19",
-		"categoryName": "Salary",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 2,
-		"userId": ""
-	},
-	{
-		"categoryId": "20",
-		"categoryName": "Award",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 2,
-		"userId": ""
-	},
-	{
-		"categoryId": "21",
-		"categoryName": "Others",
-		"categoryType": 0,
-		"categoryImage": "",
-		"categoryParent": 0,
-		"transactionType": 2,
-		"userId": ""
-	}
+  {
+    "cate_id":"1",
+    "name": "Bill Utilities", 
+    "icon": "icon_135",
+    "trans_type":"expense",
+    "type": "expense",
+    "subcategories": [
+      {
+        "cate_id":"2",
+        "name": "Restaurants",
+        "icon": "icon_133",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"3",
+        "name": "Cafe",
+        "icon": "icon_15",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"4",
+        "name": "Phone",
+        "icon": "icon_134",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"5",
+        "name": "Water",
+        "icon": "icon_124",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"6",
+        "name": "Electricity",
+        "icon": "icon_125",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"6",
+        "name": "Gas",
+        "icon": "icon_139",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"7",
+        "name": "Television",
+        "icon": "icon_84",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"8",
+        "name": "Internet",
+        "icon": "icon_126",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"9",
+        "name": "Rentals",
+        "icon": "icon_136",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"10",
+    "name": "Transportation",
+    "icon": "ic_category_transport",
+    "type": "expense",
+    "trans_type":"expense",
+    "subcategories": [
+      {
+        "cate_id":"11",
+        "name": "Taxi",
+        "icon": "icon_127",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"12",
+        "name": "Parking Fees",
+        "icon": "icon_128",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"13",
+        "name": "Petrol",
+        "icon": "icon_129",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"14",
+        "name": "Maintenance",
+        "icon": "icon_130",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"15",
+    "name": "Shopping",
+    "icon": "ic_category_shopping",
+    "type": "expense",
+    "trans_type":"expense",
+    "subcategories": [
+      {
+        "cate_id":"16",
+        "name": "Clothing",
+        "trans_type":"expense",
+        "icon": "icon_17",
+        "type": "expense"
+      },
+      {
+        "cate_id":"17",
+        "name": "Footwear",
+        "icon": "icon_131",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"18",
+        "name": "Accessories",
+        "icon": "icon_63",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"19",
+        "name": "Electronics",
+        "icon": "icon_9",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"20",
+    "name": "Friend",
+    "icon": "ic_category_friendnlover",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"21",
+    "name": "Entertainment",
+    "icon": "ic_category_entertainment",
+    "type": "expense",
+    "trans_type":"expense",
+    "subcategories": [
+      {
+        "cate_id":"22",
+        "name": "Movies",
+        "icon": "icon_6",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"23",
+        "name": "Games",
+        "icon": "icon_33",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"24",
+    "name": "Travel",
+    "icon": "ic_category_travel",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"25",
+    "name": "Health Fitness",
+    "icon": "ic_category_medical",
+    "type": "expense",
+    "trans_type":"expense",
+    "subcategories": [
+      {
+        "cate_id":"26",
+        "name": "Sports",
+        "icon": "icon_70",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"27",
+        "name": "Doctor",
+        "icon": "ic_category_doctor",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"28",
+        "name": "Pharmacy",
+        "icon": "ic_category_pharmacy",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"29",
+        "name": "Personal Care",
+        "icon": "icon_132",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"30",
+    "name": "Gifts Donations",
+    "icon": "ic_category_donations",
+    "trans_type":"expense",
+    "type": "expense",
+    "subcategories": [
+      {
+        "cate_id":"31",
+        "name": "Marriage",
+        "icon": "icon_10",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"32",
+        "name": "Funeral",
+        "icon": "icon_11",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"33",
+        "name": "Charity",
+        "icon": "ic_category_give",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"34",
+    "name": "Housing Family",
+    "icon": "ic_category_family",
+    "type": "expense",
+    "trans_type":"expense",
+    "subcategories": [
+      {
+        "cate_id":"35",
+        "name": "Children babies",
+        "icon": "icon_38",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"36",
+        "name": "Home Improvement",
+        "icon": "icon_8",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"37",
+        "name": "Home Services",
+        "icon": "icon_54",
+        "trans_type":"expense",
+        "type": "expense"
+      },
+      {
+        "cate_id":"38",
+        "name": "Pets",
+        "icon": "icon_53",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"39",
+    "name": "Education",
+    "icon": "ic_category_education",
+    "type": "expense",
+    "trans_type":"expense",
+    "subcategories": [
+      {
+        "cate_id":"40",
+        "name": "Books",
+        "icon": "icon_35",
+        "trans_type":"expense",
+        "type": "expense"
+      }
+    ]
+  },
+  {
+    "cate_id":"41",
+    "name": "Investment",
+    "icon": "ic_category_invest",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"42",
+    "name": "Business",
+    "icon": "icon_59",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"43",
+    "name": "Insurance",
+    "icon": "icon_137",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"44",
+    "name": "Loan",
+    "trans_type":"debt_loan",
+    "icon": "ic_category_loan",
+    "type": "expense"
+  },
+  {
+    "cate_id":"45",
+    "name": "Fees Charges",
+    "icon": "icon_138",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"46",
+    "name": "Withdrawal",
+    "icon": "icon_withdrawal",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"47",
+    "name": "Repayment",
+    "icon": "icon_141",
+    "trans_type":"debt_loan",
+    "type": "expense"
+  },
+  {
+    "cate_id":"48",
+    "name": "Expense Other",
+    "icon": "ic_category_other_expense",
+    "trans_type":"expense",
+    "type": "expense"
+  },
+  {
+    "cate_id":"49",
+    "name": "Award",
+    "icon": "ic_category_award",
+    "trans_type":"income",
+    "type": "income"
+  },
+  {
+    "cate_id":"50",
+    "name": "Interest",
+    "icon": "ic_category_interestmoney",
+    "trans_type":"income",
+    "type": "income"
+  },
+  {
+    "cate_id":"51",
+    "name": "Salary",
+    "icon": "ic_category_salary",
+    "trans_type":"income",
+    "type": "income"
+  },
+  {
+    "cate_id":"52",
+    "name": "Debt",
+    "trans_type":"debt_loan",
+    "icon": "ic_category_debt",
+    "type": "income"
+  },
+  {
+    "cate_id":"53",
+    "name": "Gift",
+    "icon": "ic_category_give",
+    "trans_type":"income",
+    "type": "income"
+  },
+  {
+    "cate_id":"54",
+    "name": "Selling",
+    "icon": "ic_category_selling",
+    "trans_type":"income",
+    "type": "income"
+  },
+  {
+    "cate_id":"55",
+    "name": "Debt Collection",
+    "trans_type":"debt_loan",
+    "icon": "icon_140",
+    "type": "income"
+  },
+  {
+    "cate_id":"56",
+    "name": "Income Other",
+    "icon": "ic_category_other_income",
+    "trans_type":"income",
+    "type": "income"
+  }
 ]
-
-
-
-
-
-
-
-
-
-

@@ -1,97 +1,120 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Category implements Serializable {
-	private static final long serialVersionUID = 5217094060448008597L;
-	
-	public static int TYPE_DEFAULT=0;
-	public static int TYPE_CUSTOM=1;
-	
-	private String categoryId;		
-	private String categoryName;
-	private int categoryType; 		//0:default, 1:custom
-	private String categoryImage;
-	private int transactionType; 	//0: , 1:, 2: 
-	private String categoryParent; 	//0:default(Not have child); #0: categoryId parent 
-	private String userId; 			
-	
-	public Category(){
-		this.categoryId="-1";
-		this.categoryName="";
-		this.categoryType=0;
-		this.categoryImage="";
-		this.categoryParent="0";
-		this.transactionType=0;
-		this.userId=User.DEFAULT_USER_ID;
+public class Category {
+
+	private String cate_id;
+	private String name;
+	private String icon;
+	private String trans_type; // 0 - Imcoming,1 - expense, 2 - debt&loan
+	private String type; // 0 - incoming, 1 -expense
+	List<Category> subcategories;
+	private String userid;
+
+	public Category() {
+		cate_id = "";
+		name = "";
+		icon = "";
+		trans_type="";
+		type="";
+		subcategories= new ArrayList<Category>();
+		userid="";
 	}
 
-	public String getCategoryId() {
-		return categoryId;
+	public Category(String id, String name, String icon, String trans_type, String type,
+			List<Category> subcategories, String userid) {
+		this.cate_id = id;
+		this.name = name;
+		this.icon = icon;
+		this.trans_type = trans_type;
+		this.type = type;
+		this.subcategories = subcategories;
+		this.userid = userid;
 	}
 
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public String getCate_id() {
+		return cate_id;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
+	public void setCate_id(String cate_id) {
+		this.cate_id = cate_id;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public String getName() {
+		return name;
 	}
 
-	public int getCategoryType() {
-		return categoryType;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setCategoryType(int categoryType) {
-		this.categoryType = categoryType;
+	public String getIcon() {
+		return icon;
 	}
 
-	public String getCategoryImage() {
-		return categoryImage;
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
-	public void setCategoryImage(String categoryImage) {
-		this.categoryImage = categoryImage;
+	public String getTrans_type() {
+		return trans_type;
 	}
 
-	public String getUserId() {
-		return userId;
+	public void setTrans_type(String trans_type) {
+		this.trans_type = trans_type;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public String getType() {
+		return type;
 	}
 
-	public String getCategoryParent() {
-		return categoryParent;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public void setCategoryParent(String categoryParent) {
-		this.categoryParent = categoryParent;
-	}
-	
-
-	public int getTransactionType() {
-		return transactionType;
+	public List<Category> getSubcategories() {
+		return subcategories;
 	}
 
-	public void setTransactionType(int transactionType) {
-		this.transactionType = transactionType;
+	public void setSubcategories(List<Category> subcategories) {
+		this.subcategories = subcategories;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	@Override
-	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryType="
-				+ categoryType + ", categoryImage=" + categoryImage + ", transactionType=" + transactionType
-				+ ", categoryParent=" + categoryParent + ", userId=" + userId + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cate_id == null) ? 0 : cate_id.hashCode());
+		return result;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		if (cate_id == null) {
+			if (other.cate_id != null)
+				return false;
+		} else if (!cate_id.equals(other.cate_id))
+			return false;
+		return true;
+	}
 	
 
-	
 	
 }

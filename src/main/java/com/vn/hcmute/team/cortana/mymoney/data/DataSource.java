@@ -36,19 +36,21 @@ public interface DataSource {
 	}
 
 	public interface CategorySource{
-		List<Category> getDefaultCategory(String userid);
 		
 		List<Category> getCategoryByUserId(String userid);
 		
-		void addCategory(Category category);
+		void addCategory(Category category,String parentId);
 		
-		void updateCategory(Category category);
+		void updateCategory(Category category,String oldParentId,String parentId);
 		
-		void removeCategory(Category category);
+		void removeCategory(Category category,String parentId);
 		
 		void initDefaultCategory(String userid);
  
+		List<Category> getCategoryByTransactionType(String userid,String transactionType);
 		
+		List<Category> getCategoryByType(String userid,String type,String transType);
+
 	}
 	public interface WalletDataSource{
 		List<Wallet> getInfoWallet(String userid);

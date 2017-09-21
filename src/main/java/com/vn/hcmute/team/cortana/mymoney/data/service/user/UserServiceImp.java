@@ -82,26 +82,29 @@ public class UserServiceImp implements UserService {
 	}
 	@Override
 	public User login(UserCredential userCredential) {
-		String hashPassword = SecurityUtil.generateMD5(userCredential.getPassword());
+		
 		LOG.info("Get info user...");
 		try {
+			String password=SecurityUtil.decrypt(userCredential.getPassword());
+			String hashPassword = SecurityUtil.generateMD5(password);
 			User user = mMongoTemplate.findOne(
 					query(where("username").is(userCredential.getUsername()).and("password").is(hashPassword)),
 					User.class, DbConstraint.TABLE_USER);
-
+            
 			if (user != null) {
-
 				user.setPassword(null);
 				user.setApikey(null);
-
 				return user;
 			} else {
 				throw new UserException("Wrong username or password");
 			}
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
-		}
-	}
+		} catch (Exception e){
+            throw new UserException("Wrong username or password");
+        }
+    }
+
 
 	@Override
 	public boolean isApiKey(String userid, String token) {
@@ -158,6 +161,8 @@ public class UserServiceImp implements UserService {
 	public void changePassword(String userid, String oldpassword, String newpassword) {
 		try {
 			LOG.info("Change password");
+			oldpassword=SecurityUtil.decrypt(oldpassword);
+			newpassword=SecurityUtil.decrypt(newpassword);
 			String hashOldPassword = SecurityUtil.generateMD5(oldpassword);
 			User _user = mMongoTemplate.findOne(query(where("userid").is(userid).and("password").is(hashOldPassword)),
 					User.class, DbConstraint.TABLE_USER);
@@ -170,6 +175,7 @@ public class UserServiceImp implements UserService {
 			mMongoTemplate.updateFirst(query(where("userid").is(userid)), update, User.class, DbConstraint.TABLE_USER);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
+		} catch (Exception e) {
 		}
 	}
 

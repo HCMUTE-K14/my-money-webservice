@@ -22,6 +22,7 @@ import com.vn.hcmute.team.cortana.mymoney.model.WalletModel;
 @Component
 @Path("wallet")
 public class WalletController {
+	private static final String UTF8="; charset=UTF-8";
 	@Autowired
 	WalletModel walletModel;
 	
@@ -68,8 +69,8 @@ public class WalletController {
 	}
 	@GET
 	@Path("getInfoWallet/{userid}/{token}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON+UTF8)
+	@Produces(MediaType.APPLICATION_JSON+UTF8)
 	public String getInfo(@PathParam("userid") String userid,@PathParam("token") String token) {
 		Class<List<Wallet>> clazz = (Class<List<Wallet>>) (Object) List.class;
 

@@ -22,6 +22,7 @@ import com.vn.hcmute.team.cortana.mymoney.model.SavingModel;
 @Component
 @Path("saving")
 public class SavingController {
+	private static final String UTF8="; charset=UTF-8";
 	@Autowired
 	SavingModel savingModel;
 	
@@ -67,8 +68,8 @@ public class SavingController {
 	}
 	@GET
 	@Path("getSaving/{userid}/{token}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON+UTF8)
+	@Produces(MediaType.APPLICATION_JSON+UTF8)
 	public String getInfo(@PathParam("userid") String userid,@PathParam("token") String token) {
 		Class<List<Saving>> clazz = (Class<List<Saving>>) (Object) List.class;
 		JsonResponse<List<Saving>> response=new JsonResponse<List<Saving>>(clazz);

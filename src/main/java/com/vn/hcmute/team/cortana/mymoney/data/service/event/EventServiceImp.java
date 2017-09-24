@@ -56,7 +56,8 @@ public class EventServiceImp implements EventService{
 			update.set("idWallet", event.getIdWallet());
 			update.set("status", event.getStatus());
 			update.set("date", event.getDate());
-			
+			update.set("currencies", event.getCurrencies());
+			update.set("icon",event.getIcon());
 			mongoTemplate.updateFirst(query, update, Event.class,DbConstraint.TABLE_EVENT);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");

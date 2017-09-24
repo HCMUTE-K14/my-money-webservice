@@ -16,6 +16,8 @@ public class Event {
 	private String status;
 	private String userid;
 	private Currencies currencies;
+	private String icon;
+	
 	public Event() {
 		this.eventid="";
 		this.name="";
@@ -24,6 +26,13 @@ public class Event {
 		this.idWallet="";
 		this.status="";
 		this.userid="";
+		this.icon="";
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	public Currencies getCurrencies() {
 		return currencies;

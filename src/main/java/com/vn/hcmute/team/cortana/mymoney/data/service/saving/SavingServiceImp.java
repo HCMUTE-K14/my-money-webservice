@@ -62,6 +62,7 @@ public class SavingServiceImp implements SavingService{
 			update.set("idCurrencies", saving.getIdCurrencies());
 			update.set("status", saving.getStatus());
 			update.set("currencies", saving.getCurrencies());
+			update.set("icon", saving.getIcon());
 			
 			mongoTemplate.updateFirst(query, update, Saving.class,DbConstraint.TABLE_SAVING);
 		}catch (MongoException e) {

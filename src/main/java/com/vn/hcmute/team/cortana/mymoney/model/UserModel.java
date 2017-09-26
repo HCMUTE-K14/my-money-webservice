@@ -40,7 +40,7 @@ public class UserModel {
 		try {
 			validateUser(user);
 			
-			user.setUserid(SecurityUtil.generateUUID());
+			user.setUser_id(SecurityUtil.generateUUID());
 
 			user.setPassword(SecurityUtil.generateMD5(user.getPassword()));
 			user.setToken(SecurityUtil.generateUUID());
@@ -48,7 +48,7 @@ public class UserModel {
 			user.setActive(true);
 
 			this.mDataRepository.register(user);
-			this.mDataRepository.initDefaultCategory(user.getUserid());
+			this.mDataRepository.initDefaultCategory(user.getUser_id());
 
 			callback.onSuccess("ok");
 		} catch (Exception e) {

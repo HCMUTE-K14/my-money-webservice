@@ -1,80 +1,103 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Event {
-	private String eventid;
-	public String getEventid() {
-		return eventid;
-	}
-	public void setEventid(String eventid) {
-		this.eventid = eventid;
-	}
+	private String event_id;
 	private String name;
 	private String money;
 	private String date;
-	private String idWallet;
-	//Đánh dấu trạng thái kết thúc sự kiện hay chưa
+	private String wallet_id;
 	private String status;
-	private String userid;
+	private String user_id;
 	private Currencies currencies;
 	private String icon;
-	
 	public Event() {
-		this.eventid="";
+		this.event_id="";
 		this.name="";
 		this.money="";
 		this.date="";
-		this.idWallet="";
+		this.event_id="";
 		this.status="";
-		this.userid="";
+		this.event_id="";
 		this.icon="";
+		this.currencies=new Currencies();
 	}
-	public String getIcon() {
-		return icon;
+	public String getEvent_id() {
+		return event_id;
 	}
-	public void setIcon(String icon) {
-		this.icon = icon;
+
+	public void setEvent_id(String event_id) {
+		this.event_id = event_id;
 	}
-	public Currencies getCurrencies() {
-		return currencies;
-	}
-	public void setCurrencies(Currencies currencies) {
-		this.currencies = currencies;
-	}
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getMoney() {
 		return money;
 	}
+
 	public void setMoney(String money) {
 		this.money = money;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getIdWallet() {
-		return idWallet;
+
+	public String getWallet_id() {
+		return wallet_id;
 	}
-	public void setIdWallet(String idWallet) {
-		this.idWallet = idWallet;
+
+	public void setWallet_id(String wallet_id) {
+		this.wallet_id = wallet_id;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+
+	public Currencies getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(Currencies currencies) {
+		this.currencies = currencies;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	
+	@Override
+	public String toString() {
+		return "Event [event_id=" + event_id + ", name=" + name + ", money=" + money + ", date=" + date + ", wallet_id="
+				+ wallet_id + ", status=" + status + ", user_id=" + user_id + ", currencies=" + currencies + ", icon="
+				+ icon + "]";
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -85,10 +108,10 @@ public class Event {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
-		if (eventid == null) {
-			if (other.eventid != null)
+		if (event_id == null) {
+			if (other.event_id != null)
 				return false;
-		} else if (!eventid.equals(other.eventid))
+		} else if (!event_id.equals(other.event_id))
 			return false;
 		return true;
 	}

@@ -1,68 +1,85 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Budget {
-	private String budgetId;
-	private String categoryId;
-	private String walletid;
-	private String rangeDate;
-	private String moneyGoal;
+	private String budget_id;
+	private String range_date;
+	private String money_goal;
 	private String status;
-	private String userid;
-	private String moneyExpense;
-	public String getMoneyGoal() {
-		return moneyGoal;
+	private String user_id;
+	private String money_expense;
+	private Wallet wallet;
+	private Category category;
+	
+	public Budget() {
+		this.budget_id = "";
+		this.range_date = "";
+		this.money_goal = "";
+		this.status = "";
+		this.user_id = "";
+		this.money_expense = "";
+		this.wallet = new Wallet();
+		this.category = new Category();
 	}
-	public void setMoneyGoal(String moneyGoal) {
-		this.moneyGoal = moneyGoal;
+	public String getBudget_id() {
+		return budget_id;
 	}
-	public String getMoneyExpense() {
-		return moneyExpense;
+	public void setBudget_id(String budget_id) {
+		this.budget_id = budget_id;
 	}
-	public void setMoneyExpense(String moneyExpense) {
-		this.moneyExpense = moneyExpense;
+	public String getRange_date() {
+		return range_date;
 	}
-	public String getUserid() {
-		return userid;
+	public void setRange_date(String range_date) {
+		this.range_date = range_date;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public String getMoney_goal() {
+		return money_goal;
 	}
-	public String getBudgetId() {
-		return budgetId;
+	public void setMoney_goal(String money_goal) {
+		this.money_goal = money_goal;
 	}
-	public void setBudgetId(String budgetId) {
-		this.budgetId = budgetId;
-	}
-	public String getCategoryId() {
-		return categoryId;
-	}
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
-	}
-	public String getWalletid() {
-		return walletid;
-	}
-	public void setWalletid(String walletid) {
-		this.walletid = walletid;
-	}
-	public String getRangeDate() {
-		return rangeDate;
-	}
-	public void setRangeDate(String rangeDate) {
-		this.rangeDate = rangeDate;
-	}
-
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getMoney_expense() {
+		return money_expense;
+	}
+	public void setMoney_expense(String money_expense) {
+		this.money_expense = money_expense;
+	}
+	public Wallet getWallet() {
+		return wallet;
+	}
+	public void setWallet(Wallet wallet) {
+		this.wallet = wallet;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	@Override
+	public String toString() {
+		return "Budget [budget_id=" + budget_id + ", range_date=" + range_date + ", money_goal=" + money_goal
+				+ ", status=" + status + ", user_id=" + user_id + ", money_expense=" + money_expense + ", wallet="
+				+ wallet + ", category=" + category + "]";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((budgetId == null) ? 0 : budgetId.hashCode());
+		result = prime * result + ((budget_id == null) ? 0 : budget_id.hashCode());
 		return result;
 	}
 	@Override
@@ -74,10 +91,10 @@ public class Budget {
 		if (getClass() != obj.getClass())
 			return false;
 		Budget other = (Budget) obj;
-		if (budgetId == null) {
-			if (other.budgetId != null)
+		if (budget_id == null) {
+			if (other.budget_id != null)
 				return false;
-		} else if (!budgetId.equals(other.budgetId))
+		} else if (!budget_id.equals(other.budget_id))
 			return false;
 		return true;
 	}

@@ -114,7 +114,7 @@ public class UserServiceImp implements UserService {
 			}
 			String fakeApikey = SecurityUtil.generateApiKey(token);
 			String realApiKey = mMongoTemplate
-					.findOne(query(where("userid").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
+					.findOne(query(where("user_id").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
 
 			if (TextUtil.isEmpty(realApiKey)) {
 				throw new UserException("Cannot found api key");
@@ -164,7 +164,7 @@ public class UserServiceImp implements UserService {
 			oldpassword=SecurityUtil.decrypt(oldpassword);
 			newpassword=SecurityUtil.decrypt(newpassword);
 			String hashOldPassword = SecurityUtil.generateMD5(oldpassword);
-			User _user = mMongoTemplate.findOne(query(where("userid").is(userid).and("password").is(hashOldPassword)),
+			User _user = mMongoTemplate.findOne(query(where("user_id").is(userid).and("password").is(hashOldPassword)),
 					User.class, DbConstraint.TABLE_USER);
 			if (_user == null) {
 				throw new UserException("User not exist");
@@ -188,7 +188,7 @@ public class UserServiceImp implements UserService {
 			update.set("name", user.getName());
 			update.set("active", user.isActive());
 
-			mMongoTemplate.updateFirst(query(where("userid").is(user.getUserid())), update, User.class,
+			mMongoTemplate.updateFirst(query(where("user_id").is(user.getUser_id())), update, User.class,
 					DbConstraint.TABLE_USER);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");

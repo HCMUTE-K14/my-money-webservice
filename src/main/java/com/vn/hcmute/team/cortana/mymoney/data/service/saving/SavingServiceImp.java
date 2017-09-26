@@ -22,7 +22,7 @@ public class SavingServiceImp implements SavingService{
 	@Override
 	public List<Saving> getSaving(String userid) {
 		try {
-			Query searchQuery = new Query(Criteria.where("userid").is(userid));
+			Query searchQuery = new Query(Criteria.where("user_id").is(userid));
 			List<Saving> list=mongoTemplate.find(searchQuery, Saving.class,DbConstraint.TABLE_SAVING);
 			return list;
 		}catch (MongoException e) {
@@ -44,7 +44,7 @@ public class SavingServiceImp implements SavingService{
 	public void updateSaving(Saving saving) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("savingid").is(saving.getSavingid()).and("userid").is(saving.getUserid()));
+			query.addCriteria(Criteria.where("saving_id").is(saving.getSaving_id()).and("user_id").is(saving.getUser_id()));
 
 
 			Saving saving1 = mongoTemplate.findOne(query, Saving.class,DbConstraint.TABLE_SAVING);
@@ -54,12 +54,11 @@ public class SavingServiceImp implements SavingService{
 			
 			Update update=new Update();
 			update.set("name", saving.getName());
-			update.set("goalMoney", saving.getGoalMoney());
-			update.set("startMoney", saving.getStartMoney());
-			update.set("currentMoney", saving.getCurrentMoney());
+			update.set("goal_money", saving.getGoal_money());
+			update.set("start_money", saving.getStart_money());
+			update.set("current_money", saving.getCurrent_money());
 			update.set("date", saving.getDate());
-			update.set("idWallet", saving.getIdWallet());
-			update.set("idCurrencies", saving.getIdCurrencies());
+			update.set("wallet_id", saving.getWallet_id());
 			update.set("status", saving.getStatus());
 			update.set("currencies", saving.getCurrencies());
 			update.set("icon", saving.getIcon());
@@ -74,7 +73,7 @@ public class SavingServiceImp implements SavingService{
 	public void deleteSaving(String idSaving) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("savingid").is(idSaving));
+			query.addCriteria(Criteria.where("saving_id").is(idSaving));
 			Saving saving=mongoTemplate.findOne(query, Saving.class,DbConstraint.TABLE_SAVING);
 			if(saving==null)
 				throw new RuntimeException("Null Saving!");
@@ -89,11 +88,11 @@ public class SavingServiceImp implements SavingService{
 	public void takeIn(String idWallet, String idSaving,String money) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(idWallet));
+			query.addCriteria(Criteria.where("wallet_id").is(idWallet));
 			Wallet walletFrom = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			Query query2=new Query();
-			query2.addCriteria(Criteria.where("savingid").is(idSaving));
+			query2.addCriteria(Criteria.where("saving_id").is(idSaving));
 			Saving saving=mongoTemplate.findOne(query2, Saving.class,DbConstraint.TABLE_SAVING);
 			
 			if(walletFrom==null)
@@ -102,8 +101,8 @@ public class SavingServiceImp implements SavingService{
 				throw new RuntimeException("Null saving!");
 			
 			double moneyWallet=Double.parseDouble(walletFrom.getMoney());
-			double moneySaving=Double.parseDouble(saving.getCurrentMoney());
-			double moneyGoalMoney=Double.parseDouble(saving.getGoalMoney());
+			double moneySaving=Double.parseDouble(saving.getCurrent_money());
+			double moneyGoalMoney=Double.parseDouble(saving.getGoal_money());
 			double moneyTakeIn=Double.parseDouble(money);
 			
 			if(moneyTakeIn>moneyWallet)
@@ -125,7 +124,7 @@ public class SavingServiceImp implements SavingService{
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			Update update2=new Update();
-			update2.set("currentMoney",String.valueOf( moneySaving));
+			update2.set("current_money",String.valueOf( moneySaving));
 			mongoTemplate.updateFirst(query2, update2, Saving.class,DbConstraint.TABLE_SAVING);
 
 		}catch (MongoException e) {
@@ -138,11 +137,11 @@ public class SavingServiceImp implements SavingService{
 	public void takeOut(String idWallet, String idSaving,String money) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(idWallet));
+			query.addCriteria(Criteria.where("wallet_id").is(idWallet));
 			Wallet walletFrom = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			Query query2=new Query();
-			query2.addCriteria(Criteria.where("savingid").is(idSaving));
+			query2.addCriteria(Criteria.where("saving_id").is(idSaving));
 			Saving saving=mongoTemplate.findOne(query2, Saving.class,DbConstraint.TABLE_SAVING);
 			
 			if(walletFrom==null)
@@ -151,7 +150,7 @@ public class SavingServiceImp implements SavingService{
 				throw new RuntimeException("Null saving!");
 			
 			double moneyWallet=Double.parseDouble(walletFrom.getMoney());
-			double moneySaving=Double.parseDouble(saving.getCurrentMoney());
+			double moneySaving=Double.parseDouble(saving.getCurrent_money());
 			double moneyTakeOut=Double.parseDouble(money);
 			
 			if(moneyTakeOut>moneySaving)
@@ -165,7 +164,7 @@ public class SavingServiceImp implements SavingService{
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			Update update2=new Update();
-			update2.set("currentMoney", String.valueOf(moneySaving));
+			update2.set("current_money", String.valueOf(moneySaving));
 			mongoTemplate.updateFirst(query2, update2, Saving.class,DbConstraint.TABLE_SAVING);
 
 		}catch (MongoException e) {
@@ -179,11 +178,11 @@ public class SavingServiceImp implements SavingService{
 		if(list==null)
 			throw new RuntimeException("null list");
 				
-		List<Saving> listSaving=getSaving(list.get(0).getUserid());
+		List<Saving> listSaving=getSaving(list.get(0).getUser_id());
 		
 		for(int i=0;i<listSaving.size();i++) {
 			if(!list.contains(listSaving.get(i))) {
-				deleteSaving(listSaving.get(i).getSavingid());
+				deleteSaving(listSaving.get(i).getSaving_id());
 			}
 		}
 		
@@ -194,7 +193,7 @@ public class SavingServiceImp implements SavingService{
 	public void sync(Saving saving) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("savingid").is(saving.getSavingid()).and("userid").is(saving.getUserid()));
+			query.addCriteria(Criteria.where("saving_id").is(saving.getSaving_id()).and("user_id").is(saving.getUser_id()));
 
 
 			Saving saving1 = mongoTemplate.findOne(query, Saving.class,DbConstraint.TABLE_SAVING);
@@ -205,14 +204,14 @@ public class SavingServiceImp implements SavingService{
 			
 			Update update=new Update();
 			update.set("name", saving.getName());
-			update.set("goalMoney", saving.getGoalMoney());
-			update.set("startMoney", saving.getStartMoney());
-			update.set("currentMoney", saving.getCurrentMoney());
+			update.set("goal_money", saving.getGoal_money());
+			update.set("start_money", saving.getStart_money());
+			update.set("current_money", saving.getCurrent_money());
 			update.set("date", saving.getDate());
-			update.set("idWallet", saving.getIdWallet());
-			update.set("idCurrencies", saving.getIdCurrencies());
+			update.set("wallet_id", saving.getWallet_id());
 			update.set("status", saving.getStatus());
-			
+			update.set("currencies", saving.getCurrencies());
+			update.set("icon", saving.getIcon());
 			mongoTemplate.updateFirst(query, update, Saving.class,DbConstraint.TABLE_SAVING);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");

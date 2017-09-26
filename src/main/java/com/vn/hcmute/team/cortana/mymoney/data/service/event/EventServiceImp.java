@@ -21,7 +21,7 @@ public class EventServiceImp implements EventService{
 	@Override
 	public List<Event> getEvent(String userid) {
 		try {
-			Query searchQuery = new Query(Criteria.where("userid").is(userid));
+			Query searchQuery = new Query(Criteria.where("user_id").is(userid));
 			List<Event> list=mongoTemplate.find(searchQuery, Event.class,DbConstraint.TABLE_EVENT);
 			return list;
 		}catch (MongoException e) {
@@ -42,7 +42,7 @@ public class EventServiceImp implements EventService{
 	public void updateEvent(Event event) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("eventid").is(event.getEventid()).and("userid").is(event.getUserid()));
+			query.addCriteria(Criteria.where("event_id").is(event.getEvent_id()).and("user_id").is(event.getUser_id()));
 			
 			Event event1 = mongoTemplate.findOne(query, Event.class,DbConstraint.TABLE_EVENT);
 			
@@ -53,7 +53,7 @@ public class EventServiceImp implements EventService{
 			Update update=new Update();
 			update.set("name", event.getName());
 			update.set("money", event.getMoney());
-			update.set("idWallet", event.getIdWallet());
+			update.set("wallet_id", event.getWallet_id());
 			update.set("status", event.getStatus());
 			update.set("date", event.getDate());
 			update.set("currencies", event.getCurrencies());
@@ -70,7 +70,7 @@ public class EventServiceImp implements EventService{
 	public void deleteEvent(String userid, String idEvent) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("eventid").is(idEvent).and("userid").is(userid));
+			query.addCriteria(Criteria.where("event_id").is(idEvent).and("user_id").is(userid));
 			Event event=mongoTemplate.findOne(query, Event.class,DbConstraint.TABLE_EVENT);
 			if(event==null)
 				throw new RuntimeException("Null Event!");
@@ -87,10 +87,10 @@ public class EventServiceImp implements EventService{
 			throw new RuntimeException("Null list");
 		}
 		
-		List<Event> listEventServer=getEvent(list.get(0).getUserid());
+		List<Event> listEventServer=getEvent(list.get(0).getUser_id());
 		for(int i=0;i<listEventServer.size();i++) {
 			if(!list.contains(listEventServer.get(i))) {
-				deleteEvent(listEventServer.get(i).getUserid(), listEventServer.get(i).getEventid());
+				deleteEvent(listEventServer.get(i).getUser_id(), listEventServer.get(i).getEvent_id());
 			}
 		}
 		
@@ -102,7 +102,7 @@ public class EventServiceImp implements EventService{
 	public void sync(Event event) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("eventid").is(event.getEventid()).and("userid").is(event.getUserid()));
+			query.addCriteria(Criteria.where("event_id").is(event.getEvent_id()).and("user_id").is(event.getUser_id()));
 			
 			Event event1 = mongoTemplate.findOne(query, Event.class,DbConstraint.TABLE_EVENT);
 			
@@ -114,10 +114,11 @@ public class EventServiceImp implements EventService{
 			Update update=new Update();
 			update.set("name", event.getName());
 			update.set("money", event.getMoney());
-			update.set("idWallet", event.getIdWallet());
+			update.set("wallet_id", event.getWallet_id());
 			update.set("status", event.getStatus());
 			update.set("date", event.getDate());
-			
+			update.set("currencies", event.getCurrencies());
+			update.set("icon", event.getIcon());
 			mongoTemplate.updateFirst(query, update, Event.class,DbConstraint.TABLE_EVENT);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");

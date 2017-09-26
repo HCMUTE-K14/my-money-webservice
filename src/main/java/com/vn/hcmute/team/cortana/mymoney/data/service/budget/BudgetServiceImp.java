@@ -22,7 +22,7 @@ public class BudgetServiceImp implements BudgetService{
 	@Override
 	public List<Budget> getBudget(String userid) {
 		try {
-			Query searchQuery = new Query(Criteria.where("userid").is(userid));
+			Query searchQuery = new Query(Criteria.where("user_id").is(userid));
 			List<Budget> list=mMongoTemplate.find(searchQuery, Budget.class,DbConstraint.TABLE_BUDGET);
 			return list;
 		}catch (MongoException e) {
@@ -44,7 +44,7 @@ public class BudgetServiceImp implements BudgetService{
 	public void updateBudget(Budget budget) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("budgetId").is(budget.getBudgetId()).and("userid").is(budget.getUserid()));
+			query.addCriteria(Criteria.where("budget_id").is(budget.getBudget_id()).and("user_id").is(budget.getUser_id()));
 
 			Budget budget2 = mMongoTemplate.findOne(query, Budget.class,DbConstraint.TABLE_BUDGET);
 			
@@ -53,10 +53,11 @@ public class BudgetServiceImp implements BudgetService{
 			}
 			
 			Update update=new Update();
-			update.set("categoryId", budget.getCategoryId());
-			update.set("walletid", budget.getWalletid());
-			update.set("rangeDate", budget.getRangeDate());
-			update.set("moneyGoal", budget.getMoneyGoal());
+			update.set("category", budget.getCategory());
+			update.set("wallet", budget.getWallet());
+			update.set("range_date", budget.getRange_date());
+			update.set("money_goal", budget.getMoney_goal());
+			update.set("money_expense", budget.getMoney_expense());
 			update.set("status", budget.getStatus());
 			
 			mMongoTemplate.updateFirst(query, update, Budget.class,DbConstraint.TABLE_BUDGET);
@@ -70,7 +71,7 @@ public class BudgetServiceImp implements BudgetService{
 	public void removeBudget(String budgetId) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("budgetId").is(budgetId));
+			query.addCriteria(Criteria.where("budget_id").is(budgetId));
 			
 			Budget budget=mMongoTemplate.findOne(query, Budget.class,DbConstraint.TABLE_BUDGET);
 			if(budget==null)
@@ -89,10 +90,10 @@ public class BudgetServiceImp implements BudgetService{
 		if(list==null)
 			throw new RuntimeException("Null list budget!");
 		
-		List<Budget> listBudgetServer=getBudget(list.get(0).getUserid());
+		List<Budget> listBudgetServer=getBudget(list.get(0).getUser_id());
 		for(int i=0;i<listBudgetServer.size();i++) {
 			if(!list.contains(listBudgetServer.get(i))) {
-				removeBudget(listBudgetServer.get(i).getBudgetId());
+				removeBudget(listBudgetServer.get(i).getBudget_id());
 			}
 		}
 
@@ -104,7 +105,7 @@ public class BudgetServiceImp implements BudgetService{
 	public void sync(Budget budget) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("budgetId").is(budget.getBudgetId()).and("userid").is(budget.getUserid()));
+			query.addCriteria(Criteria.where("budget_id").is(budget.getBudget_id()).and("user_id").is(budget.getUser_id()));
 
 			Budget budget2 = mMongoTemplate.findOne(query, Budget.class,DbConstraint.TABLE_BUDGET);
 			
@@ -116,10 +117,11 @@ public class BudgetServiceImp implements BudgetService{
 			}
 			
 			Update update=new Update();
-			update.set("categoryId", budget.getCategoryId());
-			update.set("walletid", budget.getWalletid());
-			update.set("rangeDate", budget.getRangeDate());
-			update.set("moneyGoal", budget.getMoneyGoal());
+			update.set("category", budget.getCategory());
+			update.set("wallet", budget.getWallet());
+			update.set("range_date", budget.getRange_date());
+			update.set("money_goal", budget.getMoney_goal());
+			update.set("money_expense", budget.getMoney_expense());
 			update.set("status", budget.getStatus());
 			
 			mMongoTemplate.updateFirst(query, update, Budget.class,DbConstraint.TABLE_BUDGET);

@@ -8,7 +8,7 @@ public class User implements Serializable {
 	
 	public static final String DEFAULT_USER_ID="ALL";
 	
-	private String userid;
+	private String user_id;
 	private String username;
 	private String password;
 	private String name;
@@ -18,7 +18,7 @@ public class User implements Serializable {
 	private boolean active;
 	
 	public User(){
-		this.userid="DEFAULT";
+		this.user_id="DEFAULT";
 		this.username="";
 		this.password="";
 		this.name="";
@@ -28,12 +28,12 @@ public class User implements Serializable {
 		this.active=false;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getUsername() {
@@ -95,7 +95,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", name=" + name
+		return "User [userid=" + user_id + ", username=" + username + ", password=" + password + ", name=" + name
 				+ ", token=" + token + ", apikey=" + apikey + ", email=" + email + ", active=" + active + "]";
 	}
 

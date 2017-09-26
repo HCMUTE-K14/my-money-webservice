@@ -49,10 +49,10 @@ public class CategoryServiceImp implements CategoryService {
 			if (TextUtil.isEmpty(parentId)) {
 				mMongoTemplate.save(category, DbConstraint.TABLE_CATEGORY);
 			} else {
-				System.out.println("CATEGORY_ADD:" + parentId);
+
 				Query query = new Query();
 
-				query.addCriteria(where("cate_id").is(parentId).and("userid").is(category.getUserid()));
+				query.addCriteria(where("cate_id").is(parentId).and("user_id").is(category.getUser_id()));
 
 				Category cate = mMongoTemplate.findOne(query, Category.class, DbConstraint.TABLE_CATEGORY);
 
@@ -81,7 +81,7 @@ public class CategoryServiceImp implements CategoryService {
 
 				Query query = new Query();
 
-				query.addCriteria(where("cate_id").is(category.getCate_id()).and("userid").is(category.getUserid()));
+				query.addCriteria(where("cate_id").is(category.getCate_id()).and("user_id").is(category.getUser_id()));
 
 				Category cate = mMongoTemplate.findOne(query, Category.class, DbConstraint.TABLE_CATEGORY);
 
@@ -113,7 +113,7 @@ public class CategoryServiceImp implements CategoryService {
 				Query query = new Query();
 				Update update = new Update();
 
-				query.addCriteria(where("cate_id").is(oldParentId).and("userid").is(category.getUserid()));
+				query.addCriteria(where("cate_id").is(oldParentId).and("user_id").is(category.getUser_id()));
 
 				Category cate = mMongoTemplate.findOne(query, Category.class, DbConstraint.TABLE_CATEGORY);
 
@@ -144,7 +144,7 @@ public class CategoryServiceImp implements CategoryService {
 				mMongoTemplate.updateFirst(query, update, Category.class, DbConstraint.TABLE_CATEGORY);
 				// Move category
 				Query query1 = new Query();
-				query1.addCriteria(where("cate_id").is(newParentId).and("userid").is(category.getUserid()));
+				query1.addCriteria(where("cate_id").is(newParentId).and("user_id").is(category.getUser_id()));
 				Category cate_parent = mMongoTemplate.findOne(query1, Category.class, DbConstraint.TABLE_CATEGORY);
 				if (cate_parent == null) {
 					throw new CategoryException("Category not exists");
@@ -168,12 +168,12 @@ public class CategoryServiceImp implements CategoryService {
 			}
 			if (TextUtil.isEmpty(parentId)) {
 				Query query = new Query();
-				query.addCriteria(where("cate_id").is(category.getCate_id()).and("userid").is(category.getUserid()));
+				query.addCriteria(where("cate_id").is(category.getCate_id()).and("user_id").is(category.getUser_id()));
 				mMongoTemplate.remove(query, Category.class, DbConstraint.TABLE_CATEGORY);
 				LOG.info("Remove category...successful");
 			} else {
 				Query query = new Query();
-				query.addCriteria(where("cate_id").is(category.getCate_id()).and("userid").is(category.getUserid()));
+				query.addCriteria(where("cate_id").is(category.getCate_id()).and("user_id").is(category.getUser_id()));
 				Category cate = mMongoTemplate.findOne(query, Category.class, DbConstraint.TABLE_CATEGORY);
 
 				if (cate == null) {
@@ -195,7 +195,7 @@ public class CategoryServiceImp implements CategoryService {
 	public boolean isExistsCategory(Category category) {
 		try {
 			Category cate = mMongoTemplate.findOne(
-					query(where("name").is(category.getName()).and("userid").is(category.getUserid())), Category.class,
+					query(where("name").is(category.getName()).and("user_id").is(category.getUser_id())), Category.class,
 					DbConstraint.TABLE_CATEGORY);
 
 			return cate != null ? true : false;
@@ -207,7 +207,7 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public List<Category> getCategoryByUserId(String userid) {
 		try {
-			List<Category> categories = mMongoTemplate.find(query(where("userid").is(userid)), Category.class,
+			List<Category> categories = mMongoTemplate.find(query(where("user_id").is(userid)), Category.class,
 					DbConstraint.TABLE_CATEGORY);
 			if (categories == null) {
 				LOG.info("Cannot get category custom");
@@ -231,9 +231,9 @@ public class CategoryServiceImp implements CategoryService {
 				throw new CategoryException("Cannot get default category");
 			}
 			for (Category category : listcategory) {
-				category.setUserid(userid);
+				category.setUser_id(userid);
 				for (Category subcate : category.getSubcategories()) {
-					subcate.setUserid(userid);
+					subcate.setUser_id(userid);
 				}
 			}
 			List<Category> list = Arrays.asList(listcategory);
@@ -250,7 +250,7 @@ public class CategoryServiceImp implements CategoryService {
 			if (categories == null || categories.isEmpty()) {
 				throw new RuntimeException("List of category is empty");
 			}
-			List<Category> listCategoryRemote = getCategoryByUserId(categories.get(0).getUserid());
+			List<Category> listCategoryRemote = getCategoryByUserId(categories.get(0).getUser_id());
 
 			for (int i = 0; i < listCategoryRemote.size(); i++) {
 				if (!categories.contains(listCategoryRemote.get(i))) {
@@ -260,8 +260,8 @@ public class CategoryServiceImp implements CategoryService {
 
 			Query query = new Query();
 			for (int i = 0; i < categories.size(); i++) {
-				query.addCriteria(Criteria.where("cate_id").is(categories.get(i).getCate_id()).and("userid")
-						.is(categories.get(i).getUserid()));
+				query.addCriteria(Criteria.where("cate_id").is(categories.get(i).getCate_id()).and("user_id")
+						.is(categories.get(i).getUser_id()));
 
 				Category _category = mMongoTemplate.findOne(query, Category.class, DbConstraint.TABLE_CATEGORY);
 				if (_category == null) {
@@ -288,7 +288,7 @@ public class CategoryServiceImp implements CategoryService {
 
 		try {
 			List<Category> categories = mMongoTemplate.find(
-					query(where("userid").is(userid).and("trans_type").is(transactionType)), Category.class,
+					query(where("user_id").is(userid).and("trans_type").is(transactionType)), Category.class,
 					DbConstraint.TABLE_CATEGORY);
 			if (categories == null) {
 				LOG.info("Cannot get category custom");
@@ -306,7 +306,7 @@ public class CategoryServiceImp implements CategoryService {
 	public List<Category> getCategoryByType(String userid, String type, String transType) throws RuntimeException {
 		try {
 			List<Category> categories = mMongoTemplate.find(
-					query(where("userid").is(userid).and("type").is(type).and("trans_type").is(transType)),
+					query(where("user_id").is(userid).and("type").is(type).and("trans_type").is(transType)),
 					Category.class, DbConstraint.TABLE_CATEGORY);
 			if (categories == null) {
 				LOG.info("Cannot get category custom");

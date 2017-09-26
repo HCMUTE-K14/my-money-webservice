@@ -11,7 +11,7 @@ public class Category {
 	private String trans_type; // 0 - Imcoming,1 - expense, 2 - debt&loan
 	private String type; // 0 - incoming, 1 -expense
 	List<Category> subcategories;
-	private String userid;
+	private String user_id;
 
 	public Category() {
 		cate_id = "";
@@ -20,7 +20,7 @@ public class Category {
 		trans_type="";
 		type="";
 		subcategories= new ArrayList<Category>();
-		userid="";
+		user_id="";
 	}
 
 	public Category(String id, String name, String icon, String trans_type, String type,
@@ -31,7 +31,7 @@ public class Category {
 		this.trans_type = trans_type;
 		this.type = type;
 		this.subcategories = subcategories;
-		this.userid = userid;
+		this.user_id = userid;
 	}
 
 	public String getCate_id() {
@@ -82,12 +82,13 @@ public class Category {
 		this.subcategories = subcategories;
 	}
 
-	public String getUserid() {
-		return userid;
+	
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	@Override

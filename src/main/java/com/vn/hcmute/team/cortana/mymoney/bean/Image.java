@@ -1,54 +1,54 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Image {
-	private String imageId;
-	private String imageUrl;
-	private String userId;
-	private String imageDetail;
+	private String image_id;
+	private String url;
+	private String user_id;
+	private String detail;
 	
 	public Image() {
-		this.imageId = "";
-		this.imageUrl = "";
-		this.userId = "";
+		this.image_id = "";
+		this.url = "";
+		this.user_id = "";
+		this.detail = "";
 	}
 
-	public String getImageId() {
-		return imageId;
+	public String getImage_id() {
+		return image_id;
 	}
 
-	public void setImageId(String imageId) {
-		this.imageId = imageId;
+	public void setImage_id(String image_id) {
+		this.image_id = image_id;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
-	
-	public String getImageDetail() {
-		return imageDetail;
+	public String getDetail() {
+		return detail;
 	}
 
-	public void setImageDetail(String imageDetail) {
-		this.imageDetail = imageDetail;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
 	@Override
 	public String toString() {
-		return "Image [imageId=" + imageId + ", imageUrl=" + imageUrl + ", userId=" + userId + ", imageDetail="
-				+ imageDetail + "]";
+		return "Image [image_id=" + image_id + ", url=" + url + ", user_id=" + user_id + ", detail=" + detail + "]";
 	}
 
+	
 }

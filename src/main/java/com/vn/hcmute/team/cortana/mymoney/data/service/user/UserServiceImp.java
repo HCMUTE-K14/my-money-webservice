@@ -114,7 +114,7 @@ public class UserServiceImp implements UserService {
 			}
 			String fakeApikey = SecurityUtil.generateApiKey(token);
 			String realApiKey = mMongoTemplate
-					.findOne(query(where("userid").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
+					.findOne(query(where("user_id").is(userid)), User.class, DbConstraint.TABLE_USER).getApikey();
 
 			if (TextUtil.isEmpty(realApiKey)) {
 				throw new UserException("Cannot found api key");

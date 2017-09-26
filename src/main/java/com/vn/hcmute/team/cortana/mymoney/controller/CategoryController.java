@@ -58,8 +58,6 @@ public class CategoryController {
 				response.setStatus("failure");
 				response.setMessage(e.getMessage());
 				response.setData(null);
-				LOG.info("get fail");
-
 			}
 		};
 		switch (type.trim().toLowerCase()) {

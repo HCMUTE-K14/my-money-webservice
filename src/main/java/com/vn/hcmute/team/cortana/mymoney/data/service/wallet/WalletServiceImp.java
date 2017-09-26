@@ -44,7 +44,7 @@ public class WalletServiceImp implements WalletService{
 			
 			LOG.info("Insert document...");
             Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(wallet.getWalletid()).and("userid").is(wallet.getUserid()));
+			query.addCriteria(Criteria.where("wallet_id").is(wallet.getWallet_id()).and("user_id").is(wallet.getUser_id()));
 			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
             if(wallet2 != null){
 				throw new RuntimeException("Wallet exists");
@@ -63,7 +63,7 @@ public class WalletServiceImp implements WalletService{
 		try {
 			LOG.info("Delete document...");
 			Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(idwallet).and("userid").is(userid));
+			query.addCriteria(Criteria.where("wallet_id").is(idwallet).and("user_id").is(userid));
 			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
 			if(wallet2==null)
 				throw new RuntimeException("Null Wallet");
@@ -79,7 +79,7 @@ public class WalletServiceImp implements WalletService{
 	public void updateWallet(Wallet wallet) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(wallet.getWalletid()));
+			query.addCriteria(Criteria.where("wallet_id").is(wallet.getWallet_id()));
 
 
 			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
@@ -88,10 +88,10 @@ public class WalletServiceImp implements WalletService{
 			
 			Update  update=new Update();
 			
-			update.set("walletName", wallet.getWalletName());
+			update.set("name", wallet.getName());
 			update.set("money", wallet.getMoney());
-			update.set("currencyUnit", wallet.getCurrencyUnit());
-			update.set("walletImage", wallet.getWalletImage());
+			update.set("currency", wallet.getCurrency());
+			update.set("icon", wallet.getIcon());
 			update.set("archive", wallet.isArchive());
 			
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
@@ -107,11 +107,11 @@ public class WalletServiceImp implements WalletService{
 	public void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(idWalletFrom).and("userid").is(userid));
+			query.addCriteria(Criteria.where("wallet_id").is(idWalletFrom).and("user_id").is(userid));
 			Wallet walletFrom = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			Query query1 = new Query();
-			query1.addCriteria(Criteria.where("walletid").is(idWallet).and("userid").is(userid));
+			query1.addCriteria(Criteria.where("wallet_id").is(idWallet).and("user_id").is(userid));
 			Wallet walletTo = mongoTemplate.findOne(query1, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			try {
@@ -146,11 +146,11 @@ public class WalletServiceImp implements WalletService{
 			throw new RuntimeException("null list");
 		}
 				
-		List<Wallet> listWallet=getInfoWallet(list.get(0).getUserid());
+		List<Wallet> listWallet=getInfoWallet(list.get(0).getUser_id());
 		
 		for(int i=0;i<listWallet.size();i++) {
 			if(!list.contains(listWallet.get(i))) {
-				deleteWallet(listWallet.get(i).getUserid(), listWallet.get(i).getWalletid());
+				deleteWallet(listWallet.get(i).getUser_id(), listWallet.get(i).getWallet_id());
 			}
 		}
 		
@@ -162,7 +162,7 @@ public class WalletServiceImp implements WalletService{
 	public void sync(Wallet wallet) {
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("walletid").is(wallet.getWalletid()));
+			query.addCriteria(Criteria.where("wallet_id").is(wallet.getWallet_id()));
 
 
 			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
@@ -174,10 +174,11 @@ public class WalletServiceImp implements WalletService{
 			}
 			
 			Update  update=new Update();
-			update.set("walletName", wallet.getWalletName());
+			update.set("name", wallet.getName());
 			update.set("money", wallet.getMoney());
-			update.set("currencyUnit", wallet.getCurrencyUnit());
-			update.set("walletImage", wallet.getWalletImage());
+			update.set("currency", wallet.getCurrency());
+			update.set("icon", wallet.getIcon());
+			
 			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
 			
 			

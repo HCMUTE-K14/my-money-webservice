@@ -21,7 +21,7 @@ public class PersonServiceImp implements  PersonService{
 	@Override
 	public List<Person> getPersons(String userid) {
 		try {
-			Query searchQuery = new Query(Criteria.where("userid").is(userid));
+			Query searchQuery = new Query(Criteria.where("user_id").is(userid));
 			List<Person> list=mongoTemplate.find(searchQuery, Person.class,DbConstraint.TABLE_PERSON);
 			return list;
 		}catch (MongoException e) {
@@ -44,7 +44,7 @@ public class PersonServiceImp implements  PersonService{
 		try {
 			
 			Query query = new Query();
-			query.addCriteria(Criteria.where("personid").is(personid));
+			query.addCriteria(Criteria.where("person_id").is(personid));
 			Person person=mongoTemplate.findOne(query, Person.class,DbConstraint.TABLE_PERSON);
 			if(person==null)
 				throw new RuntimeException("Null Person!");
@@ -58,7 +58,7 @@ public class PersonServiceImp implements  PersonService{
 	public void updatePerson(Person person) {
 		try{
 			Query query=new Query();
-			query.addCriteria(Criteria.where("personid").is(person.getPersonid()).and("userid").is(person.getUserid()));
+			query.addCriteria(Criteria.where("person_id").is(person.getPerson_id()).and("user_id").is(person.getUser_id()));
 			
 			Person _person=mongoTemplate.findOne(query, Person.class,DbConstraint.TABLE_PERSON);
 			if(_person == null ){
@@ -82,21 +82,21 @@ public class PersonServiceImp implements  PersonService{
 			if(persons == null || persons.isEmpty()){
 				throw new RuntimeException("List of person is empty");
 			}
-			List<Person> listPersonRemote=getPersons(persons.get(0).getUserid());
+			List<Person> listPersonRemote=getPersons(persons.get(0).getUser_id());
 			
 			for(int i=0; i<listPersonRemote.size();i++){
 				if(!persons.contains(listPersonRemote.get(i))){
-					removePerson(listPersonRemote.get(i).getPersonid());
+					removePerson(listPersonRemote.get(i).getPerson_id());
 				}
 			}
 
 			Query query=new Query();
 			for(int i=0;i<persons.size();i++){
 				query.addCriteria(Criteria
-						.where("personid")
-						.is(persons.get(i).getPersonid())
-						.and("userid")
-						.is(persons.get(i).getUserid()));
+						.where("person_id")
+						.is(persons.get(i).getPerson_id())
+						.and("user_id")
+						.is(persons.get(i).getUser_id()));
 				
 				Person _person=mongoTemplate.findOne(query, Person.class,DbConstraint.TABLE_PERSON);
 				if(_person == null){

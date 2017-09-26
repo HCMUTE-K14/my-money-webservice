@@ -48,6 +48,7 @@ public class UserModel {
 			user.setActive(true);
 
 			this.mDataRepository.register(user);
+			System.out.println(user.getUserid());
 			this.mDataRepository.initDefaultCategory(user.getUserid());
 
 			callback.onSuccess("ok");

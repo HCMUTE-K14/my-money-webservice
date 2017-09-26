@@ -36,7 +36,6 @@ public class CategoryModel {
 			}
 			List<Category> result = mDataRepository.getCategoryByUserId(userid);
 			System.out.println(result.get(0));
-
 			if (result != null) {
 				callback.onSuccess(result);
 			}
@@ -95,7 +94,7 @@ public class CategoryModel {
 				callback.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			if(!category.getUserid().equals(userid)){
+			if(!category.getUser_id().equals(userid)){
 				callback.onFailure(new CategoryException("Category userid have different userid param"));
 				return;
 			}
@@ -116,7 +115,7 @@ public class CategoryModel {
 				callback.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			if(!category.getUserid().equals(userid)){
+			if(!category.getUser_id().equals(userid)){
 				callback.onFailure(new CategoryException("Category userid have different userid param"));
 				return;
 			}
@@ -138,7 +137,7 @@ public class CategoryModel {
 				callback.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			if(!category.getUserid().equals(userid)){
+			if(!category.getUser_id().equals(userid)){
 				callback.onFailure(new CategoryException("Category userid have different userid param"));
 				return;
 			}

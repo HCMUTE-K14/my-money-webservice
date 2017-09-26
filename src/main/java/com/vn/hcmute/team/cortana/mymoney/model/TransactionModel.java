@@ -187,7 +187,7 @@ public class TransactionModel {
 				return;
 			}
 			
-			if(TextUtil.isEmpty(transaction.getWalletId())){
+			if(TextUtil.isEmpty(transaction.getWallet_id())){
 				callBack.onFailure(new TransactionException("Wallet id cannot be empty"));
 				return;
 			}

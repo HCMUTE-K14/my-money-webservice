@@ -7,177 +7,118 @@ public class Transaction implements Serializable{
 
 	private static final long serialVersionUID = 9179906347617231970L;
 	
-	private String transactionId;
+	private String trans_id;
 	private double amount;
-	private String currencyId;
 	private List<Person> person;
 	private String address;
 	private String note;
 	private List<Image> image;
 	private int type; //0:Cho vay, 1:Chit ieu ,2 thu nhap
-	private String categoryId;
-	private String eventId;
+	private String cate_id;
+	private String event_id;
 	private String latitude;
 	private String longtitude;
-	private String userId; 
-	private String walletId;
-	private long dateCreate;
-	private long dateEnd;
-	private String savingId;
-	public String getSavingId() {
-		return savingId;
+	private String user_id; 
+	private String wallet_id;
+	private long date_created;
+	private long date_end;
+	private String saving_id;
+	public String getTrans_id() {
+		return trans_id;
 	}
-
-	public void setSavingId(String savingId) {
-		this.savingId = savingId;
+	public void setTrans_id(String trans_id) {
+		this.trans_id = trans_id;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public Transaction(){
-		
-	}
-
-	public String getTransactionId() {
-		return transactionId;
-	}
-
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
-
 	public double getAmount() {
 		return amount;
 	}
-
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-
-	public String getCurrencyId() {
-		return currencyId;
-	}
-
-	public void setCurrencyId(String currencyId) {
-		this.currencyId = currencyId;
-	}
-
 	public List<Person> getPerson() {
 		return person;
 	}
-
 	public void setPerson(List<Person> person) {
 		this.person = person;
 	}
-
 	public String getAddress() {
 		return address;
 	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 	public String getNote() {
 		return note;
 	}
-
 	public void setNote(String note) {
 		this.note = note;
 	}
-
 	public List<Image> getImage() {
 		return image;
 	}
-
 	public void setImage(List<Image> image) {
 		this.image = image;
 	}
-
 	public int getType() {
 		return type;
 	}
-
 	public void setType(int type) {
 		this.type = type;
 	}
-
-	public String getCategoryId() {
-		return categoryId;
+	public String getCate_id() {
+		return cate_id;
 	}
-
-	public void setCategoryId(String categoryId) {
-		this.categoryId = categoryId;
+	public void setCate_id(String cate_id) {
+		this.cate_id = cate_id;
 	}
-
-	public String getEventId() {
-		return eventId;
+	public String getEvent_id() {
+		return event_id;
 	}
-
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
+	public void setEvent_id(String event_id) {
+		this.event_id = event_id;
 	}
-
 	public String getLatitude() {
 		return latitude;
 	}
-
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
-
 	public String getLongtitude() {
 		return longtitude;
 	}
-
 	public void setLongtitude(String longtitude) {
 		this.longtitude = longtitude;
 	}
-
-	public String getUserId() {
-		return userId;
+	public String getUser_id() {
+		return user_id;
 	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-
-	public String getWalletId() {
-		return walletId;
+	public String getWallet_id() {
+		return wallet_id;
 	}
-
-	public void setWalletId(String walletId) {
-		this.walletId = walletId;
+	public void setWallet_id(String wallet_id) {
+		this.wallet_id = wallet_id;
 	}
-
-	public long getDateCreate() {
-		return dateCreate;
+	public long getDate_created() {
+		return date_created;
 	}
-
-	public void setDateCreate(long dateCreate) {
-		this.dateCreate = dateCreate;
+	public void setDate_created(long date_created) {
+		this.date_created = date_created;
 	}
-
-	public long getDateEnd() {
-		return dateEnd;
+	public long getDate_end() {
+		return date_end;
 	}
-
-	public void setDateEnd(long dateEnd) {
-		this.dateEnd = dateEnd;
+	public void setDate_end(long date_end) {
+		this.date_end = date_end;
 	}
-
-	@Override
-	public String toString() {
-		return "Transaction [transactionId=" + transactionId + ", amount=" + amount + ", currencyId=" + currencyId
-				+ ", person=" + person + ", address=" + address + ", note=" + note + ", image=" + image + ", type="
-				+ type + ", categoryId=" + categoryId + ", eventId=" + eventId + ", latitude=" + latitude
-				+ ", longtitude=" + longtitude + ", userId=" + userId + ", walletId=" + walletId + ", dateCreate="
-				+ dateCreate + ", dateEnd=" + dateEnd + "]";
+	public String getSaving_id() {
+		return saving_id;
 	}
-	
-	
+	public void setSaving_id(String saving_id) {
+		this.saving_id = saving_id;
+	}
 	
 	
 }

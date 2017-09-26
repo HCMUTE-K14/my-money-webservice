@@ -40,10 +40,10 @@ public class ImageServiceImp implements ImageService{
 		try{
 			Image image=new Image();
 			String imageId=SecurityUtil.generateUUID();
-			image.setImageId(imageId);
-			image.setUserId(userid);
-			image.setImageDetail(detail);
-			image.setImageUrl(String.format(Constraint.PATH_GET_IMAGE,imageId,userid,token));
+			image.setImage_id(imageId);
+			image.setUser_id(userid);
+			image.setDetail(detail);
+			image.setUrl(String.format(Constraint.PATH_GET_IMAGE,imageId,userid,token));
 			if(!ImageUtil.uploadImage_Local(imageId, userid, input)){
 				throw new ImageException("Cannot upload");
 			}

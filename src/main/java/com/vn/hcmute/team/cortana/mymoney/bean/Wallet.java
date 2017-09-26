@@ -1,46 +1,41 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Wallet {
-	private String walletid;
-	public String getWalletid() {
-		return walletid;
-	}
-	public void setWalletid(String walletid) {
-		this.walletid = walletid;
-	}
-
-	private String userid;
-	private String walletName;
+	private String wallet_id;
+	private String user_id;
+	private String name;
 	private String money;
-	private Currencies currencyUnit;
-	private String walletImage;
+	private Currencies currency;
+	private String icon;
 	private boolean archive;
 	
-	public String getWalletImage() {
-		return walletImage;
+	public Wallet(){
+		this.wallet_id="";
+		this.user_id  = "";
+		this.name = "";
+		this.money = "";
+		this.currency = null;
+		this.icon = "";
+		this.archive = false;
 	}
-	public void setWalletImage(String walletImage) {
-		this.walletImage = walletImage;
+	
+	public String getWallet_id() {
+		return wallet_id;
 	}
-	public Wallet() {
-		this.walletid="";
-		this.userid="";
-		this.walletName="";
-		this.money="";
-		this.currencyUnit=new Currencies();
-		this.archive=false;
+	public void setWallet_id(String wallet_id) {
+		this.wallet_id = wallet_id;
 	}
-	public String getUserid() {
-		return userid;
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	public String getWalletName() {
-		return walletName;
+	public String getName() {
+		return name;
 	}
-	public void setWalletName(String walletName) {
-		this.walletName = walletName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getMoney() {
 		return money;
@@ -48,11 +43,17 @@ public class Wallet {
 	public void setMoney(String money) {
 		this.money = money;
 	}
-	public Currencies getCurrencyUnit() {
-		return currencyUnit;
+	public Currencies getCurrency() {
+		return currency;
 	}
-	public void setCurrencyUnit(Currencies currencyUnit) {
-		this.currencyUnit = currencyUnit;
+	public void setCurrency(Currencies currency) {
+		this.currency = currency;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	public boolean isArchive() {
 		return archive;
@@ -60,28 +61,8 @@ public class Wallet {
 	public void setArchive(boolean archive) {
 		this.archive = archive;
 	}
-	@Override
-	public String toString() {
-		return "Wallet[id= "+walletid+",userid= "+userid+",walletname="+
-				walletName+",money="+money+"]";
-	}
+	
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Wallet other = (Wallet) obj;
-		if (walletid == null) {
-			if (other.walletid != null)
-				return false;
-		} else if (!walletid.equals(other.walletid))
-			return false;
-		return true;
-	}
 	
 	
 }

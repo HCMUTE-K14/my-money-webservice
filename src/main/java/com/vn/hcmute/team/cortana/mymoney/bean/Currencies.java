@@ -2,10 +2,10 @@ package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Currencies {
 	private String cur_id;
-	private String cur_code;
-	private String cur_name;
-	private String cur_symbol;
-	private String cur_display_type;
+	private String code;
+	private String name;
+	private String symbol;
+	private String display_type;
 	public Currencies() {
 		
 	}
@@ -15,30 +15,29 @@ public class Currencies {
 	public void setCur_id(String cur_id) {
 		this.cur_id = cur_id;
 	}
-	public String getCur_code() {
-		return cur_code;
+	public String getCode() {
+		return code;
 	}
-	public void setCur_code(String cur_code) {
-		this.cur_code = cur_code;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public String getCur_name() {
-		return cur_name;
+	public String getName() {
+		return name;
 	}
-	public void setCur_name(String cur_name) {
-		this.cur_name = cur_name;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getCur_symbol() {
-		return cur_symbol;
+	public String getSymbol() {
+		return symbol;
 	}
-	public void setCur_symbol(String cur_symbol) {
-		this.cur_symbol = cur_symbol;
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
-	public String getCur_display_type() {
-		return cur_display_type;
+	public String getDisplay_type() {
+		return display_type;
 	}
-	public void setCur_display_type(String cur_display_type) {
-		this.cur_display_type = cur_display_type;
+	public void setDisplay_type(String display_type) {
+		this.display_type = display_type;
 	}
-	
 	
 }

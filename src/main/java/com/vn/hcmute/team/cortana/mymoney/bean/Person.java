@@ -1,21 +1,21 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Person {
-	private String personid;
+	private String person_id;
 	private String name;
 	private String describe;
-	private String userid;
+	private String user_id;
 	public Person() {
-		this.personid="";
+		this.person_id="";
 		this.name="";
 		this.describe="";
-		this.userid="";
+		this.user_id="";
 	}
-	public String getPersonid() {
-		return personid;
+	public String getPerson_id() {
+		return person_id;
 	}
-	public void setPersonid(String personid) {
-		this.personid = personid;
+	public void setPerson_id(String person_id) {
+		this.person_id = person_id;
 	}
 	public String getName() {
 		return name;
@@ -29,13 +29,19 @@ public class Person {
 	public void setDescribe(String describe) {
 		this.describe = describe;
 	}
-	public String getUserid() {
-		return userid;
+	public String getUser_id() {
+		return user_id;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((person_id == null) ? 0 : person_id.hashCode());
+		return result;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -45,10 +51,10 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (personid == null) {
-			if (other.personid != null)
+		if (person_id == null) {
+			if (other.person_id != null)
 				return false;
-		} else if (!personid.equals(other.personid))
+		} else if (!person_id.equals(other.person_id))
 			return false;
 		return true;
 	}

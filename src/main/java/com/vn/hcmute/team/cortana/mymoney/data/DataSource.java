@@ -33,6 +33,10 @@ public interface DataSource {
 		void changePassword(String userid,String oldpassword,String newpassword);
 		
 		void changeProfile(User user);
+		
+		User loginWithFacebook(User user);
+		
+		boolean isExistFacebookAccount(String email);
 	}
 
 	public interface CategorySource{

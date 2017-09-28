@@ -28,7 +28,5 @@ public class CurrenciesServiceImp implements CurrenciesService{
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
-		
 	}
-
 }

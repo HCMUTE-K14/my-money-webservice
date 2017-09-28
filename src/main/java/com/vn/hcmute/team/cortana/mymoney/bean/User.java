@@ -16,6 +16,7 @@ public class User implements Serializable {
 	private String apikey;
 	private String email;
 	private boolean active;
+    private String facebook_id;
 	
 	public User(){
 		this.user_id="DEFAULT";
@@ -26,8 +27,17 @@ public class User implements Serializable {
 		this.apikey="";
 		this.email="";
 		this.active=false;
+        this.facebook_id="";
 	}
 
+    public String getFacebook_id() {
+		return facebook_id;
+	}
+
+	public void setFacebook_id(String facebook_id) {
+		this.facebook_id = facebook_id;
+	}
+    
 	public String getUser_id() {
 		return user_id;
 	}

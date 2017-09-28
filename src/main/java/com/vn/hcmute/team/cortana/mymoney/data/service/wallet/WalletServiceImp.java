@@ -29,7 +29,7 @@ public class WalletServiceImp implements WalletService{
 	@Override
 	public List<Wallet> getInfoWallet(String userid) {
 		try {
-			Query searchQuery = new Query(Criteria.where("userid").is(userid));
+			Query searchQuery = new Query(Criteria.where("user_id").is(userid));
 			List<Wallet> listWallet=mongoTemplate.find(searchQuery, Wallet.class,DbConstraint.TABLE_WALLET);
 			return listWallet;
 		}catch (MongoException e) {

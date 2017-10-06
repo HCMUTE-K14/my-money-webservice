@@ -5,7 +5,7 @@ public class Image {
 	private String url;
 	private String user_id;
 	private String detail;
-	
+
 	public Image() {
 		this.image_id = "";
 		this.url = "";
@@ -50,5 +50,4 @@ public class Image {
 		return "Image [image_id=" + image_id + ", url=" + url + ", user_id=" + user_id + ", detail=" + detail + "]";
 	}
 
-	
 }

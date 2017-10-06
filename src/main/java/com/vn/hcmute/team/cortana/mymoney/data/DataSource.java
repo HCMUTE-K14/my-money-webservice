@@ -115,6 +115,8 @@ public interface DataSource {
 		
 		void uploadImage(String userid,String token,String detail,InputStream input);
 		
+		List<Image> uploadImage(String userid,String token,String detail,InputStream[] input);
+		
 		void removeImage(String userid,String imageId);
 		
 		Image getImage(String userid,String imageId);

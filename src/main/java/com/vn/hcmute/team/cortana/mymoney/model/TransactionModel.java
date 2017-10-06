@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.Transaction;
 import com.vn.hcmute.team.cortana.mymoney.data.DataRepository;
-import com.vn.hcmute.team.cortana.mymoney.exception.TransactionException;
 import com.vn.hcmute.team.cortana.mymoney.exception.UserException;
 import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 
@@ -186,11 +185,7 @@ public class TransactionModel {
 				callBack.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			
-			if(TextUtil.isEmpty(transaction.getWallet_id())){
-				callBack.onFailure(new TransactionException("Wallet id cannot be empty"));
-				return;
-			}
+		
 			mDataRepository.updateTransaction(transaction);
 			callBack.onSuccess("Update transaction successful");
 		}catch(Exception e){

@@ -11,6 +11,8 @@ public interface ImageService {
 	
 	void upload(String userid,String token,String detail,InputStream input);
 	
+	List<Image> upload(String userid,String token,String detail,InputStream[] input);
+
 	void remove(String userid,String imageId);
 	
 	Image get(String userid,String imageId);

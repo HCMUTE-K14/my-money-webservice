@@ -250,9 +250,14 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public void uploadImage(String userid, String token, String detail, InputStream input) {
+	public void uploadImage(String userid, String token, String detail,InputStream input) {
 		mImageService.upload(userid, token, detail, input);
 	}
+	@Override
+	public List<Image> uploadImage(String userid, String token, String detail,InputStream[] input) {
+		return mImageService.upload(userid, token, detail, input);
+	}
+
 
 	@Override
 	public void removeImage(String userid, String imageId) {

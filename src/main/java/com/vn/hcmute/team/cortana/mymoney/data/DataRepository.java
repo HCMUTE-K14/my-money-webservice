@@ -193,14 +193,13 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public void takeIn(String idWallet, String idSaving, String money) {
-		savingService.takeIn(idWallet, idSaving, money);
-
+	public void takeIn(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving) {
+		savingService.takeIn(idWallet, idSaving, moneyUpdateWallet,moneyUpdateSaving);
 	}
 
 	@Override
-	public void takeOut(String idWallet, String idSaving, String money) {
-		savingService.takeOut(idWallet, idSaving, money);
+	public void takeOut(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving) {
+		savingService.takeOut(idWallet, idSaving, moneyUpdateWallet,moneyUpdateSaving);
 	}
 
 	@Override

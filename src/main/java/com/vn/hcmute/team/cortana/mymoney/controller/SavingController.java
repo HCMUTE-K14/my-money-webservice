@@ -155,12 +155,13 @@ public class SavingController {
 		return response.toString();
 	}
 	@GET
-	@Path("takeIn/{userid}/{token}/{idWallet}/{idSaving}/{money}")
+	@Path("takeIn/{userid}/{token}/{idWallet}/{idSaving}/{moneyUpdateWallet}/{moneyUpdateSaving}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String takeIn(@PathParam("userid") String userid,@PathParam("token") String token,
 			@PathParam("idSaving") String idSaving,@PathParam("idWallet") String idWallet,
-			@PathParam("money") String money) {
+			@PathParam("moneyUpdateWallet") String moneyUpdateWallet,
+			@PathParam("moneyUpdateSaving") String moneyUpdateSaving) {
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
 			
@@ -182,16 +183,17 @@ public class SavingController {
 				response.setData(null);
 			}
 		};
-		savingModel.takeIn(userid, token, idWallet, idSaving, money, callBack);
+		savingModel.takeIn(userid, token, idWallet, idSaving, moneyUpdateWallet,moneyUpdateSaving, callBack);
 		return response.toString();
 	}
 	@GET
-	@Path("takeOut/{userid}/{token}/{idWallet}/{idSaving}/{money}")
+	@Path("takeOut/{userid}/{token}/{idWallet}/{idSaving}/{moneyUpdateWallet}/{moneyUpdateSaving}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public String takeOut(@PathParam("userid") String userid,@PathParam("token") String token,
 			@PathParam("idSaving") String idSaving,@PathParam("idWallet") String idWallet,
-			@PathParam("money") String money) {
+			@PathParam("moneyUpdateWallet") String moneyUpdateWallet,
+			@PathParam("moneyUpdateSaving") String moneyUpdateSaving){
 		JsonResponse<String> response=new JsonResponse<String>(String.class);
 		CallBack<String> callBack=new CallBack<String>() {
 			
@@ -213,7 +215,7 @@ public class SavingController {
 				response.setData(null);
 			}
 		};
-		savingModel.takeOut(userid, token, idWallet, idSaving, money, callBack);
+		savingModel.takeOut(userid, token, idWallet, idSaving, moneyUpdateWallet,moneyUpdateSaving, callBack);
 		return response.toString();
 	}
 	@POST

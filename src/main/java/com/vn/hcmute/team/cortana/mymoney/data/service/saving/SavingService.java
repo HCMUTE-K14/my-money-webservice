@@ -13,9 +13,9 @@ public interface SavingService {
 	
 	void deleteSaving(String idSaving);
 	
-	void takeIn(String idWallet, String idSaving,String money);
+	void takeIn(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving);
 	
-	void takeOut(String idWallet, String idSaving,String money);
+	void takeOut(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving);
 	
 	void syncSaving(List<Saving> list);
 }

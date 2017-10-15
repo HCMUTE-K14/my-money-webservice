@@ -85,94 +85,43 @@ public class SavingServiceImp implements SavingService{
 	}
 
 	@Override
-	public void takeIn(String idWallet, String idSaving,String money) {
+	public void takeIn(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving) {
 		try {
-			Query query = new Query();
-			query.addCriteria(Criteria.where("wallet_id").is(idWallet));
-			Wallet walletFrom = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
-			
-			Query query2=new Query();
-			query2.addCriteria(Criteria.where("saving_id").is(idSaving));
-			Saving saving=mongoTemplate.findOne(query2, Saving.class,DbConstraint.TABLE_SAVING);
-			
-			if(walletFrom==null)
-				throw new RuntimeException("Null wallet!");
-			if(saving==null)
-				throw new RuntimeException("Null saving!");
-			
-			double moneyWallet=Double.parseDouble(walletFrom.getMoney());
-			double moneySaving=Double.parseDouble(saving.getCurrent_money());
-			double moneyGoalMoney=Double.parseDouble(saving.getGoal_money());
-			double moneyTakeIn=Double.parseDouble(money);
-			
-			if(moneyTakeIn>moneyWallet)
-				throw new RuntimeException("Over money take in!");
-			
-			if(moneyTakeIn+moneySaving>moneyGoalMoney) {
-				if(moneySaving==moneyGoalMoney)
-					throw new RuntimeException("Full saving!");
-				moneyWallet=moneyWallet-moneyTakeIn+(moneyTakeIn-(moneyGoalMoney-moneySaving));
-				moneySaving=moneyGoalMoney;
-				
-			}else {
-				moneyWallet=moneyWallet-moneyTakeIn;
-				moneySaving=moneySaving+moneyTakeIn;
-			}
-
-			Update update=new Update();
-			update.set("money", String.valueOf(moneyWallet));
-			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
-			
-			Update update2=new Update();
-			update2.set("current_money",String.valueOf( moneySaving));
-			mongoTemplate.updateFirst(query2, update2, Saving.class,DbConstraint.TABLE_SAVING);
-
+			exchangeSaving(idWallet, idSaving, moneyUpdateWallet, moneyUpdateSaving);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 		
 	}
-
 	@Override
-	public void takeOut(String idWallet, String idSaving,String money) {
+	public void takeOut(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving) {
 		try {
-			Query query = new Query();
-			query.addCriteria(Criteria.where("wallet_id").is(idWallet));
-			Wallet walletFrom = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
-			
-			Query query2=new Query();
-			query2.addCriteria(Criteria.where("saving_id").is(idSaving));
-			Saving saving=mongoTemplate.findOne(query2, Saving.class,DbConstraint.TABLE_SAVING);
-			
-			if(walletFrom==null)
-				throw new RuntimeException("Null wallet!");
-			if(saving==null)
-				throw new RuntimeException("Null saving!");
-			
-			double moneyWallet=Double.parseDouble(walletFrom.getMoney());
-			double moneySaving=Double.parseDouble(saving.getCurrent_money());
-			double moneyTakeOut=Double.parseDouble(money);
-			
-			if(moneyTakeOut>moneySaving)
-				throw new RuntimeException("Over money take out!");
-			
-			moneyWallet=moneyWallet+moneyTakeOut;
-			moneySaving=moneySaving-moneyTakeOut;
-			
-			Update update=new Update();
-			update.set("money",String.valueOf( moneyWallet));
-			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
-			
-			Update update2=new Update();
-			update2.set("current_money", String.valueOf(moneySaving));
-			mongoTemplate.updateFirst(query2, update2, Saving.class,DbConstraint.TABLE_SAVING);
-
+			exchangeSaving(idWallet, idSaving, moneyUpdateWallet, moneyUpdateSaving);
 		}catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
-		}
-		
+		}	
 	}
-
+	public void exchangeSaving(String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving) {
+		Query queryWallet = new Query();
+		queryWallet.addCriteria(Criteria.where("wallet_id").is(idWallet));
+		Wallet wallet = mongoTemplate.findOne(queryWallet, Wallet.class,DbConstraint.TABLE_WALLET);
+		if(wallet==null) {
+			throw new RuntimeException("Null Wallet!");
+		}
+		Update updateMoneyWallet=new Update();
+		updateMoneyWallet.set("money", moneyUpdateWallet);
+		mongoTemplate.updateFirst(queryWallet, updateMoneyWallet, Wallet.class,DbConstraint.TABLE_WALLET);
+		
+		Query querySaving = new Query();
+		querySaving.addCriteria(Criteria.where("saving_id").is(idSaving));
+		Saving saving = mongoTemplate.findOne(querySaving, Saving.class,DbConstraint.TABLE_SAVING);
+		if(saving==null) {
+			throw new RuntimeException("Null Saving!");
+		}
+		Update updateMoneySaving=new Update();
+		updateMoneySaving.set("current_money", moneyUpdateSaving);
+		mongoTemplate.updateFirst(querySaving, updateMoneySaving, Saving.class,DbConstraint.TABLE_SAVING);
+	}
 	@Override
 	public void syncSaving(List<Saving> list) {
 		if(list==null)

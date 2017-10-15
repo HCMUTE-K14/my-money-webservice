@@ -84,7 +84,7 @@ public class SavingModel {
 			callBack.onFailure(new Throwable("Fail delete Saving!"));
 		}
 	}
-	public void takeIn(String userid,String token,String idWallet,String idSaving,String money, CallBack<String> callBack) {
+	public void takeIn(String userid,String token,String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving, CallBack<String> callBack) {
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new Throwable("Fail take in Saving!"));
@@ -94,13 +94,13 @@ public class SavingModel {
 				callBack.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			dataRepository.takeIn(idWallet, idSaving, money);
+			dataRepository.takeIn(idWallet, idSaving, moneyUpdateWallet,moneyUpdateSaving);
 			callBack.onSuccess("Take in saving success!");
 		}catch(Exception e){
 			callBack.onFailure(new Throwable("Fail take in Saving!"));
 		}
 	}
-	public void takeOut(String userid,String token,String idWallet,String idSaving,String money, CallBack<String> callBack) {
+	public void takeOut(String userid,String token,String idWallet, String idSaving,String moneyUpdateWallet,String moneyUpdateSaving, CallBack<String> callBack) {
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new Throwable("Fail take out Saving!"));
@@ -110,7 +110,7 @@ public class SavingModel {
 				callBack.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			dataRepository.takeOut(idWallet, idSaving, money);
+			dataRepository.takeOut(idWallet, idSaving, moneyUpdateWallet,moneyUpdateSaving);
 			callBack.onSuccess("Take out saving success!");
 		}catch(Exception e){
 			callBack.onFailure(new Throwable("Fail take out Saving!"));

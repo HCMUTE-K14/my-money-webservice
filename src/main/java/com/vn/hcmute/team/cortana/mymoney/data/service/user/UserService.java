@@ -19,4 +19,8 @@ public interface UserService {
 	void changePassword(String userid,String oldpassword,String newpassword);
 	
 	void changeProfile(User user);
+	
+	boolean isExistFacebookAccount(String email);
+
+	User loginWithFacebook(User user);
 }

@@ -82,7 +82,6 @@ public class UserServiceImp implements UserService {
 	}
 	@Override
 	public User login(UserCredential userCredential) {
-		
 		LOG.info("Get info user...");
 		try {
 			String password=SecurityUtil.decrypt(userCredential.getPassword());
@@ -193,5 +192,34 @@ public class UserServiceImp implements UserService {
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
+	}
+
+	@Override
+	public boolean isExistFacebookAccount(String email) {
+		return isEmailExists(email);
+	}
+
+	@Override
+	public User loginWithFacebook(User _user) {
+		LOG.info("Get info user...");
+		try {
+            String facebook_id = _user.getFacebook_id();
+            String hashFacebook_id = SecurityUtil.generateMD5(facebook_id); 
+			User user = mMongoTemplate.findOne(
+					query(where("username").is(_user.getUsername()).and("facebook_id").is(hashFacebook_id)),
+					User.class, DbConstraint.TABLE_USER);
+			if (user != null) {
+				user.setPassword(null);
+				user.setApikey(null);
+                System.out.println(user.getName());
+				return user;
+			} else {
+				throw new UserException("Something wrong!");
+			}
+		} catch (MongoException e) {
+			throw new DatabaseException("Something wrong! Please try later");
+		} catch (Exception e){
+            throw new UserException("Something wrong!");
+        }
 	}
 }

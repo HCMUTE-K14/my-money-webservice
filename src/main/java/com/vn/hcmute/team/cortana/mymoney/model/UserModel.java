@@ -22,8 +22,8 @@ public class UserModel {
 	private Pattern mPatternPassword;
 	private Pattern mPatternEmail;
 
-	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9]{4,15}$";
-	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9]{4,15}$";
+	private static final String USERNAME_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_@]{4,100}$";
+	private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_@]{4,100}$";
 	private static final String EMAIL_PATTERN="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 
 
@@ -46,6 +46,9 @@ public class UserModel {
 			user.setToken(SecurityUtil.generateUUID());
 			user.setApikey(SecurityUtil.generateApiKey(user.getToken()));
 			user.setActive(true);
+            if(!TextUtil.isEmpty(user.getFacebook_id())){
+                user.setFacebook_id(SecurityUtil.generateMD5(user.getFacebook_id()));
+            }
 
 			this.mDataRepository.register(user);
 			this.mDataRepository.initDefaultCategory(user.getUser_id());
@@ -55,6 +58,24 @@ public class UserModel {
 			callback.onFailure(e);
 		}
 	}
+    public void isExistFacebookAccount(String email,CallBack<String> callBack){
+        try{
+            if(TextUtil.isEmpty(email)){
+                callBack.onFailure(new UserException("Email can't be empty"));
+                return;
+            }
+            boolean result = mDataRepository.isExistFacebookAccount(email);
+            if(result){
+                callBack.onSuccess("Email is available");
+            }else{
+                callBack.onFailure(new UserException("Email is unavailable"));
+            }
+
+        }catch(Exception e){
+            callBack.onFailure(e);
+        }
+    
+    }
 
 	public long getNumberOfActiveUser() {
 		return this.mDataRepository.getNumberOfActiveUser();
@@ -65,6 +86,14 @@ public class UserModel {
 			User user = this.mDataRepository.login(userCredential);
 			callback.onSuccess(user);
 		} catch (Exception e) {
+			callback.onFailure(e);
+		}
+	}
+	public void loginWithFacebook(User userCredential,CallBack<User> callback){
+		try{
+			User user = this.mDataRepository.loginWithFacebook(userCredential);
+			callback.onSuccess(user);
+		}catch(Exception e){
 			callback.onFailure(e);
 		}
 	}
@@ -135,9 +164,11 @@ public class UserModel {
 		}
 
 		if (!mPatternUsername.matcher(user.getUsername()).matches()) {
+            System.out.println("USERNAMEE");
 			throw new ValidateUserException("Username,password must be at least 4 character");
 		}
 		if (!mPatternPassword.matcher(user.getPassword()).matches()) {
+            System.out.println("PASSWORD");
 			throw new ValidateUserException("Username,password must be at least 4 character");
 		}
 	}

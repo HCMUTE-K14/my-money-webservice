@@ -70,6 +70,33 @@ public class UserController {
 		mUserModel.login(userCredentials, callback);
 		return response.toString();
 	}
+	
+	@POST
+	@Path("login_with_facebook")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String loginWithFacebook(User userCredentials) {
+		LOG.info("Login....");
+		JsonResponse<User> response = new JsonResponse<User>(User.class);
+		CallBack<User> callback = new CallBack<User>() {
+
+			@Override
+			public void onSuccess(User result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mUserModel.loginWithFacebook(userCredentials, callback);
+		return response.toString();
+	}
 
 	@POST
 	@Path("register")
@@ -192,4 +219,36 @@ public class UserController {
 		return response.toString();
 
 	}
+
+    @POST
+	@Path("isExistFacebookAccount")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String isExistFacebookAccount(User user) {
+
+		JsonResponse<String> response = new JsonResponse<String>(String.class);
+		CallBack<String> callBack = new CallBack<String>() {
+
+			@Override
+			public void onSuccess(String result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+
+		};
+        
+        String email = user.getEmail();
+		mUserModel.isExistFacebookAccount(email,callBack);
+		return response.toString();
+	}
+
 }

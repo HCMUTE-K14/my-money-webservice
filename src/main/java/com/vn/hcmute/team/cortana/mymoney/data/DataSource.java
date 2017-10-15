@@ -33,6 +33,10 @@ public interface DataSource {
 		void changePassword(String userid,String oldpassword,String newpassword);
 		
 		void changeProfile(User user);
+		
+		User loginWithFacebook(User user);
+		
+		boolean isExistFacebookAccount(String email);
 	}
 
 	public interface CategorySource{
@@ -110,6 +114,8 @@ public interface DataSource {
 		List<Image> getAllImage(String userid);
 		
 		void uploadImage(String userid,String token,String detail,InputStream input);
+		
+		List<Image> uploadImage(String userid,String token,String detail,InputStream[] input);
 		
 		void removeImage(String userid,String imageId);
 		

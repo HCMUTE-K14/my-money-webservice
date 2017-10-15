@@ -91,7 +91,7 @@ public class TransactionServiceImp implements TransactionService {
 		try {
 
 			List<Transaction> list = mMongoTemplate.find(
-					query(where("cate_id").is(categoryId).and("user_id").is(userid)), Transaction.class,
+					query(where("category.cate_id").is(categoryId).and("user_id").is(userid)), Transaction.class,
 					DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -122,11 +122,11 @@ public class TransactionServiceImp implements TransactionService {
 			update.set("note", transaction.getNote());
 			update.set("image", transaction.getImage());
 			update.set("type", transaction.getType());
-			update.set("event_id", transaction.getEvent_id());
-			update.set("categoryId",transaction.getCate_id());
+			update.set("event", transaction.getEvent());
+			update.set("category",transaction.getCategory());
 			update.set("latitude", transaction.getLatitude());
-			update.set("longtitude", transaction.getLongtitude());
-			update.set("wallet_id", transaction.getWallet_id());
+			update.set("longitude", transaction.getLongitude());
+			update.set("wallet", transaction.getWallet());
 			update.set("date_created", transaction.getDate_created());
 			update.set("date_end", transaction.getDate_end());
 			
@@ -153,7 +153,7 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public List<Transaction> getTransactionByType(int type, String userid, String walletId) {
 		try {
-			List<Transaction> list = mMongoTemplate.find(query(where("type").is(type).and("user_id").is(userid).and("wallet_id").is(walletId)),
+			List<Transaction> list = mMongoTemplate.find(query(where("type").is(type).and("user_id").is(userid).and("wallet.wallet_id").is(walletId)),
 					Transaction.class, DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -171,7 +171,7 @@ public class TransactionServiceImp implements TransactionService {
 			long end = DateUtil.getMilisecondFromDate(endDate);
 
 			Query query = new Query();
-			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid).and("wallet_id").is(walletId));
+			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid).and("wallet.wallet_id").is(walletId));
 			List<Transaction> list = mMongoTemplate.find(query, Transaction.class, DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -186,7 +186,7 @@ public class TransactionServiceImp implements TransactionService {
 	public List<Transaction> getTransactionByCategory(String categoryId, String userid, String walletId) {
 		try {
 			List<Transaction> list = mMongoTemplate.find(
-					query(where("cate_id").is(categoryId).and("user_id").is(userid).and("wallet_id").is(walletId)), Transaction.class,
+					query(where("category.cate_id").is(categoryId).and("user_id").is(userid).and("wallet.wallet_id").is(walletId)), Transaction.class,
 					DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -240,11 +240,11 @@ public class TransactionServiceImp implements TransactionService {
 						update.set("note", _trans.getNote());
 						update.set("image", _trans.getImage());
 						update.set("type", _trans.getType());
-						update.set("event_id", _trans.getEvent_id());
-						update.set("cate_id",_trans.getCate_id());
+						update.set("event", _trans.getEvent());
+						update.set("category",_trans.getCategory());
 						update.set("latitude", _trans.getLatitude());
-						update.set("longtitude", _trans.getLongtitude());
-						update.set("wallet_id", _trans.getWallet_id());
+						update.set("longitude", _trans.getLongitude());
+						update.set("wallet", _trans.getWallet());
 						update.set("date_created", _trans.getDate_created());
 						update.set("date_end", _trans.getDate_end());
 					

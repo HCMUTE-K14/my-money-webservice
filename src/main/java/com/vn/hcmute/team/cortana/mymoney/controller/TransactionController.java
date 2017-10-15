@@ -50,7 +50,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -79,7 +79,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(Transaction result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -110,7 +110,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -141,7 +141,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -174,7 +174,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -207,7 +207,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -238,7 +238,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -268,7 +268,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(List<Transaction> result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -295,7 +295,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(String result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -322,7 +322,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(String result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -349,7 +349,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(String result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 
@@ -377,7 +377,7 @@ public class TransactionController {
 
 			@Override
 			public void onSuccess(String result) {
-				response.setStatus("succcess");
+				response.setStatus("success");
 				response.setMessage("ok");
 				response.setData(result);
 

@@ -249,9 +249,14 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public void uploadImage(String userid, String token, String detail, InputStream input) {
+	public void uploadImage(String userid, String token, String detail,InputStream input) {
 		mImageService.upload(userid, token, detail, input);
 	}
+	@Override
+	public List<Image> uploadImage(String userid, String token, String detail,InputStream[] input) {
+		return mImageService.upload(userid, token, detail, input);
+	}
+
 
 	@Override
 	public void removeImage(String userid, String imageId) {
@@ -376,6 +381,7 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	public void syncWallet(List<Wallet> list) {
 		mWalletService.syncWallet(list);
 	}
+	
 
 	@Override
 	public List<Category> getCategoryByTransactionType(String userid,String transactionType) {
@@ -387,5 +393,13 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 		return mCategoryService.getCategoryByType(userid, type,transType);
 	}
 
-	
+	@Override
+	public User loginWithFacebook(User user) {
+		return mUserService.loginWithFacebook(user);
+	}
+
+	@Override
+	public boolean isExistFacebookAccount(String email) {
+		return mUserService.isExistFacebookAccount(email);
+	}
 }

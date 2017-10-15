@@ -59,6 +59,22 @@ public class ImageModel {
 			callback.onFailure(e);
 		}
 	}
+	public void upload(String userid,String token,String detail,InputStream[] inputStreams,CallBack<List<Image>> callback){
+		try{
+			if (TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)) {
+				callback.onFailure(new UserException("User id, token is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userid, token)) {
+				callback.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			List<Image> images = mDataRepository.uploadImage(userid, token, detail, inputStreams);
+			callback.onSuccess(images);
+		}catch(Exception e){
+			callback.onFailure(e);
+		}
+	}
 	
 	public void remove(String userid,String token,String imageId,CallBack<String> callback){
 		try{

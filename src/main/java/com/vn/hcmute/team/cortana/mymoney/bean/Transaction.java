@@ -13,7 +13,7 @@ public class Transaction implements Serializable{
 	private String address;
 	private String note;
 	private List<Image> image;
-	private String type; //0:Cho vay, 1:Chit ieu ,2 thu nhap
+	private String type; 
 	private Category category;
 	private Event event;
 	private String latitude;

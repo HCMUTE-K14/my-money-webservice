@@ -186,6 +186,42 @@ public class WalletServiceImp implements WalletService{
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}
+
+	@Override
+	public void takeOutWallet(String wallet_id, String money) {
+		try{
+			Query query = new Query();
+			query.addCriteria(Criteria.where("wallet_id").is(wallet_id));
+			Wallet wallet = mongoTemplate.findOne(query, Wallet.class, DbConstraint.TABLE_WALLET);
+			
+			double _money = Double.valueOf(wallet.getMoney()) - Double.valueOf(money);
+			Update update = new Update();
+			update.set("money", String.valueOf(_money));
+			
+			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
+			
+		}catch(Exception e){
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+	}
+
+	@Override
+	public void takeInWallet(String wallet_id, String money) {
+		try{
+			Query query = new Query();
+			query.addCriteria(Criteria.where("wallet_id").is(wallet_id));
+			Wallet wallet = mongoTemplate.findOne(query, Wallet.class, DbConstraint.TABLE_WALLET);
+			
+			double _money = Double.valueOf(wallet.getMoney()) + Double.valueOf(money);
+			Update update = new Update();
+			update.set("money", String.valueOf(_money));
+			
+			mongoTemplate.updateFirst(query, update, Wallet.class,DbConstraint.TABLE_WALLET);
+			
+		}catch(Exception e){
+			throw new DatabaseException("Something wrong! Please try later");
+		}
+	}
 	
 
 

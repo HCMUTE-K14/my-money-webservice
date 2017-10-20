@@ -6,6 +6,7 @@ import java.util.List;
 import com.vn.hcmute.team.cortana.mymoney.bean.Budget;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
+import com.vn.hcmute.team.cortana.mymoney.bean.DebtLoan;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.Person;
@@ -68,6 +69,10 @@ public interface DataSource {
 		void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money);
 		
 		void syncWallet(List<Wallet> list);
+		
+		void takeInWallet(String wallet_id, String money);
+		
+		void takeOutWallet(String wallet_id, String money);
 	}
 	public interface CurrenciesDataSource {
 		List<Currencies> getCurrencies();
@@ -157,5 +162,18 @@ public interface DataSource {
 		void removeBudget(String budgetId);
 		
 		void syncBudget(List<Budget> list);
+	}
+	
+	public interface DebtLoanSource {
+		
+		List<DebtLoan> getDebtLoanByType(String wallet_id, String type);
+		
+		List<DebtLoan> getDebtLoan(String wallet_id);
+		
+		void addDebtLoan(DebtLoan debtLoan);
+		
+		void updateDebtLoan(DebtLoan debtLoan, String wallet_id);
+		
+		void deleteDebtLoan(DebtLoan debtLoan);
 	}
 }

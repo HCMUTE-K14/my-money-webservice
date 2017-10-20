@@ -13,8 +13,10 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
+import com.vn.hcmute.team.cortana.mymoney.bean.DebtLoan;
 import com.vn.hcmute.team.cortana.mymoney.bean.Transaction;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
+import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 import com.vn.hcmute.team.cortana.mymoney.exception.TransactionException;
 import com.vn.hcmute.team.cortana.mymoney.utils.DateUtil;
@@ -24,6 +26,9 @@ public class TransactionServiceImp implements TransactionService {
 
 	@Autowired
 	MongoTemplate mMongoTemplate;
+
+	@Autowired
+	WalletService mWalletService;
 
 	@Override
 	public List<Transaction> getAllTransaction(String userid) {
@@ -40,10 +45,11 @@ public class TransactionServiceImp implements TransactionService {
 	}
 
 	@Override
-	public Transaction getTransactionById(String transactionId,String userid) {
+	public Transaction getTransactionById(String transactionId, String userid) {
 		try {
-			Transaction trans = mMongoTemplate.findOne(query(where("trans_id").is(transactionId).and("user_id").is(userid)),
-					Transaction.class, DbConstraint.TABLE_TRANSACTION);
+			Transaction trans = mMongoTemplate.findOne(
+					query(where("trans_id").is(transactionId).and("user_id").is(userid)), Transaction.class,
+					DbConstraint.TABLE_TRANSACTION);
 			if (trans != null) {
 				return trans;
 			}
@@ -106,6 +112,12 @@ public class TransactionServiceImp implements TransactionService {
 	public void addTransaction(Transaction transaction) {
 		try {
 			mMongoTemplate.save(transaction, DbConstraint.TABLE_TRANSACTION);
+
+			if (transaction.getType().equals("income")) {
+				mWalletService.takeInWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
+			} else if (transaction.getType().equals("expense")) {
+				mWalletService.takeOutWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
+			}
 		} catch (MongoException db) {
 			throw new DatabaseException("Something wrong! please try later");
 		}
@@ -115,35 +127,55 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public void updateTransaction(Transaction transaction) {
 		try {
-			Update update=new Update();
+			Query query = new Query();
+			query.addCriteria(Criteria.where("trans_id").is(transaction.getTrans_id()).and("user_id")
+					.is(transaction.getUser_id()));
+
+			Transaction trans = mMongoTemplate.findOne(query, Transaction.class,DbConstraint.TABLE_TRANSACTION);
 			
+			if(!trans.getWallet().getWallet_id().equals(transaction.getWallet().getWallet_id())){
+				mWalletService.takeInWallet(trans.getWallet().getWallet_id(), transaction.getAmount());
+				mWalletService.takeOutWallet(transaction.getWallet().getWallet_id(),transaction.getAmount());
+			}
+			
+			Update update = new Update();
+
 			update.set("amount", transaction.getAmount());
 			update.set("person", transaction.getPerson());
 			update.set("note", transaction.getNote());
 			update.set("image", transaction.getImage());
 			update.set("type", transaction.getType());
 			update.set("event", transaction.getEvent());
-			update.set("category",transaction.getCategory());
+			update.set("category", transaction.getCategory());
 			update.set("latitude", transaction.getLatitude());
 			update.set("longitude", transaction.getLongitude());
 			update.set("wallet", transaction.getWallet());
 			update.set("date_created", transaction.getDate_created());
 			update.set("date_end", transaction.getDate_end());
-			
-			mMongoTemplate.updateFirst(query(where("trans_id").is(transaction.getTrans_id()).and("user_id").is(transaction.getUser_id())), 
-					update, 
-					Transaction.class,
-					DbConstraint.TABLE_TRANSACTION);
+
+			mMongoTemplate.updateFirst(query, update, Transaction.class, DbConstraint.TABLE_TRANSACTION);
+
 		} catch (MongoException db) {
 			throw new DatabaseException("Something wrong! please try later");
 		}
 	}
 
 	@Override
-	public void removeTransaction(String transactionId,String userid) {
+	public void removeTransaction(String transactionId, String userid) {
 		try {
-			mMongoTemplate.findAndRemove(query(where("trans_id").is(transactionId).and("user_id").is(userid)), Transaction.class, DbConstraint.TABLE_TRANSACTION);
+			Query query = new Query();
+			query.addCriteria(Criteria.where("trans_id").is(transactionId).and("user_id")
+					.is(userid));
+
+			Transaction trans = mMongoTemplate.findOne(query, Transaction.class,DbConstraint.TABLE_TRANSACTION);
 			
+			mMongoTemplate.findAndRemove(query,
+					Transaction.class, DbConstraint.TABLE_TRANSACTION);
+			
+			mWalletService.takeInWallet(trans.getWallet().getWallet_id(), trans.getAmount());
+			mMongoTemplate.findAndRemove(
+					query(where("transaction.trans_id").is(transactionId).and("user_id").is(userid)), DebtLoan.class,
+					DbConstraint.TABLE_DEBT_LOAN);
 		} catch (MongoException db) {
 			throw new DatabaseException("Something wrong! please try later");
 		}
@@ -153,7 +185,8 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public List<Transaction> getTransactionByType(int type, String userid, String walletId) {
 		try {
-			List<Transaction> list = mMongoTemplate.find(query(where("type").is(type).and("user_id").is(userid).and("wallet.wallet_id").is(walletId)),
+			List<Transaction> list = mMongoTemplate.find(
+					query(where("type").is(type).and("user_id").is(userid).and("wallet.wallet_id").is(walletId)),
 					Transaction.class, DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -171,7 +204,8 @@ public class TransactionServiceImp implements TransactionService {
 			long end = DateUtil.getMilisecondFromDate(endDate);
 
 			Query query = new Query();
-			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid).and("wallet.wallet_id").is(walletId));
+			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid)
+					.and("wallet.wallet_id").is(walletId));
 			List<Transaction> list = mMongoTemplate.find(query, Transaction.class, DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -185,8 +219,8 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public List<Transaction> getTransactionByCategory(String categoryId, String userid, String walletId) {
 		try {
-			List<Transaction> list = mMongoTemplate.find(
-					query(where("category.cate_id").is(categoryId).and("user_id").is(userid).and("wallet.wallet_id").is(walletId)), Transaction.class,
+			List<Transaction> list = mMongoTemplate.find(query(where("category.cate_id").is(categoryId).and("user_id")
+					.is(userid).and("wallet.wallet_id").is(walletId)), Transaction.class,
 					DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -199,61 +233,57 @@ public class TransactionServiceImp implements TransactionService {
 
 	@Override
 	public synchronized void syncTransaction(List<Transaction> transactions) {
-		Runnable doInBackGround=new Runnable() {
-			
+		Runnable doInBackGround = new Runnable() {
+
 			@Override
 			public void run() {
-				try{
-					if(transactions == null || transactions.isEmpty()){
+				try {
+					if (transactions == null || transactions.isEmpty()) {
 						throw new RuntimeException("List of person is empty");
 					}
-					String userid=transactions.get(0).getUser_id();
-					
-					List<Transaction> listTransactionRemote=getAllTransaction(userid);
-					
-					for(int i=0; i<listTransactionRemote.size();i++){
-						if(!transactions.contains(listTransactionRemote.get(i))){
-							removeTransaction(
-									listTransactionRemote.get(i).getTrans_id(),
-									userid);
+					String userid = transactions.get(0).getUser_id();
+
+					List<Transaction> listTransactionRemote = getAllTransaction(userid);
+
+					for (int i = 0; i < listTransactionRemote.size(); i++) {
+						if (!transactions.contains(listTransactionRemote.get(i))) {
+							removeTransaction(listTransactionRemote.get(i).getTrans_id(), userid);
 						}
 					}
 
-					Query query=new Query();
-					for(int i=0;i<transactions.size();i++){
-						query.addCriteria(Criteria
-								.where("trans_id")
-								.is(transactions.get(i).getTrans_id())
-								.and("user_id")
-								.is(transactions.get(i).getUser_id()));
-						
-						Transaction _trans=mMongoTemplate.findOne(query, Transaction.class,DbConstraint.TABLE_PERSON);
-						if(_trans == null){
-							mMongoTemplate.save(_trans,DbConstraint.TABLE_PERSON);
+					Query query = new Query();
+					for (int i = 0; i < transactions.size(); i++) {
+						query.addCriteria(Criteria.where("trans_id").is(transactions.get(i).getTrans_id())
+								.and("user_id").is(transactions.get(i).getUser_id()));
+
+						Transaction _trans = mMongoTemplate.findOne(query, Transaction.class,
+								DbConstraint.TABLE_PERSON);
+						if (_trans == null) {
+							mMongoTemplate.save(_trans, DbConstraint.TABLE_PERSON);
 							continue;
 						}
-						
-						Update update=new Update();
-						
+
+						Update update = new Update();
+
 						update.set("amount", _trans.getAmount());
 						update.set("person", _trans.getPerson());
 						update.set("note", _trans.getNote());
 						update.set("image", _trans.getImage());
 						update.set("type", _trans.getType());
 						update.set("event", _trans.getEvent());
-						update.set("category",_trans.getCategory());
+						update.set("category", _trans.getCategory());
 						update.set("latitude", _trans.getLatitude());
 						update.set("longitude", _trans.getLongitude());
 						update.set("wallet", _trans.getWallet());
 						update.set("date_created", _trans.getDate_created());
 						update.set("date_end", _trans.getDate_end());
-					
-						mMongoTemplate.updateFirst(query, update,Transaction.class,DbConstraint.TABLE_PERSON);
+
+						mMongoTemplate.updateFirst(query, update, Transaction.class, DbConstraint.TABLE_PERSON);
 					}
-				
-				}catch(MongoException e){
+
+				} catch (MongoException e) {
 					throw new DatabaseException("Something wrong ! Please try later");
-				}		
+				}
 			}
 		};
 		doInBackGround.run();

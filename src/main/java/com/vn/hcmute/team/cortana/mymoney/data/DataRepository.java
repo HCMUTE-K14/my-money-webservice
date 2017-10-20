@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.vn.hcmute.team.cortana.mymoney.bean.Budget;
 import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.Currencies;
+import com.vn.hcmute.team.cortana.mymoney.bean.DebtLoan;
 import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 
 import com.vn.hcmute.team.cortana.mymoney.bean.Person;
@@ -25,6 +26,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.service.budget.BudgetService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.category.CategoryService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.currencies.CurrenciesService;
+import com.vn.hcmute.team.cortana.mymoney.data.service.debtloan.DebtLoanService;
 import com.vn.hcmute.team.cortana.mymoney.data.service.event.EventService;
 
 import com.vn.hcmute.team.cortana.mymoney.data.service.person.PersonService;
@@ -40,7 +42,7 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 
 public class DataRepository implements DataSource.UserDataSource, DataSource.CurrenciesDataSource,
 		DataSource.EventDataSource, DataSource.CategorySource, DataSource.WalletDataSource, DataSource.SavingDataSource,
-		DataSource.PersonDataSource, DataSource.ImageDataSource, DataSource.TransactionDataSource , DataSource.BudgetDataSource{
+		DataSource.PersonDataSource, DataSource.ImageDataSource, DataSource.TransactionDataSource , DataSource.BudgetDataSource, DataSource.DebtLoanSource{
 
 	public static final Log LOG = LogFactory.getLog(DataRepository.class);
 
@@ -64,6 +66,9 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	private TransactionService mTransactionService;
 	@Autowired
 	private BudgetService mBudgetService;
+	
+	@Autowired
+	private DebtLoanService mDebtLoanService;
 
 	public DataRepository() {
 		LOG.info("DataRepository is created");
@@ -401,5 +406,40 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	@Override
 	public boolean isExistFacebookAccount(String email) {
 		return mUserService.isExistFacebookAccount(email);
+	}
+
+	@Override
+	public void takeInWallet(String wallet_id, String money) {
+		 mWalletService.takeInWallet(wallet_id, money);
+	}
+
+	@Override
+	public void takeOutWallet(String wallet_id, String money) {
+		 mWalletService.takeOutWallet(wallet_id, money);
+	}
+
+	@Override
+	public List<DebtLoan> getDebtLoan(String wallet_id) {
+		return mDebtLoanService.getDebtLoan(wallet_id);
+	}
+
+	@Override
+	public void addDebtLoan(DebtLoan debtLoan) {
+		mDebtLoanService.addDebtLoan(debtLoan);
+	}
+
+	@Override
+	public void updateDebtLoan(DebtLoan debtLoan, String wallet_id) {
+		mDebtLoanService.updateDebtLoan(debtLoan, wallet_id);
+	}
+
+	@Override
+	public void deleteDebtLoan(DebtLoan debtLoan) {
+		mDebtLoanService.deleteDebtLoan(debtLoan);
+	}
+
+	@Override
+	public List<DebtLoan> getDebtLoanByType(String wallet_id, String type) {
+		return mDebtLoanService.getDebtLoanByType(wallet_id, type);
 	}
 }

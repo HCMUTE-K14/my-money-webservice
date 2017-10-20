@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
 import com.mongodb.MongoException;
 import com.vn.hcmute.team.cortana.mymoney.bean.DebtLoan;
@@ -14,7 +15,7 @@ import com.vn.hcmute.team.cortana.mymoney.bean.Transaction;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
-
+@Component
 public class DebtLoanServiceImp implements DebtLoanService {
 
 	@Autowired

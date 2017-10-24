@@ -28,7 +28,7 @@ public class DebtLoanServiceImp implements DebtLoanService {
 	@Override
 	public void addDebtLoan(DebtLoan debtLoan) {
 		try {
-			mongoTemplate.save(debtLoan, DbConstraint.TABLE_EVENT);
+			mongoTemplate.save(debtLoan, DbConstraint.TABLE_DEBT_LOAN);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}

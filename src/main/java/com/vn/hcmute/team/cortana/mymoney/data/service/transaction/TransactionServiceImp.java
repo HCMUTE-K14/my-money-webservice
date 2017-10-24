@@ -20,6 +20,7 @@ import com.vn.hcmute.team.cortana.mymoney.data.service.wallet.WalletService;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
 import com.vn.hcmute.team.cortana.mymoney.exception.TransactionException;
 import com.vn.hcmute.team.cortana.mymoney.utils.DateUtil;
+import com.vn.hcmute.team.cortana.mymoney.utils.TextUtil;
 
 @Component
 public class TransactionServiceImp implements TransactionService {
@@ -112,7 +113,9 @@ public class TransactionServiceImp implements TransactionService {
 	public void addTransaction(Transaction transaction) {
 		try {
 			mMongoTemplate.save(transaction, DbConstraint.TABLE_TRANSACTION);
-
+			if(TextUtil.isEmpty(transaction.getType())){
+				return;
+			}
 			if (transaction.getType().equals("income")) {
 				mWalletService.takeInWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
 			} else if (transaction.getType().equals("expense")) {
@@ -168,7 +171,7 @@ public class TransactionServiceImp implements TransactionService {
 					.is(userid));
 
 			Transaction trans = mMongoTemplate.findOne(query, Transaction.class,DbConstraint.TABLE_TRANSACTION);
-			
+
 			mMongoTemplate.findAndRemove(query,
 					Transaction.class, DbConstraint.TABLE_TRANSACTION);
 			

@@ -28,7 +28,7 @@ public class DebtLoanServiceImp implements DebtLoanService {
 	@Override
 	public void addDebtLoan(DebtLoan debtLoan) {
 		try {
-			mongoTemplate.save(debtLoan, DbConstraint.TABLE_EVENT);
+			mongoTemplate.save(debtLoan, DbConstraint.TABLE_DEBT_LOAN);
 		} catch (MongoException e) {
 			throw new DatabaseException("Something wrong! Please try later");
 		}
@@ -51,7 +51,7 @@ public class DebtLoanServiceImp implements DebtLoanService {
 			
 			update.set("transaction",debtLoan.getTransaction());
 			update.set("type", debtLoan.getType());
-			update.set("status", debtLoan.getStatus() == 0 ? 1 : 1);
+			update.set("status", debtLoan.getStatus());
 
 			mongoTemplate.updateFirst(query, update, DebtLoan.class, DbConstraint.TABLE_DEBT_LOAN);
 

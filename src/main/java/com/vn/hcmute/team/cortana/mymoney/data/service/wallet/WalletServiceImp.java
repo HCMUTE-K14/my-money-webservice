@@ -15,7 +15,8 @@ import com.mongodb.MongoException;
 import com.vn.hcmute.team.cortana.mymoney.bean.Wallet;
 import com.vn.hcmute.team.cortana.mymoney.data.DbConstraint;
 import com.vn.hcmute.team.cortana.mymoney.exception.DatabaseException;
-
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 @Component
 public class WalletServiceImp implements WalletService{
 	public  static final Log LOG=LogFactory.getLog(WalletServiceImp.class);
@@ -67,6 +68,13 @@ public class WalletServiceImp implements WalletService{
 			Wallet wallet2 = mongoTemplate.findOne(query, Wallet.class,DbConstraint.TABLE_WALLET);
 			if(wallet2==null)
 				throw new RuntimeException("Null Wallet");
+			//Budget,Saving,Event,Transaction,DebtLoan
+			mongoTemplate.remove(query(where("wallet.wallet_id").is(idwallet)),DbConstraint.TABLE_BUDGET);
+			mongoTemplate.remove(query(where("wallet.wallet_id").is(idwallet)),DbConstraint.TABLE_SAVING);
+			mongoTemplate.remove(query(where("wallet.wallet_id").is(idwallet)),DbConstraint.TABLE_EVENT);
+			mongoTemplate.remove(query(where("wallet.wallet_id").is(idwallet)),DbConstraint.TABLE_TRANSACTION);
+			mongoTemplate.remove(query(where("transaction.wallet.wallet_id").is(idwallet)),DbConstraint.TABLE_DEBT_LOAN);
+
 			mongoTemplate.remove(query, Wallet.class, DbConstraint.TABLE_WALLET);
 			LOG.info("Delete successful...");
 		}catch (MongoException e) {

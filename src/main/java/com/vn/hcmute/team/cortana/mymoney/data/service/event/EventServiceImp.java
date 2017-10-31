@@ -79,7 +79,7 @@ public class EventServiceImp implements EventService{
 			throw new DatabaseException("Something wrong! Please try later");
 		}
 	}
-
+	
 	@Override
 	public synchronized void syncEvent(List<Event> list) {
 		

@@ -156,7 +156,42 @@ public class TransactionModel {
 			callBack.onFailure(e);
 		}
 	}
-	
+	public void getTransactionByEvent(String userId,String token,String eventId, CallBack<List<Transaction>> callBack) {
+		try{
+			if(TextUtil.isEmpty(userId) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new UserException("User id, token is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userId, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			List<Transaction> list=mDataRepository.getTransactionByEvent(userId, eventId);
+			callBack.onSuccess(list);
+		}catch(Exception e){
+			callBack.onFailure(e);
+		}
+	}
+	public void getTransactionByBudget(String userId,String token,String startDate,String endDate, String categoryId,String walletId, CallBack<List<Transaction>> callBack) {
+		try{
+			if(TextUtil.isEmpty(userId) || TextUtil.isEmpty(token)){
+				callBack.onFailure(new UserException("User id, token is empty"));
+				return;
+			}
+			if (!mDataRepository.isApiKey(userId, token)) {
+				callBack.onFailure(new UserException("Wrong api key!"));
+				return;
+			}
+			if(Double.parseDouble(startDate)>Double.parseDouble(endDate)) {
+				callBack.onFailure(new UserException("StartDate > EndDate"));
+				return;
+			}
+			List<Transaction> list=mDataRepository.getTransactionByBudget(userId, startDate, endDate, categoryId, walletId);
+			callBack.onSuccess(list);
+		}catch(Exception e){
+			callBack.onFailure(e);
+		}
+	}
 	public void addTransaction(String userid,String token,Transaction transaction,CallBack<String> callBack){
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){

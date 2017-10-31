@@ -22,6 +22,9 @@ public interface TransactionService {
 
 	List<Transaction> getTransactionByCategory(String categoryId,String userid,String walletId);
 	
+	List<Transaction> getTransactionByEvent(String userId, String eventId);
+	List<Transaction> getTransactionByBudget(String userId, String startDate, String endDate, String categoryId,String walletId);
+	
 	void addTransaction(Transaction transaction);
 	
 	void updateTransaction(Transaction transaction);

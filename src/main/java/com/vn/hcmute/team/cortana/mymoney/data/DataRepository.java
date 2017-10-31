@@ -442,4 +442,16 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	public List<DebtLoan> getDebtLoanByType(String wallet_id, String type) {
 		return mDebtLoanService.getDebtLoanByType(wallet_id, type);
 	}
+
+	@Override
+	public List<Transaction> getTransactionByEvent(String userId, String eventId) {
+		
+		return mTransactionService.getTransactionByEvent(userId, eventId);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByBudget(String userId, String startDate, String endDate,
+			String categoryId, String walletId) {
+		return mTransactionService.getTransactionByBudget(userId, startDate, endDate, categoryId, walletId);
+	}
 }

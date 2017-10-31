@@ -215,7 +215,7 @@ public class TransactionServiceImp implements TransactionService {
 			throw new DatabaseException("Something wrong! please try later");
 		}
 	}
-
+	
 	@Override
 	public List<Transaction> getTransactionByCategory(String categoryId, String userid, String walletId) {
 		try {
@@ -287,5 +287,42 @@ public class TransactionServiceImp implements TransactionService {
 			}
 		};
 		doInBackGround.run();
+	}
+
+	@Override
+	public List<Transaction> getTransactionByEvent(String userid, String eventId) {
+		try {
+			List<Transaction> list = mMongoTemplate.find(query(where("user_id").is(userid).and("event.event_id").is(eventId)), Transaction.class,
+					DbConstraint.TABLE_TRANSACTION);
+			if (list != null) {
+				return list;
+			}
+			throw new TransactionException("Cannot get transactions");
+		} catch (MongoException db) {
+			throw new DatabaseException("Something wrong! please try later");
+		}
+	}
+
+	@Override
+	public List<Transaction> getTransactionByBudget(String userId, String startDate, String endDate,
+			String categoryId,String walletId) {
+		try {
+
+			long start = Long.parseLong(startDate);
+			long end = Long.parseLong(endDate);
+			System.out.println(categoryId+" dsklfdskf");
+			Query query = new Query();
+			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userId).and("category.cate_id").is(categoryId).and("wallet.wallet_id").is(walletId));
+			
+			
+			List<Transaction> list = mMongoTemplate.find(query, Transaction.class, DbConstraint.TABLE_TRANSACTION);
+			
+			if (list != null) {
+				return list;
+			}
+			throw new TransactionException("Cannot get transactions");
+		} catch (MongoException db) {
+			throw new DatabaseException("Something wrong! please try later");
+		}
 	}
 }

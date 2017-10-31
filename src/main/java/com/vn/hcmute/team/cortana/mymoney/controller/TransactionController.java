@@ -284,6 +284,65 @@ public class TransactionController {
 		mTransactionModel.getTransactionByCategory(userid, token, categoryId, walletId, callBack);
 		return response.toString();
 	}
+	@GET
+	@Path("getTransactionByEvent/{eventId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getTransactionByEvent(@QueryParam("uid") String userid, @QueryParam("token") String token, @PathParam("eventId") String eventId) {
+		Class<List<Transaction>> clazz = (Class<List<Transaction>>) (Object) List.class;
+
+		JsonResponse<List<Transaction>> response = new JsonResponse<List<Transaction>>(clazz);
+
+		CallBack<List<Transaction>> callBack = new CallBack<List<Transaction>>() {
+
+			@Override
+			public void onSuccess(List<Transaction> result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mTransactionModel.getTransactionByEvent(userid, token, eventId, callBack);
+		return response.toString();
+	}
+	@GET
+	@Path("getTransactionByBudget/{startDate}/{endDate}/{categoryId}/{walletId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getTransactionByBudget(@QueryParam("uid") String userid, @QueryParam("token") String token, @PathParam("startDate") String startDate,
+			@PathParam("endDate") String endDate, @PathParam("categoryId") String categoryId,@PathParam("walletId") String walletId) {
+		Class<List<Transaction>> clazz = (Class<List<Transaction>>) (Object) List.class;
+
+		JsonResponse<List<Transaction>> response = new JsonResponse<List<Transaction>>(clazz);
+
+		CallBack<List<Transaction>> callBack = new CallBack<List<Transaction>>() {
+
+			@Override
+			public void onSuccess(List<Transaction> result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mTransactionModel.getTransactionByBudget(userid, token, startDate, endDate, categoryId,walletId, callBack);
+		return response.toString();
+	}
+	
+	
 	@POST
 	@Path("add")
 	@Produces(MediaType.APPLICATION_JSON)

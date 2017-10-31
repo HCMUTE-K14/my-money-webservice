@@ -119,7 +119,8 @@ public class TransactionServiceImp implements TransactionService {
 			if (transaction.getType().equals("income")) {
 				mWalletService.takeInWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
 			} else if (transaction.getType().equals("expense")) {
-				mWalletService.takeOutWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
+				mWalletService.takeOutWallet(transaction.getWallet().getWallet_id(), 
+					transaction.getAmount());
 			}
 		} catch (MongoException db) {
 			throw new DatabaseException("Something wrong! please try later");
@@ -157,6 +158,23 @@ public class TransactionServiceImp implements TransactionService {
 			update.set("date_end", transaction.getDate_end());
 
 			mMongoTemplate.updateFirst(query, update, Transaction.class, DbConstraint.TABLE_TRANSACTION);
+
+			query = new Query();
+			query.addCriteria(Criteria.where("transaction.trans_id").is(transaction.getTrans_id()));
+			DebtLoan debtLoan = mMongoTemplate.findOne(query,DebtLoan.class,DbConstraint.TABLE_DEBT_LOAN);
+
+			if(debtLoan != null){
+				update = new Update();
+				update.set("transaction",transaction);
+				String typeDebtLoan = "";
+       			if (transaction.getType().equals("income")) {
+          			typeDebtLoan = "debt";
+       			} else if (transaction.getType().equals("expense")) {
+           			typeDebtLoan = "loan";
+        		}
+				update.set("type",typeDebtLoan);
+				mMongoTemplate.updateFirst(query,update,DebtLoan.class, DbConstraint.TABLE_DEBT_LOAN);
+			}
 
 		} catch (MongoException db) {
 			throw new DatabaseException("Something wrong! please try later");

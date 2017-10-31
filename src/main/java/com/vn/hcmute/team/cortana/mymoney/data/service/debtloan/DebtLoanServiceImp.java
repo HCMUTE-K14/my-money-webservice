@@ -51,7 +51,7 @@ public class DebtLoanServiceImp implements DebtLoanService {
 			
 			update.set("transaction",debtLoan.getTransaction());
 			update.set("type", debtLoan.getType());
-			update.set("status", debtLoan.getStatus() == 0 ? 1 : 1);
+			update.set("status", debtLoan.getStatus());
 
 			mongoTemplate.updateFirst(query, update, DebtLoan.class, DbConstraint.TABLE_DEBT_LOAN);
 

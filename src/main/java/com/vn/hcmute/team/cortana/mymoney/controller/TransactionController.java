@@ -198,7 +198,7 @@ public class TransactionController {
 			@QueryParam("startdate") String startDate,
 			@QueryParam("enddate") String endDate,@PathParam("walletid") String walletId
 			) {
-
+	
 		Class<List<Transaction>> clazz = (Class<List<Transaction>>) (Object) List.class;
 
 		JsonResponse<List<Transaction>> response = new JsonResponse<List<Transaction>>(clazz);
@@ -341,7 +341,34 @@ public class TransactionController {
 		mTransactionModel.getTransactionByBudget(userid, token, startDate, endDate, categoryId,walletId, callBack);
 		return response.toString();
 	}
-	
+	@GET
+	@Path("getTransactionBySaving/{idSaving}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getTransactionBySaving(@QueryParam("uid") String userid, @QueryParam("token") String token, @PathParam("idSaving") String idSaving) {
+		Class<List<Transaction>> clazz = (Class<List<Transaction>>) (Object) List.class;
+
+		JsonResponse<List<Transaction>> response = new JsonResponse<List<Transaction>>(clazz);
+
+		CallBack<List<Transaction>> callBack = new CallBack<List<Transaction>>() {
+
+			@Override
+			public void onSuccess(List<Transaction> result) {
+				response.setStatus("success");
+				response.setMessage("ok");
+				response.setData(result);
+
+			}
+
+			@Override
+			public void onFailure(Throwable e) {
+				response.setStatus("failure");
+				response.setMessage(e.getMessage());
+				response.setData(null);
+			}
+		};
+		mTransactionModel.getTransactionBySaving(userid, token, idSaving, callBack);
+		return response.toString();
+	}
 	
 	@POST
 	@Path("add")

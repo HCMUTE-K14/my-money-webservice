@@ -221,8 +221,8 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public List<Transaction> getTransactionByTime(String startDate, String endDate, String userid, String walletId) {
 		try {
-			long start = DateUtil.getMilisecondFromDate(startDate);
-			long end = DateUtil.getMilisecondFromDate(endDate);
+			long start =Long.parseLong(startDate.trim());
+			long end = Long.parseLong(endDate.trim());
 
 			Query query = new Query();
 			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid)
@@ -331,13 +331,26 @@ public class TransactionServiceImp implements TransactionService {
 
 			long start = Long.parseLong(startDate);
 			long end = Long.parseLong(endDate);
-			System.out.println(categoryId+" dsklfdskf");
 			Query query = new Query();
 			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userId).and("category.cate_id").is(categoryId).and("wallet.wallet_id").is(walletId));
 			
 			
 			List<Transaction> list = mMongoTemplate.find(query, Transaction.class, DbConstraint.TABLE_TRANSACTION);
 			
+			if (list != null) {
+				return list;
+			}
+			throw new TransactionException("Cannot get transactions");
+		} catch (MongoException db) {
+			throw new DatabaseException("Something wrong! please try later");
+		}
+	}
+
+	@Override
+	public List<Transaction> getTransactionBySaving(String userId, String savingId) {
+		try {
+			List<Transaction> list = mMongoTemplate.find(query(where("user_id").is(userId).and("saving.saving_id").is(savingId)), Transaction.class,
+					DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
 			}

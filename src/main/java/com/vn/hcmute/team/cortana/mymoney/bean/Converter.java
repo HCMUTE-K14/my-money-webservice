@@ -1,6 +1,7 @@
 package com.vn.hcmute.team.cortana.mymoney.bean;
 
 public class Converter {
+	
 	private String amount;
 	private String from;
 	private String to;

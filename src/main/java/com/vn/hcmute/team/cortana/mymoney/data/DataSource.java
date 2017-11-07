@@ -59,6 +59,8 @@ public interface DataSource {
 	}
 	public interface WalletDataSource{
 		List<Wallet> getInfoWallet(String userid);
+
+		Wallet getWalletById(String wallet_id);
 		
 		void createWallet(Wallet wallet);
 		
@@ -66,7 +68,7 @@ public interface DataSource {
 		
 		void updateWallet(Wallet wallet);
 		
-		void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money);
+		void moveMoneyWallet(String userid, String wallet_id_from, String wallet_id_to, String moneyMinus, String moneyPlus, String date_created);
 		
 		void syncWallet(List<Wallet> list);
 		

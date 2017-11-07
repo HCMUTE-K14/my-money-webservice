@@ -116,6 +116,7 @@ public class TransactionServiceImp implements TransactionService {
 			if(TextUtil.isEmpty(transaction.getType())){
 				return;
 			}
+			System.out.println("ADD TRANNSSSSSSSSSSSSSSs");
 			if (transaction.getType().equals("income")) {
 				mWalletService.takeInWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
 			} else if (transaction.getType().equals("expense")) {
@@ -192,7 +193,15 @@ public class TransactionServiceImp implements TransactionService {
 
 			mMongoTemplate.findAndRemove(query,
 					Transaction.class, DbConstraint.TABLE_TRANSACTION);
-			
+			query = new Query(Criteria.where("transaction.trans_id").is(transactionId).and("user_id").is(userid));
+
+			DebtLoan debtLoan = mMongoTemplate.findOne(query, DebtLoan.class, DbConstraint.TABLE_DEBT_LOAN);
+
+			if(debtLoan != null && debtLoan.getStatus() == 1){
+				mMongoTemplate.findAndRemove(query, DebtLoan.class,
+									DbConstraint.TABLE_DEBT_LOAN);
+				return;
+			}
 			mWalletService.takeInWallet(trans.getWallet().getWallet_id(), trans.getAmount());
 			mMongoTemplate.findAndRemove(
 					query(where("transaction.trans_id").is(transactionId).and("user_id").is(userid)), DebtLoan.class,
@@ -331,7 +340,7 @@ public class TransactionServiceImp implements TransactionService {
 
 			long start = Long.parseLong(startDate);
 			long end = Long.parseLong(endDate);
-			System.out.println(categoryId+" dsklfdskf");
+
 			Query query = new Query();
 			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userId).and("category.cate_id").is(categoryId).and("wallet.wallet_id").is(walletId));
 			

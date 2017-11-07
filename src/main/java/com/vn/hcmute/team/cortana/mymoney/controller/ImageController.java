@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component;
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
 import com.vn.hcmute.team.cortana.mymoney.bean.Image;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
-import com.vn.hcmute.team.cortana.mymoney.bean.Person;
 import com.vn.hcmute.team.cortana.mymoney.model.ImageModel;
 
 @SuppressWarnings("unchecked")

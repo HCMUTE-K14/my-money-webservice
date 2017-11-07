@@ -17,15 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.vn.hcmute.team.cortana.mymoney.base.CallBack;
-import com.vn.hcmute.team.cortana.mymoney.bean.Category;
 import com.vn.hcmute.team.cortana.mymoney.bean.DebtLoan;
-import com.vn.hcmute.team.cortana.mymoney.bean.Event;
 import com.vn.hcmute.team.cortana.mymoney.bean.JsonResponse;
-import com.vn.hcmute.team.cortana.mymoney.model.CategoryModel;
 import com.vn.hcmute.team.cortana.mymoney.model.DebtLoanModel;
 
 @Component
 @Path("debt_loan")
+@SuppressWarnings("unchecked")
 public class DebtLoanController {
 	public static final Log LOG = LogFactory.getLog(DebtLoanController.class);
 

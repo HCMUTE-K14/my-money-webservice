@@ -58,16 +58,20 @@ public class DebtLoanServiceImp implements DebtLoanService {
 			DebtLoan debt_loan_after = mongoTemplate.findOne(query, DebtLoan.class, DbConstraint.TABLE_DEBT_LOAN);
 			if (debt_loan_after.getStatus() == 1) {
 				query = new Query();
-				query.addCriteria(Criteria.where("wallet_id").is(wallet_id).and("user_id").is(debtLoan.getUser_id()));
+				query.addCriteria(Criteria
+					.where("wallet_id")
+					.is(wallet_id)
+					.and("user_id")
+					.is(debtLoan.getUser_id()));
 				Wallet wallet = mongoTemplate.findOne(query, Wallet.class, DbConstraint.TABLE_WALLET);
 				double money;
 				switch (debt_loan_after.getType()) {
-					case "income":
+					case "loan":
 						money = Double.valueOf(wallet.getMoney())
 								+ Double.valueOf(debt_loan_after.getTransaction().getAmount());
 						update.set("money", String.valueOf(money));
 						break;
-					case "expense":
+					case "debt":
 						money = Double.valueOf(wallet.getMoney())
 								- Double.valueOf(debt_loan_after.getTransaction().getAmount());
 						update.set("money", String.valueOf(money));

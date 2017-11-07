@@ -23,6 +23,11 @@ public class Transaction implements Serializable{
 	private long date_created;
 	private long date_end;
 	private Saving saving;
+
+	public Transaction(){
+		
+	}
+
 	public String getTrans_id() {
 		return trans_id;
 	}

@@ -22,6 +22,13 @@ public class Category {
 		subcategories= new ArrayList<Category>();
 		user_id="";
 	}
+	public Category(String id, String name,String icon, String transType, String type) {
+        this.cate_id = id;
+        this.icon = icon;
+        this.name = name;
+        this.trans_type = transType;
+        this.type = type;
+    }
 
 	public Category(String id, String name, String icon, String trans_type, String type,
 			List<Category> subcategories, String userid) {

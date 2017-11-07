@@ -111,9 +111,8 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public void moveMoneyWallet(String userid, String idWalletFrom, String idWallet, String money) {
-		mWalletService.moveMoneyWallet(userid, idWalletFrom, idWallet, money);
-
+	public void moveMoneyWallet(String userid, String wallet_id_from, String wallet_id_to, String moneyMinus, String moneyPlus, String date_created){
+		mWalletService.moveMoneyWallet(userid, wallet_id_from, wallet_id_to, moneyMinus, moneyPlus, date_created);
 	}
 
 	// currencies
@@ -453,5 +452,10 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	public List<Transaction> getTransactionByBudget(String userId, String startDate, String endDate,
 			String categoryId, String walletId) {
 		return mTransactionService.getTransactionByBudget(userId, startDate, endDate, categoryId, walletId);
+	}
+
+	@Override
+	public Wallet getWalletById(String wallet_id){
+		return mWalletService.getWalletById(wallet_id);
 	}
 }

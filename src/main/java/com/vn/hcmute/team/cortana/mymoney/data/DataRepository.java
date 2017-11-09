@@ -458,4 +458,9 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	public Wallet getWalletById(String wallet_id){
 		return mWalletService.getWalletById(wallet_id);
 	}
+
+	@Override
+	public List<Transaction> getTransactionBySaving(String userId, String savingId) {
+		return mTransactionService.getTransactionBySaving(userId, savingId);
+	}
 }

@@ -220,6 +220,7 @@ public class TransactionController {
 				response.setData(null);
 			}
 		};
+
 		mTransactionModel.getTransactionByTime(userid, token, startDate, endDate, walletId, callBack);
 		return response.toString();
 	}
@@ -228,7 +229,8 @@ public class TransactionController {
 	@Path("getByCategory")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getByCategory(@QueryParam("uid") String userid, @QueryParam("token") String token,
-			@QueryParam("categoryid") String categoryId) {
+			@QueryParam("categoryid") String categoryId, @QueryParam("start_date") String startDate,
+			@QueryParam("end_date") String endDate) {
 
 		Class<List<Transaction>> clazz = (Class<List<Transaction>>) (Object) List.class;
 
@@ -251,14 +253,16 @@ public class TransactionController {
 				response.setData(null);
 			}
 		};
-		mTransactionModel.getTransactionByCategory(userid, token, categoryId, callBack);
+		mTransactionModel.getTransactionByCategory(userid, token, categoryId,startDate,endDate, callBack);
 		return response.toString();
 	}
 	@GET
 	@Path("getByCategory/{walletid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getByCategory_wallet(@QueryParam("uid") String userid, @QueryParam("token") String token,
-			@QueryParam("categoryid") String categoryId,@PathParam("walletid") String walletId) {
+			@QueryParam("categoryid") String categoryId,@PathParam("walletid") String walletId,
+			@QueryParam("start_date") String startDate,
+			@QueryParam("end_date") String endDate) {
 
 		Class<List<Transaction>> clazz = (Class<List<Transaction>>) (Object) List.class;
 
@@ -281,7 +285,7 @@ public class TransactionController {
 				response.setData(null);
 			}
 		};
-		mTransactionModel.getTransactionByCategory(userid, token, categoryId, walletId, callBack);
+		mTransactionModel.getTransactionByCategory(userid, token, categoryId, startDate,endDate,walletId, callBack);
 		return response.toString();
 	}
 	@GET

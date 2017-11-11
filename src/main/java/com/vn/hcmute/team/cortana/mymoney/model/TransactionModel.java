@@ -89,7 +89,7 @@ public class TransactionModel {
 		}
 	}
 
-	public void getTransactionByCategory(String userid,String token,String categoryId,CallBack<List<Transaction>> callBack){
+	public void getTransactionByCategory(String userid,String token,String categoryId, String startDate,String endDate,CallBack<List<Transaction>> callBack){
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new UserException("User id, token is empty"));
@@ -99,7 +99,7 @@ public class TransactionModel {
 				callBack.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			List<Transaction> list=mDataRepository.getTransactionByCategory(categoryId, userid);
+			List<Transaction> list=mDataRepository.getTransactionByCategory(categoryId,startDate,endDate, userid);
 			callBack.onSuccess(list);
 		}catch(Exception e){
 			callBack.onFailure(e);
@@ -140,7 +140,7 @@ public class TransactionModel {
 		}
 	}
 
-	public void getTransactionByCategory(String userid,String token,String categoryId,String walletId,CallBack<List<Transaction>> callBack){
+	public void getTransactionByCategory(String userid,String token,String categoryId,String startDate,String endDate, String walletId,CallBack<List<Transaction>> callBack){
 		try{
 			if(TextUtil.isEmpty(userid) || TextUtil.isEmpty(token)){
 				callBack.onFailure(new UserException("User id, token is empty"));
@@ -150,7 +150,7 @@ public class TransactionModel {
 				callBack.onFailure(new UserException("Wrong api key!"));
 				return;
 			}
-			List<Transaction> list=mDataRepository.getTransactionByCategory(categoryId, userid);
+			List<Transaction> list=mDataRepository.getTransactionByCategory(categoryId, userid,startDate,endDate,walletId);
 			callBack.onSuccess(list);
 		}catch(Exception e){
 			callBack.onFailure(e);

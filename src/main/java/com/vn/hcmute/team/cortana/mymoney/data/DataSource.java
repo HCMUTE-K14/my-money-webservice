@@ -138,14 +138,14 @@ public interface DataSource {
 		
 		List<Transaction> getTransactionByTime(String startDate,String endDate,String userid);
 
-		List<Transaction> getTransactionByCategory(String categoryId,String userid);
+		List<Transaction> getTransactionByCategory(String categoryId,String startDate, String endDate, String userid);
 		
 		List<Transaction> getTransactionByType(int type,String userid,String walletId); //cho vay, chi tieu, thu nhap
 		
 		List<Transaction> getTransactionByTime(String startDate,String endDate,String userid,String walletId);
 
-		List<Transaction> getTransactionByCategory(String categoryId,String userid,String walletId);
-		
+		List<Transaction> getTransactionByCategory(String categoryId,String userid,String startDate, String endDate,String walletId);
+
 		List<Transaction> getTransactionByEvent(String userId,String eventId);
 		
 		List<Transaction> getTransactionByBudget(String userId, String startDate, String endDate, String categoryId,String walletId);

@@ -294,8 +294,8 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public List<Transaction> getTransactionByCategory(String categoryId, String userid) {
-		return mTransactionService.getTransactionByCategory(categoryId, userid);
+	public List<Transaction> getTransactionByCategory(String categoryId,String startDate, String endDate, String userid) {
+		return mTransactionService.getTransactionByCategory(categoryId,startDate,endDate, userid);
 	}
 
 	@Override
@@ -309,8 +309,8 @@ public class DataRepository implements DataSource.UserDataSource, DataSource.Cur
 	}
 
 	@Override
-	public List<Transaction> getTransactionByCategory(String categoryId, String userid, String walletId) {
-		return mTransactionService.getTransactionByCategory(categoryId, userid, walletId);
+	public List<Transaction> getTransactionByCategory(String categoryId,String userid,String startDate, String endDate,String walletId) {
+		return mTransactionService.getTransactionByCategory(categoryId, userid,startDate,endDate, walletId);
 	}
 
 	@Override

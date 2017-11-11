@@ -78,8 +78,8 @@ public class TransactionServiceImp implements TransactionService {
 	public List<Transaction> getTransactionByTime(String startDate, String endDate, String userid) {
 		try {
 
-			long start = DateUtil.getMilisecondFromDate(startDate);
-			long end = DateUtil.getMilisecondFromDate(endDate);
+			long start =Long.parseLong(startDate.trim());
+			long end = Long.parseLong(endDate.trim());
 
 			Query query = new Query();
 			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid));
@@ -94,11 +94,14 @@ public class TransactionServiceImp implements TransactionService {
 	}
 
 	@Override
-	public List<Transaction> getTransactionByCategory(String categoryId, String userid) {
+	public List<Transaction> getTransactionByCategory(String categoryId, String startDate, String endDate, String userid) {
 		try {
 
+			long start =Long.parseLong(startDate.trim());
+			long end = Long.parseLong(endDate.trim());
+
 			List<Transaction> list = mMongoTemplate.find(
-					query(where("category.cate_id").is(categoryId).and("user_id").is(userid)), Transaction.class,
+					query(where("category.cate_id").is(categoryId).and("user_id").is(userid).and("date_created").gte(start).lte(end)), Transaction.class,
 					DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;
@@ -116,7 +119,7 @@ public class TransactionServiceImp implements TransactionService {
 			if(TextUtil.isEmpty(transaction.getType())){
 				return;
 			}
-			System.out.println("ADD TRANNSSSSSSSSSSSSSSs");
+
 			if (transaction.getType().equals("income")) {
 				mWalletService.takeInWallet(transaction.getWallet().getWallet_id(), transaction.getAmount());
 			} else if (transaction.getType().equals("expense")) {
@@ -132,12 +135,13 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public void updateTransaction(Transaction transaction) {
 		try {
+
 			Query query = new Query();
 			query.addCriteria(Criteria.where("trans_id").is(transaction.getTrans_id()).and("user_id")
 					.is(transaction.getUser_id()));
 
 			Transaction trans = mMongoTemplate.findOne(query, Transaction.class,DbConstraint.TABLE_TRANSACTION);
-			
+
 			if(!trans.getWallet().getWallet_id().equals(transaction.getWallet().getWallet_id())){
 				mWalletService.takeInWallet(trans.getWallet().getWallet_id(), transaction.getAmount());
 				mWalletService.takeOutWallet(transaction.getWallet().getWallet_id(),transaction.getAmount());
@@ -159,6 +163,7 @@ public class TransactionServiceImp implements TransactionService {
 			update.set("date_end", transaction.getDate_end());
 
 			mMongoTemplate.updateFirst(query, update, Transaction.class, DbConstraint.TABLE_TRANSACTION);
+
 
 			query = new Query();
 			query.addCriteria(Criteria.where("transaction.trans_id").is(transaction.getTrans_id()));
@@ -230,13 +235,14 @@ public class TransactionServiceImp implements TransactionService {
 	@Override
 	public List<Transaction> getTransactionByTime(String startDate, String endDate, String userid, String walletId) {
 		try {
-			long start =Long.parseLong(startDate.trim());
+			long start = Long.parseLong(startDate.trim());
 			long end = Long.parseLong(endDate.trim());
 
 			Query query = new Query();
 			query.addCriteria(Criteria.where("date_created").gte(start).lte(end).and("user_id").is(userid)
 					.and("wallet.wallet_id").is(walletId));
 			List<Transaction> list = mMongoTemplate.find(query, Transaction.class, DbConstraint.TABLE_TRANSACTION);
+
 			if (list != null) {
 				return list;
 			}
@@ -247,10 +253,13 @@ public class TransactionServiceImp implements TransactionService {
 	}
 	
 	@Override
-	public List<Transaction> getTransactionByCategory(String categoryId, String userid, String walletId) {
+	public List<Transaction> getTransactionByCategory(String categoryId, String userid,String startDate, String endDate, String walletId) {
 		try {
+			long start =Long.parseLong(startDate.trim());
+			long end = Long.parseLong(endDate.trim());
+
 			List<Transaction> list = mMongoTemplate.find(query(where("category.cate_id").is(categoryId).and("user_id")
-					.is(userid).and("wallet.wallet_id").is(walletId)), Transaction.class,
+					.is(userid).and("wallet.wallet_id").is(walletId).and("date_created").gte(start).lte(end)), Transaction.class,
 					DbConstraint.TABLE_TRANSACTION);
 			if (list != null) {
 				return list;

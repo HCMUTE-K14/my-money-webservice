@@ -2,33 +2,32 @@ package com.vn.hcmute.team.cortana.mymoney.bean;
 
 import java.io.Serializable;
 
-public class UserCredential implements Serializable{
+public class UserCredential implements Serializable {
 
-	private static final long serialVersionUID = 6410053855871985720L;
-	
-	private String username;
-	private String password;
-	
-	public UserCredential(){
-		this.username="";
-		this.password="";
-	}
+    private static final long serialVersionUID = 6410053855871985720L;
 
-	public String getUsername() {
-		return username;
-	}
+    private String username;
+    private String password;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public UserCredential() {
+        this.username = "";
+        this.password = "";
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

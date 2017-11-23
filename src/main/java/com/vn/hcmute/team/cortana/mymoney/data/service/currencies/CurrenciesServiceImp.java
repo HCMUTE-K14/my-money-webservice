@@ -19,7 +19,6 @@ public class CurrenciesServiceImp implements CurrenciesService{
 	public CurrenciesServiceImp() {
 		
 	}
-	
 	@Override
 	public List<Currencies> getCurrencies() {
 		try {

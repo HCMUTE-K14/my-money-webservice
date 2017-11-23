@@ -11,14 +11,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CurrenciesServiceImp implements CurrenciesService {
-    
     @Autowired
     MongoTemplate mongoTemplate;
     
     public CurrenciesServiceImp() {
     
     }
-    
     @Override
     public List<Currencies> getCurrencies() {
         try {

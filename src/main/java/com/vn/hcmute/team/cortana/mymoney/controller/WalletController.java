@@ -63,6 +63,7 @@ public class WalletController {
             }
         };
         walletModel.createWallet(wallet, userid, token, callBack);
+        
         return response.toString();
     }
     

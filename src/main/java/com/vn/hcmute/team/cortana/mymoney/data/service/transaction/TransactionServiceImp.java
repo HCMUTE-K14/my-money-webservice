@@ -222,7 +222,11 @@ public class TransactionServiceImp implements TransactionService {
                 mMongoTemplate.findAndRemove(query, DebtLoan.class, DbConstraint.TABLE_DEBT_LOAN);
                 return;
             }
-            mWalletService.takeInWallet(trans.getWallet().getWallet_id(), trans.getAmount());
+            if(trans.getType().equals("income")){
+                mWalletService.takeOutWallet(trans.getWallet().getWallet_id(), trans.getAmount());
+            }else if(trans.getType().equals("expense")){
+                mWalletService.takeInWallet(trans.getWallet().getWallet_id(), trans.getAmount());
+            }
             mMongoTemplate.findAndRemove(
                       query(where("transaction.trans_id").is(transactionId).and("user_id")
                                 .is(userid)), DebtLoan.class,
